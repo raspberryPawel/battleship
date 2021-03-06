@@ -18,11 +18,15 @@ module.exports = {
         use: { loader: "ts-loader" },
       },
       {
+        test: /\.(png|jpg|jpeg|svg)$/,
+        loader: "url-loader",
+      },
+      {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
           { loader: "style-loader" },
-          { loader: "css-loader", options: { modules: true } },
+          { loader: "css-loader" },
           { loader: "sass-loader" },
         ],
       },

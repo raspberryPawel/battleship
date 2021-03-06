@@ -1,10 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap");
+@import "./StartScreen.scss";
+
 body {
-  background-color: pink;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
   padding: 0;
+  background-color: #14142d;
+  background: #0f0c29;
+  background: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);
+  background: linear-gradient(to right, #1f1f35, #262350, #0a081d);
+  user-select: none;
+
+  font-family: "Roboto", sans-serif;
+
+  main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
 }
