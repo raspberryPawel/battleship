@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 #startScreen {
   width: 100vw;
   height: 100vh;
@@ -27,13 +29,12 @@
     }
 
     .logo {
+      @include main-gradient();
+
       width: 200px;
       height: 200px;
       margin-top: 40px;
       border-radius: 100px;
-      background: #c31432;
-      background: -webkit-linear-gradient(to top left, #240b36, #c31432);
-      background: linear-gradient(to top left, #240b36, #c31432);
       position: relative;
 
       &::before {
@@ -52,6 +53,8 @@
   }
 
   .btn-play {
+    @include main-gradient();
+    
     border: none;
     outline: none;
 
@@ -67,9 +70,6 @@
     padding: 0.7rem 1.5rem 0.5rem ;
     
     border-radius: 10rem;
-
-    background: -webkit-linear-gradient(to top left, #240b36, #c31432);
-    background: linear-gradient(to top left, #240b36, #c31432);
 
     cursor: pointer;
     transition-duration: 0.3s;

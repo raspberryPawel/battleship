@@ -1,13 +1,30 @@
+@import "./variables.scss";
+
 #playgroundScreen {
-  .playground-field{
+  .playground-field {
     margin: 0 0.5px;
     border: 0.5px solid #fff;
   }
 
-  .playground-row{
+  .playground-row {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+  }
+
+  .ship_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin: 3px;
+  }
+
+  .ship_field {
+    @include main-gradient();
+
+    margin: 0 1.5px;
+    cursor: pointer;
   }
 }

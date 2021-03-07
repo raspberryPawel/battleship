@@ -1,6 +1,6 @@
 import { GameScreen } from "../interfaces/GameScreen";
 import { Game } from "./Game";
-import { Playground } from "./Playground";
+import { PlayerPlayground } from "./PlayerPlayground";
 
 export class PlaygroundScreen extends GameScreen {
   public prepareScreen(): void {
@@ -10,8 +10,15 @@ export class PlaygroundScreen extends GameScreen {
     const section = document.createElement("section");
     section.setAttribute("id", "playgroundScreen");
 
-    const play = new Playground();
-    const playground = play.preparePlaygroundDOMStructure();
+    const playerPlayground = new PlayerPlayground();
+    const playground = playerPlayground.preparePlaygroundDOMStructure();
+    const playerShips = playerPlayground.getShipsDOMElements();
+    // const playground = playerPlayground.preparePlaygroundDOMStructure();
+
+    playerShips.forEach((ship) => {
+      section.appendChild(ship);
+    });
+
     section.appendChild(playground);
     main.appendChild(section);
   }

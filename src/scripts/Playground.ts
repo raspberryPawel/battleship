@@ -1,13 +1,15 @@
 import { Game } from "./Game";
+import { Ship } from "./Ship";
 
 export class Playground {
   public playground: number[][] = [];
+  public playgroundShips: Ship[] = [];
 
   constructor() {
     this.preparePlayground();
   }
 
-  private preparePlayground() {
+  protected preparePlayground() {
     for (let i = 0; i < Game.playgroundFieldsCount; i++) {
       const fields: number[] = new Array(Game.playgroundFieldsCount).fill(0);
       this.playground.push(fields);
