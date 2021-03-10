@@ -1,33 +1,37 @@
 import { GameScreen } from "../interfaces/GameScreen";
 import { Game } from "./Game";
-import { PlayerPlayground } from "./PlayerPlayground";
+import { PlayerPlayground } from "./playground/PlayerPlayground";
 
 export class PlaygroundScreen extends GameScreen {
-  public prepareScreen(): void {
-    const main = Game.getMainDOMElement();
-    main.innerHTML = "";
+	public playground: PlayerPlayground = new PlayerPlayground();
 
-    const section = document.createElement("section");
-    section.setAttribute("id", "playgroundScreen");
+	public prepareScreen(): void {
+		const main = Game.getMainDOMElement();
+		main.innerHTML = "";
 
-    const playerPlayground = new PlayerPlayground();
-    const playground = playerPlayground.preparePlaygroundDOMStructure();
-    const playerShips = playerPlayground.getShipsDOMElements();
-    // const playground = playerPlayground.preparePlaygroundDOMStructure();
+		const section = document.createElement("section");
+		section.setAttribute("id", "playgroundScreen");
 
-    playerShips.forEach((ship) => {
-      section.appendChild(ship);
-    });
+		const playerShips = this.playground.getShipsDOMElements();
 
-    section.appendChild(playground);
-    main.appendChild(section);
-  }
+		const shipsSections = document.createElement("div");
 
-  public prepareScreenEvents() {
-    console.log("prepare playground");
-  }
+		playerShips.forEach((ship: HTMLElement) => {
+			shipsSections.appendChild(ship);
+		});
 
-  public unregisterScreenEvents(): void {
-    console.log("unregister  playground events");
-  }
+		section.appendChild(shipsSections);
+		section.appendChild(this.playground.playgroundDOM);
+
+		main.appendChild(section);
+	}
+
+	public prepareScreenEvents() {
+		console.log("prepare playground");
+	}
+
+	public unregisterScreenEvents(): void {
+		this.playground.removeEventsFromPlayerPlayground();
+		console.log("unregister  playground events");
+	}
 }

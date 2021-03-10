@@ -1,7 +1,5 @@
-import { ScreenType } from "../interfaces/GameScreen";
 import "../styles/index.scss";
 import { Game } from "./Game";
-import { Playground } from "./Playground";
 import { PlaygroundScreen } from "./PlaygroundScreen";
 import { StartScreen } from "./StartScreen";
 

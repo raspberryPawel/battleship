@@ -27,4 +27,12 @@
     margin: 0 1.5px;
     cursor: pointer;
   }
+
+  .field-with-gradient {
+    @include main-gradient();
+  }
+
+  .field-with-error-gradient{
+    background-color: pink;
+  }
 }
