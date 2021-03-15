@@ -1,9 +1,14 @@
 @import "./variables.scss";
 
-#playgroundScreen {
+#playGameScreen {
 	.playground-field {
 		margin: 0 0.5px;
 		border: 0.5px solid #fff;
+	}
+
+	.player-playground {
+		transform: scale(0.5);
+		margin-top: 20px;
 	}
 
 	.playground-row {
@@ -63,6 +68,35 @@
 		&:hover {
 			transition-duration: 0.3s;
 			transform: scale(1.1);
+		}
+	}
+
+	.hit_field {
+		position: relative;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 2;
+			background-color: green;
+		}
+	}
+	.misplaced_field {
+		position: relative;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 2;
+			background-color: red;
 		}
 	}
 }

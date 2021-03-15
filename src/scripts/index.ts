@@ -1,15 +1,15 @@
 import "../styles/index.scss";
-import { Game } from "./Game";
-import { PlaygroundScreen } from "./PlaygroundScreen";
-import { StartScreen } from "./StartScreen";
+import { GameOptions } from "./GameOptions";
+import { PlaygroundScreen } from "./screens/PlaygroundScreen";
+import { PlayGameScreen } from "./screens/PlayGameScreen";
+import { StartScreen } from "./screens/StartScreen";
 
 document.addEventListener("DOMContentLoaded", function (event) {
-  const playgroundScreen = new PlaygroundScreen(null);
+  const playGameScreen = new PlayGameScreen(null);
+  const playgroundScreen = new PlaygroundScreen(playGameScreen);
   const startScreen = new StartScreen(playgroundScreen);
 
   //   startScreen.prepareScreenEvents();
-  Game.prepareScreen(startScreen);
-  Game.currentScreen = startScreen;
-
- 
+  GameOptions.prepareScreen(startScreen);
+  GameOptions.currentScreen = startScreen;
 });

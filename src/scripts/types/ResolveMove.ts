@@ -1,0 +1,1 @@
+export type ResolveMove = (value: unknown) => void;

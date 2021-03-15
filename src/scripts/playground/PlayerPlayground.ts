@@ -1,13 +1,21 @@
-import { Game } from "../Game";
+import { GameOptions } from "../GameOptions";
 import { Playground } from "./Playground";
-import { Ship } from "../Ship";
+import { Ship } from "../classes/Ship";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 
 export class PlayerPlayground extends Playground {
-	public playgroundShips: Ship[] = [];
+	protected playgroundSize: number;
+	protected fieldSize: number;
 
-	constructor() {
+	public playgroundShips: Ship[] = [];
+	protected shipsOnPlaygrund: number = 0;
+
+	constructor(playgroundSize?: number) {
 		super();
+
+		this.playgroundSize = playgroundSize ? playgroundSize : GameOptions.playgroundSize;
+		this.fieldSize = playgroundSize ? playgroundSize / GameOptions.playgroundFieldsCount - 4 : GameOptions.fieldSize;
+
 		this.preparePlayerShips();
 
 		this.preparePlaygroundDOMStructure();
@@ -15,19 +23,19 @@ export class PlayerPlayground extends Playground {
 	}
 
 	protected preparePlaygroundDOMStructure(): void {
-		this.playgroundDOM.setAttribute("class", "playground");
-		this.playgroundDOM.style.width = `${Game.playgroundSize}px`;
-		this.playgroundDOM.style.height = `${Game.playgroundSize}px`;
+		this.playgroundDOM.setAttribute("class", "playground player-playground");
+		this.playgroundDOM.style.width = `${this.playgroundSize}px`;
+		this.playgroundDOM.style.height = `${this.playgroundSize}px`;
 
 		this.playground.forEach((row, rowIndex) => {
 			const rowDiv: HTMLElement = document.createElement("div");
 			rowDiv.setAttribute("class", `playground-row`);
-			rowDiv.style.height = `${Game.fieldSize + 4}px`;
+			rowDiv.style.height = `${this.fieldSize + 4}px`;
 
 			row.forEach((field, fieldIndex) => {
 				const div: HTMLElement = document.createElement("div");
-				div.style.width = `${Game.fieldSize}px`;
-				div.style.height = `${Game.fieldSize}px`;
+				div.style.width = `${this.fieldSize}px`;
+				div.style.height = `${this.fieldSize}px`;
 
 				div.setAttribute("class", `playground-field playground-${rowIndex}_${fieldIndex}`);
 				div.addEventListener("mouseenter", this.hoverOnPlaygroundField);
@@ -38,12 +46,42 @@ export class PlayerPlayground extends Playground {
 		});
 	}
 
+	public rebuildPlaygroundDOMStructure = (playgroundSize?: number) => {
+		this.playgroundSize = playgroundSize ? playgroundSize : GameOptions.playgroundSize;
+		this.fieldSize = playgroundSize ? playgroundSize / GameOptions.playgroundFieldsCount - 4 : GameOptions.fieldSize;
+
+		this.playgroundDOM = document.createElement("div");
+		this.preparePlaygroundDOMStructure();
+
+		this.playground.forEach((row, rowIndex) => {
+			row.forEach((column, columnIndex) => {
+				if (column === 1) {
+					const className = `.playground-${rowIndex}_${columnIndex}`;
+					const element: HTMLElement | null = this.playgroundDOM.querySelector(className);
+					if (element) {
+						element.classList.add("field-with-gradient");
+						GameOptions.currentSelectedShip?.addField(className);
+					}
+				}
+			});
+		});
+	};
+
 	private preparePlayerShips() {
-		Game.availableShips.forEach((shipSize) => {
-			const ship = new Ship(shipSize);
+		GameOptions.availableShips.forEach((shipSize) => {
+			const ship = new Ship(shipSize, this.addShipToPlayground);
 			this.playgroundShips.push(ship);
 		});
 	}
+
+	protected addShipToPlayground = () => {
+		this.shipsOnPlaygrund++;
+
+		if (this.shipsOnPlaygrund === GameOptions.availableShips.length) {
+			const playButton: HTMLElement | null = document.querySelector(".btn-play");
+			if (playButton) playButton.style.display = "block";
+		}
+	};
 
 	public getShipsDOMElements(): HTMLElement[] {
 		return this.playgroundShips.map((ship) => ship.shipElement);
@@ -60,13 +98,13 @@ export class PlayerPlayground extends Playground {
 	}
 
 	protected playgroundMouseOver = () => {
-		if (Game.currentSelectedShip) Game.currentSelectedShip.shipElement.style.opacity = "0";
+		if (GameOptions.currentSelectedShip) GameOptions.currentSelectedShip.shipElement.style.opacity = "0";
 	};
 
 	protected playgroundMouseLeave = () => {
-		if (Game.currentSelectedShip) {
-			Game.currentSelectedShip.shipElement.style.opacity = "1";
-			Game.currentlySelectedField = null;
+		if (GameOptions.currentSelectedShip) {
+			GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+			GameOptions.currentlySelectedField = null;
 			this.clearShipFields();
 		}
 	};
@@ -78,16 +116,16 @@ export class PlayerPlayground extends Playground {
 			getRowAndColumnNumberFromClassName,
 		} = PlayerPlaygroundUtils;
 
-		const shipSize = Game.currentSelectedShip?.size || -1;
+		const shipSize = GameOptions.currentSelectedShip?.size || -1;
 		const fieldClassName: string = (e.target as HTMLElement).classList[1];
 		const rowAndColumnIndex = getRowAndColumnNumberFromClassName(fieldClassName);
 		const { row, column } = rowAndColumnIndex;
-		Game.currentlySelectedField = rowAndColumnIndex;
+		GameOptions.currentlySelectedField = rowAndColumnIndex;
 
 		this.clearShipFields();
 
 		if (shipSize > 0) {
-			if (shipSize + column <= Game.playgroundFieldsCount) {
+			if (shipSize + column <= GameOptions.playgroundFieldsCount) {
 				const data = {
 					playground: this.playground,
 					currentCheckedRow: row,
@@ -102,13 +140,13 @@ export class PlayerPlayground extends Playground {
 				const data = {
 					playground: this.playground,
 					currentCheckedRow: column,
-					firstColumn: Game.playgroundFieldsCount - shipSize,
-					lastColumn: Game.playgroundFieldsCount,
+					firstColumn: GameOptions.playgroundFieldsCount - shipSize,
+					lastColumn: GameOptions.playgroundFieldsCount,
 				};
 
 				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-					this.highlightCorrectShipFields(Game.playgroundFieldsCount - shipSize, Game.playgroundFieldsCount, row);
-				else this.highlightIncorrectShipFields(Game.playgroundFieldsCount - shipSize, Game.playgroundFieldsCount, row);
+					this.highlightCorrectShipFields(GameOptions.playgroundFieldsCount - shipSize, GameOptions.playgroundFieldsCount, row);
+				else this.highlightIncorrectShipFields(GameOptions.playgroundFieldsCount - shipSize, GameOptions.playgroundFieldsCount, row);
 			}
 		}
 	};
@@ -120,13 +158,13 @@ export class PlayerPlayground extends Playground {
 			const element: HTMLElement | null = document.querySelector(className);
 			if (element) {
 				element.classList.add("field-with-gradient");
-				Game.currentSelectedShip?.addField(className);
+				GameOptions.currentSelectedShip?.addField(className);
 			}
 		}
 	}
 
 	protected highlightIncorrectShipFields(firstIndex: number, lastIndex: number, currentRow: number): void {
-		Game.currentlySelectedField = null;
+		GameOptions.currentlySelectedField = null;
 
 		for (let i = firstIndex; i < lastIndex; i++) {
 			if (this.playground[currentRow][i] !== 1) {
@@ -144,7 +182,7 @@ export class PlayerPlayground extends Playground {
 	protected clearShipFields(): void {
 		this.clearPlaygroundFields();
 
-		Game.currentSelectedShip?.shipOnPlayground.forEach((className) => {
+		GameOptions.currentSelectedShip?.shipOnPlayground.forEach((className) => {
 			const element: HTMLElement | null = document.querySelector(className);
 			if (element) {
 				element.classList.remove("field-with-gradient");
@@ -159,11 +197,11 @@ export class PlayerPlayground extends Playground {
 		});
 
 		this.tempHighlightedFields.length = 0;
-		Game.currentSelectedShip?.clearFields();
+		GameOptions.currentSelectedShip?.clearFields();
 	}
 
 	protected clearPlaygroundFields(): void {
-		Game.currentSelectedShip?.shipOnPlayground.forEach((className: string) => {
+		GameOptions.currentSelectedShip?.shipOnPlayground.forEach((className: string) => {
 			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className);
 			this.playground[row][column] = 0;
 		});

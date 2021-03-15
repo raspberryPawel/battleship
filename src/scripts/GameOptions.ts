@@ -1,28 +1,33 @@
 import { ScreenType } from "../interfaces/GameScreen";
+import { ComputerPlayground } from "./playground/ComputerPlayground";
+import { PlayerPlayground } from "./playground/PlayerPlayground";
 import { RowAndColumnIndex } from "./playground/RowAndColumnIndex";
-import { Ship } from "./Ship";
+import { Ship } from "./classes/Ship";
 
-export class Game {
+export class GameOptions {
 	public static playgroundFieldsCount: number = 10;
 	public static playgroundSize: number = window.innerWidth > 1200 ? 500 : window.innerWidth - 50;
-	public static fieldSize: number = Game.playgroundSize / Game.playgroundFieldsCount - 4;
+	public static fieldSize: number = GameOptions.playgroundSize / GameOptions.playgroundFieldsCount - 4;
 
 	public static availableShips: Array<number> = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 	public static currentScreen: ScreenType = null;
 	public static currentSelectedShip: Ship | null;
 	public static currentlySelectedField: RowAndColumnIndex | null = null;
 
-	public static changeScreen(nextScreen: ScreenType): void {
+	public static playerPlayground: PlayerPlayground;
+	public static computerPlayground: ComputerPlayground;
+
+	public static changeScreen = (nextScreen: ScreenType): void => {
 		console.log("nextScreen => ", nextScreen);
-		console.log("currentScreen => ", this.currentScreen?.nextScreen);
+		console.log("currentScreen => ", GameOptions.currentScreen?.nextScreen);
 
-		if (this.currentScreen?.nextScreen) {
-			this.currentScreen?.unregisterScreenEvents();
+		if (nextScreen) {
+			GameOptions.currentScreen?.unregisterScreenEvents();
 
-			this.prepareScreen(this.currentScreen?.nextScreen);
-			this.currentScreen = nextScreen;
+			GameOptions.prepareScreen(nextScreen);
+			GameOptions.currentScreen = nextScreen;
 		}
-	}
+	};
 
 	public static prepareScreen(screen: ScreenType) {
 		screen?.prepareScreen();

@@ -1,13 +1,15 @@
-import { Game } from "./Game";
+import { GameOptions } from "../GameOptions";
 
 export class Ship {
 	private shipSize: number;
 	private fieldsOnPlayground: string[] = [];
 	public readonly shipElement: HTMLElement = document.createElement("div");
+	protected addShipToPlayground: () => void = () => {};
 
-	constructor(shipSize: number) {
+	constructor(shipSize: number, addShipToPlayground: () => void = () => {}) {
 		this.shipSize = shipSize;
 		this.createShipDOMElement();
+		this.addShipToPlayground = addShipToPlayground;
 	}
 
 	public get size(): number {
@@ -28,26 +30,26 @@ export class Ship {
 
 	public createShipDOMElement(): void {
 		this.shipElement.className = "ship_container";
-		this.shipElement.style.width = `${Game.fieldSize * this.shipSize + 15}px`;
-		this.shipElement.style.height = `${Game.fieldSize}px`;
+		this.shipElement.style.width = `${GameOptions.fieldSize * this.shipSize + 15}px`;
+		this.shipElement.style.height = `${GameOptions.fieldSize}px`;
 
 		for (let i = 0; i < this.shipSize; i++) {
 			const div: HTMLElement = document.createElement("div");
 			div.className = "ship_field";
-			div.style.width = `${Game.fieldSize}px`;
-			div.style.height = `${Game.fieldSize}px`;
+			div.style.width = `${GameOptions.fieldSize}px`;
+			div.style.height = `${GameOptions.fieldSize}px`;
 
 			this.shipElement.appendChild(div);
 		}
 
 		this.shipElement.addEventListener("mousedown", (e) => {
-			Game.currentSelectedShip = this;
+			GameOptions.currentSelectedShip = this;
 			document.body.addEventListener("mousemove", this.moveShip);
 			document.body.addEventListener("mouseup", this.dropShip);
 		});
 
 		this.shipElement.addEventListener("touchstart", (e) => {
-			Game.currentSelectedShip = this;
+			GameOptions.currentSelectedShip = this;
 			document.body.addEventListener("touchmove", this.mobileMoveShip);
 			document.body.addEventListener("touchend", this.dropShip);
 		});
@@ -85,14 +87,15 @@ export class Ship {
 			document.body.removeEventListener("mousemove", this.moveShip);
 			document.body.removeEventListener("mouseup", this.dropShip);
 			document.body.removeEventListener("touchmove", this.mobileMoveShip);
-		
-			if (Game.currentlySelectedField && this.shipOnPlayground.length > 0) {
+
+			if (GameOptions.currentlySelectedField && this.shipOnPlayground.length > 0) {
 				this.shipElement.style.display = "none";
+				this.addShipToPlayground();
 			}
 
 			this.shipElement.style.opacity = "1";
-			Game.currentlySelectedField = null;
-			Game.currentSelectedShip = null;
+			GameOptions.currentlySelectedField = null;
+			GameOptions.currentSelectedShip = null;
 		}
 	};
 }

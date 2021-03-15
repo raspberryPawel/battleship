@@ -1,5 +1,5 @@
-import { Game } from "../Game";
-import { Ship } from "../Ship";
+import { GameOptions } from "../GameOptions";
+import { Ship } from "../classes/Ship";
 
 export abstract class Playground {
 	public playgroundDOM: HTMLElement = document.createElement("div");
@@ -12,8 +12,8 @@ export abstract class Playground {
 	}
 
 	protected preparePlayground() {
-		for (let i = 0; i < Game.playgroundFieldsCount; i++) {
-			const fields: number[] = new Array(Game.playgroundFieldsCount).fill(0);
+		for (let i = 0; i < GameOptions.playgroundFieldsCount; i++) {
+			const fields: number[] = new Array(GameOptions.playgroundFieldsCount).fill(0);
 			this.playground.push(fields);
 		}
 	}
