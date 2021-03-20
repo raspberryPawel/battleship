@@ -1,5 +1,6 @@
-import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
+import { GameOptions } from "../GameOptions";
 import { PlayerMoveStrategy } from "../moveStrategies/PlayerMoveStrategy";
+import { SimpleComputerMoveStrategy } from "../moveStrategies/SimpleComputerMoveStrategy";
 import { ResolveMove } from "../types/ResolveMove";
 
 enum MoveType {
@@ -12,17 +13,31 @@ export class Game {
 	private computerPlayground: number[][];
 
 	private playerMoveStrategy: PlayerMoveStrategy;
+	private computerMoveStrategy: SimpleComputerMoveStrategy;
 
 	private move: MoveType = MoveType.playerMove;
+
+	private playerSunkFields: number = 0;
+	private computerSunkFields: number = 0;
+
 	private gameInProgress: boolean;
+	private shipFieldsCount: number;
 
 	private resolveMove: ResolveMove = () => {};
 
-	constructor(playerPlayground: number[][], computerPlayground: number[][], playerMoveStrategy: PlayerMoveStrategy) {
+	constructor(
+		playerPlayground: number[][],
+		computerPlayground: number[][],
+		playerMoveStrategy: PlayerMoveStrategy,
+		computerMoveStrategy: SimpleComputerMoveStrategy
+	) {
 		this.playerPlayground = playerPlayground;
 		this.computerPlayground = computerPlayground;
 		this.playerMoveStrategy = playerMoveStrategy;
+		this.computerMoveStrategy = computerMoveStrategy;
+
 		this.gameInProgress = true;
+		this.shipFieldsCount = GameOptions.availableShips.reduce((a, b) => a + b);
 	}
 
 	public async startGame() {
@@ -30,37 +45,48 @@ export class Game {
 		this.game();
 	}
 
-	private nextMove() {
-		this.move = this.move === MoveType.computerMove ? MoveType.playerMove : MoveType.computerMove;
+	private async game() {
+		if (this.gameInProgress) {
+			await new Promise((resolve) => {
+				this.resolveMove = resolve;
+				this.performMove();
+			});
+
+			this.nextMove();
+			this.game();
+		}
 	}
 
-	private async game() {
-		await new Promise((resolve) => {
-			this.resolveMove = resolve;
-			this.performMove();
-		});
+	private nextMove() {
+		if (this.computerSunkFields === this.shipFieldsCount) {
+			this.gameInProgress = false;
+			alert("player won");
+		}
+		if (this.playerSunkFields === this.shipFieldsCount) {
+			this.gameInProgress = false;
+			alert("computer won");
+		}
 
-		this.nextMove();
-		this.game();
+		this.move = this.move === MoveType.computerMove ? MoveType.playerMove : MoveType.computerMove;
 	}
 
 	private performMove() {
 		this.move === MoveType.computerMove
-			? this.performComputerMove()
-			: this.playerMoveStrategy.performMove(this.computerPlayground, this.resolveMove);
+			? this.computerMoveStrategy.performMove(this.checkIfFieldHasShip, this.resolveMove)
+			: this.playerMoveStrategy.performMove(this.checkIfFieldHasShip, this.resolveMove);
 	}
 
-	private performComputerMove() {
-		const row = Math.floor(Math.random() * 10);
-		const column = Math.floor(Math.random() * 10);
-		const field = document.querySelector(`.playground-${row}_${column}`) as HTMLElement;
-
-		if (this.playerPlayground[row][column] === 1) {
-			field.classList.add("hit_field");
-		} else {
-			field.classList.add("misplaced_field");
+	private checkIfFieldHasShip = (row: number, column: number): boolean => {
+		if (this.move === MoveType.computerMove && this.playerPlayground[row][column] === 1) {
+			this.playerSunkFields++;
 		}
 
-		this.resolveMove(true);
-	}
+		if (this.move === MoveType.playerMove && this.computerPlayground[row][column] === 1) {
+			this.computerSunkFields++;
+		}
+
+		return this.move === MoveType.computerMove
+			? this.playerPlayground[row][column] === 1
+			: this.computerPlayground[row][column] === 1;
+	};
 }

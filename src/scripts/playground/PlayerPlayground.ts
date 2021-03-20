@@ -8,7 +8,6 @@ export class PlayerPlayground extends Playground {
 	protected fieldSize: number;
 
 	public playgroundShips: Ship[] = [];
-	protected shipsOnPlaygrund: number = 0;
 
 	constructor(playgroundSize?: number) {
 		super();
@@ -17,9 +16,27 @@ export class PlayerPlayground extends Playground {
 		this.fieldSize = playgroundSize ? playgroundSize / GameOptions.playgroundFieldsCount - 4 : GameOptions.fieldSize;
 
 		this.preparePlayerShips();
-
 		this.preparePlaygroundDOMStructure();
 		this.addEventsOnPlayerPlayground();
+	}
+
+	public arePlaygroundReady(): boolean {
+		return this.shipsOnPlaygrund === GameOptions.availableShips.length;
+	}
+
+	public randomizeShipsPosition = () => {
+		this.clearPlayground();
+		this.randomizeShipsPositions();
+		this.hideShips();
+		this.showButtonPlay();
+	};
+
+	protected getPlaygroundClassName(row: number, column: number): string {
+		return `.playground-${row}_${column}`;
+	}
+
+	protected hideShips() {
+		this.playgroundShips.forEach((ship) => ship.hideShip());
 	}
 
 	protected preparePlaygroundDOMStructure(): void {
@@ -76,8 +93,11 @@ export class PlayerPlayground extends Playground {
 
 	protected addShipToPlayground = () => {
 		this.shipsOnPlaygrund++;
+		this.showButtonPlay();
+	};
 
-		if (this.shipsOnPlaygrund === GameOptions.availableShips.length) {
+	protected showButtonPlay = () => {
+		if (this.arePlaygroundReady()) {
 			const playButton: HTMLElement | null = document.querySelector(".btn-play");
 			if (playButton) playButton.style.display = "block";
 		}
@@ -139,14 +159,23 @@ export class PlayerPlayground extends Playground {
 			} else {
 				const data = {
 					playground: this.playground,
-					currentCheckedRow: column,
+					currentCheckedRow: row,
 					firstColumn: GameOptions.playgroundFieldsCount - shipSize,
 					lastColumn: GameOptions.playgroundFieldsCount,
 				};
 
 				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-					this.highlightCorrectShipFields(GameOptions.playgroundFieldsCount - shipSize, GameOptions.playgroundFieldsCount, row);
-				else this.highlightIncorrectShipFields(GameOptions.playgroundFieldsCount - shipSize, GameOptions.playgroundFieldsCount, row);
+					this.highlightCorrectShipFields(
+						GameOptions.playgroundFieldsCount - shipSize,
+						GameOptions.playgroundFieldsCount,
+						row
+					);
+				else
+					this.highlightIncorrectShipFields(
+						GameOptions.playgroundFieldsCount - shipSize,
+						GameOptions.playgroundFieldsCount,
+						row
+					);
 			}
 		}
 	};

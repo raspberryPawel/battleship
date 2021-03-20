@@ -6,14 +6,23 @@ import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 export class ComputerPlayground extends Playground {
 	public playgroundShips: Ship[] = [];
 	protected shipsOnPlaygrund: number = 0;
+	protected showShipsOnPlayground: boolean = false;
 
 	constructor() {
 		super();
 		this.prepareComputerShips();
 		this.preparePlaygroundDOMStructure();
-		this.randomizeComputerShips();
-		console.log("computer => ", JSON.stringify(this.playground));
- 	}
+		this.randomizeShipsPosition();
+	}
+
+	public randomizeShipsPosition = () => {
+		this.clearPlayground();
+		this.randomizeShipsPositions();
+	};
+
+	protected getPlaygroundClassName(row: number, column: number): string {
+		return `.computer-playground-${row}_${column}`;
+	}
 
 	protected preparePlaygroundDOMStructure(): void {
 		this.playgroundDOM.setAttribute("class", "playground computer-playground");
@@ -32,7 +41,7 @@ export class ComputerPlayground extends Playground {
 
 				div.setAttribute("class", `playground-field computer-playground-${rowIndex}_${fieldIndex}`);
 
-                rowDiv.appendChild(div);
+				rowDiv.appendChild(div);
 			});
 
 			this.playgroundDOM.appendChild(rowDiv);
@@ -44,45 +53,5 @@ export class ComputerPlayground extends Playground {
 			const ship = new Ship(shipSize);
 			this.playgroundShips.push(ship);
 		});
-	}
-
-	protected randomizeComputerShips = () => {
-		while (this.shipsOnPlaygrund < this.playgroundShips.length) {
-			const { doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty } = PlayerPlaygroundUtils;
-
-			const ship = this.playgroundShips[this.shipsOnPlaygrund];
-			const row = Math.floor(Math.random() * 10);
-			const column = Math.floor(Math.random() * 10);
-
-			if (ship.size + column <= GameOptions.playgroundFieldsCount) {
-				const data = {
-					playground: this.playground,
-					currentCheckedRow: row,
-					firstColumn: column,
-					lastColumn: ship.size + column,
-				};
-
-				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-					this.setShipOnPlayground(column, ship.size + column, row);
-			} else {
-				const data = {
-					playground: this.playground,
-					currentCheckedRow: column,
-					firstColumn: GameOptions.playgroundFieldsCount - ship.size,
-					lastColumn: GameOptions.playgroundFieldsCount,
-				};
-
-				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-					this.setShipOnPlayground(GameOptions.playgroundFieldsCount - ship.size, GameOptions.playgroundFieldsCount, row);
-			}
-		}
-	};
-
-	protected setShipOnPlayground(firstIndex: number, lastIndex: number, currentRow: number): void {
-		for (let i = firstIndex; i < lastIndex; i++) {
-			this.playground[currentRow][i] = 1;
-		}
-
-		this.shipsOnPlaygrund++;
 	}
 }

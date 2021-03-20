@@ -4,12 +4,13 @@ import { PlayerMoveStrategy } from "../moveStrategies/PlayerMoveStrategy";
 import { GameOptions } from "../GameOptions";
 import { ComputerPlayground } from "../playground/ComputerPlayground";
 import { PlayerPlayground } from "../playground/PlayerPlayground";
+import { SimpleComputerMoveStrategy } from "../moveStrategies/SimpleComputerMoveStrategy";
 
 export class PlayGameScreen extends GameScreen {
 	public prepareScreen(): void {
 		const main = GameOptions.getMainDOMElement();
 		main.innerHTML = "";
-		const a = new ComputerPlayground();
+
 		const section = document.createElement("section");
 		section.setAttribute("id", "playGameScreen");
 
@@ -24,8 +25,10 @@ export class PlayGameScreen extends GameScreen {
 		const game: Game = new Game(
 			GameOptions.playerPlayground.playground,
 			GameOptions.computerPlayground.playground,
-			new PlayerMoveStrategy()
+			new PlayerMoveStrategy(),
+			new SimpleComputerMoveStrategy()
 		);
+		
 		game.startGame();
 	}
 

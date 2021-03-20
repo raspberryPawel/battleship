@@ -37,6 +37,11 @@
 	}
 
 	.btn-play {
+		display: none;
+	}
+
+	.btn-play,
+	.btn-randomize {
 		@include main-gradient();
 
 		border: none;
@@ -48,8 +53,8 @@
 		font-size: 0.85rem;
 		color: #fff;
 
-		display: none;
 		margin-top: 25px;
+		margin-right: 20px;
 
 		-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
 		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);

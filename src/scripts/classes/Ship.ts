@@ -89,7 +89,7 @@ export class Ship {
 			document.body.removeEventListener("touchmove", this.mobileMoveShip);
 
 			if (GameOptions.currentlySelectedField && this.shipOnPlayground.length > 0) {
-				this.shipElement.style.display = "none";
+				this.hideShip();
 				this.addShipToPlayground();
 			}
 
@@ -98,4 +98,8 @@ export class Ship {
 			GameOptions.currentSelectedShip = null;
 		}
 	};
+
+	public hideShip() {
+		this.shipElement.style.display = "none";
+	}
 }
