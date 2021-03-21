@@ -15,7 +15,8 @@ export class PlayerMoveStrategy implements MoveStrategy {
 
 		if (fields && fields.length) {
 			for (let i = 0; i < fields.length; i++) {
-				fields[i].addEventListener("click", this.playerMove);
+				const wasHit = fields[i].classList.contains("hit_field") || fields[i].classList.contains("misplaced_field");
+				if (!wasHit) fields[i].addEventListener("click", this.playerMove);
 			}
 		}
 	}
@@ -23,7 +24,7 @@ export class PlayerMoveStrategy implements MoveStrategy {
 	private playerMove = (e: Event) => {
 		const field = e.target as HTMLElement;
 		const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field.classList[1]);
-		
+
 		this.checkIfFieldHasShip(row, column) ? field.classList.add("hit_field") : field.classList.add("misplaced_field");
 		this.unregisterPlayerMove();
 		this.resolveMove(true);

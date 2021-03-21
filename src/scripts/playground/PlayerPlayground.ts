@@ -1,7 +1,7 @@
 import { GameOptions } from "../GameOptions";
 import { Playground } from "./Playground";
-import { Ship } from "../classes/Ship";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
+import { Ship } from "../Ship";
 
 export class PlayerPlayground extends Playground {
 	protected tempHighlightedFields: string[] = [];
@@ -14,6 +14,7 @@ export class PlayerPlayground extends Playground {
 
 		this.preparePlayerShips();
 		this.preparePlaygroundDOMStructure();
+		this.addListenersOnPlaygroundShips();
 		this.addEventsOnPlayerPlayground();
 	}
 
@@ -28,35 +29,24 @@ export class PlayerPlayground extends Playground {
 		this.showButtonPlay();
 	};
 
+	public getShipsDOMElements(): HTMLElement[] {
+		return this.playgroundShips.map((ship) => ship.shipElement);
+	}
+
+	protected addListenersOnPlaygroundShips = () => {
+		this.playgroundShips.forEach((ship: Ship) => {
+			ship;
+		});
+	};
+
 	protected addListenerOnPlaygroundField = (div: HTMLElement) => {
-		div.addEventListener("mouseenter", this.hoverOnPlaygroundField);
+		div.addEventListener("click", this.fieldClick);
+		div.addEventListener("mouseenter", this.fieldMouseOver);
 	};
 
 	protected hideShips() {
 		this.playgroundShips.forEach((ship) => ship.hideShip());
 	}
-
-	// public rebuildPlaygroundDOMStructure = (playgroundSize?: number) => {
-	// 	this.playgroundSize = playgroundSize ? playgroundSize : GameOptions.playgroundSize;
-	// 	this.fieldSize = playgroundSize ? playgroundSize / GameOptions.playgroundFieldsCount - 4 : GameOptions.fieldSize;
-
-	// 	this.playgroundDOM = document.createElement("div");
-	// 	this.preparePlaygroundDOMStructure();
-
-	// 	this.playground.forEach((row, rowIndex) => {
-	// 		row.forEach((column, columnIndex) => {
-	// 			if (column === 1) {
-	// 				const className = this.getPlaygroundFieldClassName(rowIndex, columnIndex);
-	// 				const element: HTMLElement | null = this.playgroundDOM.querySelector(className);
-
-	// 				if (element) {
-	// 					element.classList.add("field-with-gradient");
-	// 					GameOptions.currentSelectedShip?.addField(className);
-	// 				}
-	// 			}
-	// 		});
-	// 	});
-	// };
 
 	private preparePlayerShips() {
 		GameOptions.availableShips.forEach((shipSize) => {
@@ -77,13 +67,11 @@ export class PlayerPlayground extends Playground {
 		}
 	};
 
-	public getShipsDOMElements(): HTMLElement[] {
-		return this.playgroundShips.map((ship) => ship.shipElement);
-	}
-
 	protected addEventsOnPlayerPlayground() {
 		this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
 		this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
+
+		this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
 	}
 
 	public removeEventsFromPlayerPlayground() {
@@ -103,7 +91,54 @@ export class PlayerPlayground extends Playground {
 		}
 	};
 
-	protected hoverOnPlaygroundField = (e: MouseEvent): void => {
+	protected playgroundTouchEnd = () => {
+		if (GameOptions.currentSelectedShip) {
+			GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+			GameOptions.currentSelectedShip.dropShip();
+
+			this.clearShipFields();
+		}
+		this.playgroundDOM.removeEventListener("touchend", this.playgroundTouchEnd, false);
+	};
+
+	protected fieldMouseOver = (e: MouseEvent): void => {
+		const fieldClassName: string = (e.target as HTMLElement).classList[1];
+		this.highlightFields(fieldClassName);
+	};
+
+	protected fieldClick = (e: MouseEvent): void => {
+		const { getRowAndColumnNumberFromClassName } = PlayerPlaygroundUtils;
+
+		const fieldClassName: string = (e.target as HTMLElement).classList[1];
+		const { row, column } = getRowAndColumnNumberFromClassName(fieldClassName);
+
+		GameOptions.currentlySelectedField = { row, column };
+		
+		if (GameOptions.currentSelectedShip) {
+			this.setShipOnPlaygroundIfPossible(GameOptions.currentSelectedShip, row, column);
+		}
+	};
+
+	protected fieldTouchMove = (e: TouchEvent): void => {
+		this.playgroundDOM.removeEventListener("touchend", this.playgroundTouchEnd, false);
+		this.playgroundDOM.addEventListener("touchend", this.playgroundTouchEnd, false);
+
+		const x = e.touches[0].clientX;
+		const y = e.touches[0].clientY;
+		let selectedField;
+		const fields = this.playgroundDOM.querySelectorAll(".playground-field") as NodeListOf<HTMLElement>;
+		fields.forEach((field: HTMLElement) => {
+			var rect = field.getBoundingClientRect();
+			if (x >= rect.left && x <= rect.right && y <= rect.bottom && y >= rect.top) selectedField = field;
+		});
+
+		if (selectedField) {
+			const fieldClassName: string = (selectedField as HTMLElement).classList[1];
+			this.highlightFields(fieldClassName);
+		}
+	};
+
+	protected highlightFields = (fieldClassName: string): void => {
 		const {
 			doesSelectedFieldsEmpty,
 			doesSelectedNearbyFieldsEmpty,
@@ -111,9 +146,9 @@ export class PlayerPlayground extends Playground {
 		} = PlayerPlaygroundUtils;
 
 		const shipSize = GameOptions.currentSelectedShip?.size || -1;
-		const fieldClassName: string = (e.target as HTMLElement).classList[1];
 		const rowAndColumnIndex = getRowAndColumnNumberFromClassName(fieldClassName);
 		const { row, column } = rowAndColumnIndex;
+
 		GameOptions.currentlySelectedField = rowAndColumnIndex;
 
 		this.clearShipFields();
@@ -185,7 +220,7 @@ export class PlayerPlayground extends Playground {
 	protected clearShipFields(): void {
 		this.clearPlaygroundFields();
 
-		GameOptions.currentSelectedShip?.shipOnPlayground.forEach((className) => {
+		GameOptions.currentSelectedShip?.shipOnPlayground.forEach((className: string) => {
 			const element: HTMLElement | null = document.querySelector(className);
 			if (element) {
 				element.classList.remove("field-with-gradient");

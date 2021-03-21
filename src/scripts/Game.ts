@@ -1,7 +1,7 @@
-import { GameOptions } from "../GameOptions";
-import { PlayerMoveStrategy } from "../moveStrategies/PlayerMoveStrategy";
-import { SimpleComputerMoveStrategy } from "../moveStrategies/SimpleComputerMoveStrategy";
-import { ResolveMove } from "../types/ResolveMove";
+import { GameOptions } from "./GameOptions";
+import { PlayerMoveStrategy } from "./moveStrategies/PlayerMoveStrategy";
+import { SimpleComputerMoveStrategy } from "./moveStrategies/SimpleComputerMoveStrategy";
+import { ResolveMove } from "./types/ResolveMove";
 
 enum MoveType {
 	computerMove,

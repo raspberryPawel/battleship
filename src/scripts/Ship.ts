@@ -1,4 +1,4 @@
-import { GameOptions } from "../GameOptions";
+import { GameOptions } from "./GameOptions";
 
 export class Ship {
 	private shipSize: number;
@@ -44,27 +44,20 @@ export class Ship {
 
 		this.shipElement.addEventListener("mousedown", (e) => {
 			GameOptions.currentSelectedShip = this;
+
 			document.body.addEventListener("mousemove", this.moveShip);
 			document.body.addEventListener("mouseup", this.dropShip);
 		});
 
-		this.shipElement.addEventListener("touchstart", (e) => {
+		this.shipElement.addEventListener("click", (e) => {
 			GameOptions.currentSelectedShip = this;
-			document.body.addEventListener("touchmove", this.mobileMoveShip);
-			document.body.addEventListener("touchend", this.dropShip);
+			this.shipElement.style.border = "1px solid red";
 		});
 	}
 
 	private moveShip = (e: MouseEvent): void => {
 		if (this.shipElement) {
 			this.changeShipPosition(e.clientX, e.clientY);
-		}
-	};
-
-	private mobileMoveShip = (e: TouchEvent): void => {
-		if (this.shipElement) {
-			const touch = e.touches[0];
-			this.changeShipPosition(touch.pageX, touch.pageY);
 		}
 	};
 
@@ -80,13 +73,13 @@ export class Ship {
 		}
 	};
 
-	private dropShip = (e: MouseEvent | TouchEvent): void => {
+	public dropShip = (): void => {
 		if (this.shipElement) {
+			this.shipElement.style.border = "none";
 			this.shipElement.style.position = "static";
 
 			document.body.removeEventListener("mousemove", this.moveShip);
 			document.body.removeEventListener("mouseup", this.dropShip);
-			document.body.removeEventListener("touchmove", this.mobileMoveShip);
 
 			if (GameOptions.currentlySelectedField && this.shipOnPlayground.length > 0) {
 				this.hideShip();

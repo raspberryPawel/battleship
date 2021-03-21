@@ -1,5 +1,5 @@
 import { GameScreen } from "../../interfaces/GameScreen";
-import { Game } from "../classes/Game";
+import { Game } from "../Game";
 import { PlayerMoveStrategy } from "../moveStrategies/PlayerMoveStrategy";
 import { GameOptions } from "../GameOptions";
 import { ComputerPlayground } from "../playground/ComputerPlayground";
@@ -30,11 +30,9 @@ export class PlayGameScreen extends GameScreen {
 	public prepareScreenEvents(): void {
 		// const playButton = document.querySelector(".btn-play");
 		// playButton?.addEventListener("click", this.startGame);
-		// console.log(playButton);
 	}
 
 	public startGame(): void {
-		// console.log("SIEMANOER");
 		// Game.changeScreen(this.nextScreen);
 	}
 

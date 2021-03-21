@@ -1,5 +1,5 @@
 import { GameOptions } from "../GameOptions";
-import { Ship } from "../classes/Ship";
+import { Ship } from "../Ship";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 
 export abstract class Playground {
@@ -21,6 +21,39 @@ export abstract class Playground {
 
 		this.preparePlayground();
 	}
+
+	public changePlaygroundSize = (playgroundSizeInPx: number) => {
+		this.playgroundSizeInPx = playgroundSizeInPx ? playgroundSizeInPx : GameOptions.playgroundSize;
+		this.fieldSizeInPx = playgroundSizeInPx
+			? playgroundSizeInPx / GameOptions.playgroundFieldsCount - 4
+			: GameOptions.fieldSize;
+
+		this.playgroundDOM.style.width = `${this.playgroundSizeInPx}px`;
+		this.playgroundDOM.style.height = `${this.playgroundSizeInPx}px`;
+
+		const fields = this.playgroundDOM.querySelectorAll(".playground-field") as NodeListOf<HTMLElement>;
+		fields.forEach((field: HTMLElement) => {
+			field.style.width = `${this.fieldSizeInPx}px`;
+			field.style.height = `${this.fieldSizeInPx}px`;
+			field.style.fontSize = `${this.fieldSizeInPx / 2}px`;
+		});
+
+		const rows = this.playgroundDOM.querySelectorAll(".playground-row") as NodeListOf<HTMLElement>;
+		rows.forEach((row: HTMLElement) => {
+			row.style.height = `${this.fieldSizeInPx + 4}px`;
+		});
+
+		this.playgroundShips.forEach((ship: Ship) => {
+			ship.shipElement.style.width = `${this.fieldSizeInPx * ship.size + ship.size * 2}px`;
+			ship.shipElement.style.height = `${this.fieldSizeInPx}px`;
+
+			const fields = ship.shipElement.querySelectorAll(".ship_field") as NodeListOf<HTMLElement>;
+			fields.forEach((field: HTMLElement) => {
+				field.style.width = `${this.fieldSizeInPx}px`;
+				field.style.height = `${this.fieldSizeInPx}px`;
+			});
+		});
+	};
 
 	protected preparePlayground() {
 		for (let i = 0; i < GameOptions.playgroundFieldsCount; i++) {
@@ -49,6 +82,7 @@ export abstract class Playground {
 				const div: HTMLElement = document.createElement("div");
 				div.style.width = `${this.fieldSizeInPx}px`;
 				div.style.height = `${this.fieldSizeInPx}px`;
+				div.style.fontSize = `${this.fieldSizeInPx / 2}px`;
 
 				div.setAttribute("class", `playground-field ${this.playgroundClassPrefix}-${rowIndex}_${fieldIndex}`);
 				this.addListenerOnPlaygroundField(div);
@@ -61,57 +95,69 @@ export abstract class Playground {
 	}
 
 	protected randomizeShipsPositions = () => {
-		while (this.shipsOnPlaygrundCount < this.playgroundShips.length) {
-			const { doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty } = PlayerPlaygroundUtils;
+		GameOptions.currentlySelectedField = null;
 
+		while (this.shipsOnPlaygrundCount < this.playgroundShips.length) {
 			const ship = this.playgroundShips[this.shipsOnPlaygrundCount];
 			const row = Math.floor(Math.random() * 10);
 			const column = Math.floor(Math.random() * 10);
 
-			if (ship.size + column <= GameOptions.playgroundFieldsCount) {
-				const data = {
-					playground: this.playground,
-					currentCheckedRow: row,
-					firstColumn: column,
-					lastColumn: ship.size + column,
-				};
+			this.setShipOnPlaygroundIfPossible(ship, row, column);
+		}
+	};
 
-				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-					this.setShipOnPlayground(column, ship.size + column, row);
-			} else {
-				const data = {
-					playground: this.playground,
-					currentCheckedRow: row,
-					firstColumn: GameOptions.playgroundFieldsCount - ship.size,
-					lastColumn: GameOptions.playgroundFieldsCount,
-				};
+	protected setShipOnPlaygroundIfPossible = (ship: Ship, row: number, column: number) => {
+		const { doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty } = PlayerPlaygroundUtils;
+		GameOptions.currentlySelectedField = { row, column };
 
-				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-					this.setShipOnPlayground(
-						GameOptions.playgroundFieldsCount - ship.size,
-						GameOptions.playgroundFieldsCount,
-						row
-					);
+		if (ship.size + column <= GameOptions.playgroundFieldsCount) {
+			const data = {
+				playground: this.playground,
+				currentCheckedRow: row,
+				firstColumn: column,
+				lastColumn: ship.size + column,
+			};
+
+			if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
+				this.setShipOnPlayground(column, ship.size + column, row, ship);
+			}
+		} else {
+			const data = {
+				playground: this.playground,
+				currentCheckedRow: row,
+				firstColumn: GameOptions.playgroundFieldsCount - ship.size,
+				lastColumn: GameOptions.playgroundFieldsCount,
+				ship,
+			};
+
+			if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
+				this.setShipOnPlayground(
+					GameOptions.playgroundFieldsCount - ship.size,
+					GameOptions.playgroundFieldsCount,
+					row,
+					ship
+				);
 			}
 		}
 	};
 
-	protected setShipOnPlayground(firstIndex: number, lastIndex: number, currentRow: number): void {
+	protected setShipOnPlayground(firstIndex: number, lastIndex: number, currentRow: number, ship: Ship): void {
 		for (let i = firstIndex; i < lastIndex; i++) {
 			this.playground[currentRow][i] = 1;
+			ship.addField(`${currentRow}_${i}`);
 
 			if (this.showShipsOnPlayground) {
 				const field: HTMLElement | null = this.playgroundDOM.querySelector(
 					this.getPlaygroundFieldClassName(currentRow, i)
 				);
+
 				if (field) {
 					field.classList.add("field-with-gradient");
-					GameOptions.currentSelectedShip?.addField(`${currentRow}_${i}`);
 				}
 			}
 		}
 
-		this.shipsOnPlaygrundCount++;
+		ship.dropShip();
 	}
 
 	protected clearPlayground() {
@@ -134,36 +180,4 @@ export abstract class Playground {
 
 		this.shipsOnPlaygrundCount = 0;
 	}
-
-	public changePlaygroundSize = (playgroundSizeInPx: number) => {
-		this.playgroundSizeInPx = playgroundSizeInPx ? playgroundSizeInPx : GameOptions.playgroundSize;
-		this.fieldSizeInPx = playgroundSizeInPx
-			? playgroundSizeInPx / GameOptions.playgroundFieldsCount - 4
-			: GameOptions.fieldSize;
-
-		this.playgroundDOM.style.width = `${this.playgroundSizeInPx}px`;
-		this.playgroundDOM.style.height = `${this.playgroundSizeInPx}px`;
-
-		const fields = this.playgroundDOM.querySelectorAll(".playground-field") as NodeListOf<HTMLElement>;
-		fields.forEach((field: HTMLElement) => {
-			field.style.width = `${this.fieldSizeInPx}px`;
-			field.style.height = `${this.fieldSizeInPx}px`;
-		});
-
-		const rows = this.playgroundDOM.querySelectorAll(".playground-row") as NodeListOf<HTMLElement>;
-		rows.forEach((row: HTMLElement) => {
-			row.style.height = `${this.fieldSizeInPx + 4}px`;
-		});
-
-		this.playgroundShips.forEach((ship: Ship) => {
-			ship.shipElement.style.width = `${this.fieldSizeInPx * ship.size + ship.size * 2}px`;
-			ship.shipElement.style.height = `${this.fieldSizeInPx}px`;
-
-			const fields = ship.shipElement.querySelectorAll(".ship_field") as NodeListOf<HTMLElement>;
-			fields.forEach((field: HTMLElement) => {
-				field.style.width = `${this.fieldSizeInPx}px`;
-				field.style.height = `${this.fieldSizeInPx}px`;
-			});
-		});
-	};
 }

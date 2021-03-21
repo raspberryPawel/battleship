@@ -1,10 +1,9 @@
 import { GameOptions } from "../GameOptions";
 import { Playground } from "./Playground";
-import { Ship } from "../classes/Ship";
+import { Ship } from "../Ship";
 
 export class ComputerPlayground extends Playground {
 	public playgroundShips: Ship[] = [];
-	protected shipsOnPlaygrundCount: number = 0;
 	protected showShipsOnPlayground: boolean = false;
 	protected playgroundClassPrefix: string = "computer-playground";
 
@@ -23,8 +22,12 @@ export class ComputerPlayground extends Playground {
 	protected addListenerOnPlaygroundField = (div: HTMLElement) => {};
 	private prepareComputerShips() {
 		GameOptions.availableShips.forEach((shipSize) => {
-			const ship = new Ship(shipSize);
+			const ship = new Ship(shipSize, this.addShipToPlayground);
 			this.playgroundShips.push(ship);
 		});
 	}
+
+	protected addShipToPlayground = () => {
+		this.shipsOnPlaygrundCount++;
+	};
 }

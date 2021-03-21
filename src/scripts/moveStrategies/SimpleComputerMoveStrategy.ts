@@ -1,6 +1,6 @@
 import { GameOptions } from "../GameOptions";
 import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
-import { RowAndColumnIndex } from "../playground/RowAndColumnIndex";
+import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
 import { MoveStrategy } from "../types/MoveStrategy";
 import { ResolveMove } from "../types/ResolveMove";
 import { MoveDirection } from "./MoveDirection";

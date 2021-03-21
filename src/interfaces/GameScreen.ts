@@ -7,7 +7,6 @@ export abstract class GameScreen {
   public abstract unregisterScreenEvents(): void;
 
   public constructor(nextScreen: ScreenType) {
-    // console.log("koont nextScreen => ", nextScreen);
     this.nextScreen = nextScreen;
   }
 }

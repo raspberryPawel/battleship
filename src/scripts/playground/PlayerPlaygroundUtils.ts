@@ -1,9 +1,14 @@
 import { GameOptions } from "../GameOptions";
-import { DoesSelectedFieldsEmptyData } from "./DoesSelectedFieldsEmptyData";
-import { RowAndColumnIndex } from "./RowAndColumnIndex";
+import { DoesSelectedFieldsEmptyData } from "../types/DoesSelectedFieldsEmptyData";
+import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
 
 export class PlayerPlaygroundUtils {
 	public static getRowAndColumnNumberFromClassName = (className: string): RowAndColumnIndex => {
+		const defaultRowAndColumn = {
+			row: 0,
+			column: 0,
+		};
+
 		try {
 			const regex = /[0-9]_[0-9]/g;
 			const matches = className.match(regex);
@@ -17,22 +22,16 @@ export class PlayerPlaygroundUtils {
 				};
 			}
 
-			return {
-				row: 0,
-				column: 0,
-			};
+			return defaultRowAndColumn;
 		} catch {
-			return {
-				row: 0,
-				column: 0,
-			};
+			return defaultRowAndColumn;
 		}
 	};
 
 	public static doesSelectedFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
 		const { playground, currentCheckedRow, firstColumn, lastColumn } = data;
 
-		const fields = GameOptions.currentSelectedShip?.shipOnPlayground.map((className) => {
+		const fields = GameOptions.currentSelectedShip?.shipOnPlayground.map((className: string) => {
 			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className);
 			return `${row}_${column}`;
 		});
@@ -69,10 +68,6 @@ export class PlayerPlaygroundUtils {
 		if (row && row[firstColumn - 1] && row[firstColumn - 1] === 1) return false;
 		if (rowAbove && rowAbove[firstColumn - 1] && rowAbove[firstColumn - 1] === 1) return false;
 		if (rowBelow && rowBelow[firstColumn - 1] && rowBelow[firstColumn - 1] === 1) return false;
-
-		// if (rowAbove && rowAbove[lastColumn + 1] && rowAbove[lastColumn + 1] === 1) return false;
-		// if (row && row[lastColumn + 1] && row[lastColumn + 1] === 1) return false;
-		// if (rowBelow && rowBelow[lastColumn + 1] && rowBelow[lastColumn + 1] === 1) return false;
 
 		return true;
 	};

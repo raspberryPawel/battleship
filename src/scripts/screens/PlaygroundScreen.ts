@@ -1,5 +1,5 @@
 import { GameScreen } from "../../interfaces/GameScreen";
-import { Game } from "../classes/Game";
+import { Game } from "../Game";
 import { GameOptions } from "../GameOptions";
 import { ComputerPlayground } from "../playground/ComputerPlayground";
 import { PlayerPlayground } from "../playground/PlayerPlayground";
