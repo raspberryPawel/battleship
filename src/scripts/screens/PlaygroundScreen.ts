@@ -6,15 +6,12 @@ import { PlayerPlayground } from "../playground/PlayerPlayground";
 
 export class PlaygroundScreen extends GameScreen {
 	public prepareScreen(): void {
-		const main = GameOptions.getMainDOMElement();
-		main.innerHTML = "";
+		GameOptions.playerPlayground = new PlayerPlayground();
 
 		const section = document.createElement("section");
 		section.setAttribute("id", "playgroundScreen");
 
-		GameOptions.playerPlayground = new PlayerPlayground();
 		const playerShips = GameOptions.playerPlayground.getShipsDOMElements();
-
 		const shipsSections = document.createElement("div");
 
 		playerShips.forEach((ship: HTMLElement) => {
@@ -34,7 +31,7 @@ export class PlaygroundScreen extends GameScreen {
 		section.appendChild(buttonPlay);
 		section.appendChild(buttonRandomize);
 
-		main.appendChild(section);
+		GameOptions.changeScreenContent(section);
 	}
 
 	public prepareScreenEvents(): void {
@@ -43,18 +40,18 @@ export class PlaygroundScreen extends GameScreen {
 
 		const buttonRandomize = document.querySelector(".btn-randomize");
 		buttonRandomize?.addEventListener("click", GameOptions.playerPlayground.randomizeShipsPosition);
-		console.log(playButton);
 	}
 
 	public startGame = (): void => {
-		if (GameOptions.playerPlayground.arePlaygroundReady()) GameOptions.changeScreen(this.nextScreen);
+		if (GameOptions.playerPlayground.arePlaygroundReady()) {
+			GameOptions.changeScreen(this.nextScreen);
+		}
 	};
 
 	public unregisterScreenEvents(): void {
 		GameOptions.playerPlayground.removeEventsFromPlayerPlayground();
+
 		const playButton = document.querySelector(".btn-play");
 		playButton?.removeEventListener("click", this.startGame);
-
-		console.log("unregister  playground events");
 	}
 }

@@ -36,7 +36,7 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 		this.resolveMove = resolveMove;
 
 		const { row, column } = this.selectFieldToHit();
-		const field = document.querySelector(`.playground-${row}_${column}`) as HTMLElement;
+		const field = document.querySelector(`.player-playground-${row}_${column}`) as HTMLElement;
 
 		this.checkIFieldHasShip(row, column) ? field.classList.add("hit_field") : field.classList.add("misplaced_field");
 		this.removeFieldFromAvailable(row, column);

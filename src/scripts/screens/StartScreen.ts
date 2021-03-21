@@ -21,23 +21,18 @@ export class StartScreen extends GameScreen {
 
 		logoContainer.appendChild(strong);
 		logoContainer.appendChild(logo);
-
 		section.appendChild(logoContainer);
 		section.appendChild(buttonPlay);
 
-		const main = GameOptions.getMainDOMElement();
-		main.append(section);
+		GameOptions.changeScreenContent(section);
 	}
 
 	public prepareScreenEvents(): void {
 		const playButton = document.querySelector(".btn-play");
 		playButton?.addEventListener("click", this.startGame);
-		console.log(playButton);
 	}
 
 	public startGame = (): void => {
-		// console.log("start game => ", this.nextScreen);
-
 		GameOptions.changeScreen(this.nextScreen);
 	};
 

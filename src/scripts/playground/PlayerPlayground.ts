@@ -4,16 +4,13 @@ import { Ship } from "../classes/Ship";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 
 export class PlayerPlayground extends Playground {
-	protected playgroundSize: number;
-	protected fieldSize: number;
+	protected tempHighlightedFields: string[] = [];
+	protected playgroundClassPrefix: string = "player-playground";
 
 	public playgroundShips: Ship[] = [];
 
-	constructor(playgroundSize?: number) {
+	constructor() {
 		super();
-
-		this.playgroundSize = playgroundSize ? playgroundSize : GameOptions.playgroundSize;
-		this.fieldSize = playgroundSize ? playgroundSize / GameOptions.playgroundFieldsCount - 4 : GameOptions.fieldSize;
 
 		this.preparePlayerShips();
 		this.preparePlaygroundDOMStructure();
@@ -21,7 +18,7 @@ export class PlayerPlayground extends Playground {
 	}
 
 	public arePlaygroundReady(): boolean {
-		return this.shipsOnPlaygrund === GameOptions.availableShips.length;
+		return this.shipsOnPlaygrundCount === GameOptions.availableShips.length;
 	}
 
 	public randomizeShipsPosition = () => {
@@ -31,58 +28,35 @@ export class PlayerPlayground extends Playground {
 		this.showButtonPlay();
 	};
 
-	protected getPlaygroundClassName(row: number, column: number): string {
-		return `.playground-${row}_${column}`;
-	}
+	protected addListenerOnPlaygroundField = (div: HTMLElement) => {
+		div.addEventListener("mouseenter", this.hoverOnPlaygroundField);
+	};
 
 	protected hideShips() {
 		this.playgroundShips.forEach((ship) => ship.hideShip());
 	}
 
-	protected preparePlaygroundDOMStructure(): void {
-		this.playgroundDOM.setAttribute("class", "playground player-playground");
-		this.playgroundDOM.style.width = `${this.playgroundSize}px`;
-		this.playgroundDOM.style.height = `${this.playgroundSize}px`;
+	// public rebuildPlaygroundDOMStructure = (playgroundSize?: number) => {
+	// 	this.playgroundSize = playgroundSize ? playgroundSize : GameOptions.playgroundSize;
+	// 	this.fieldSize = playgroundSize ? playgroundSize / GameOptions.playgroundFieldsCount - 4 : GameOptions.fieldSize;
 
-		this.playground.forEach((row, rowIndex) => {
-			const rowDiv: HTMLElement = document.createElement("div");
-			rowDiv.setAttribute("class", `playground-row`);
-			rowDiv.style.height = `${this.fieldSize + 4}px`;
+	// 	this.playgroundDOM = document.createElement("div");
+	// 	this.preparePlaygroundDOMStructure();
 
-			row.forEach((field, fieldIndex) => {
-				const div: HTMLElement = document.createElement("div");
-				div.style.width = `${this.fieldSize}px`;
-				div.style.height = `${this.fieldSize}px`;
+	// 	this.playground.forEach((row, rowIndex) => {
+	// 		row.forEach((column, columnIndex) => {
+	// 			if (column === 1) {
+	// 				const className = this.getPlaygroundFieldClassName(rowIndex, columnIndex);
+	// 				const element: HTMLElement | null = this.playgroundDOM.querySelector(className);
 
-				div.setAttribute("class", `playground-field playground-${rowIndex}_${fieldIndex}`);
-				div.addEventListener("mouseenter", this.hoverOnPlaygroundField);
-				rowDiv.appendChild(div);
-			});
-
-			this.playgroundDOM.appendChild(rowDiv);
-		});
-	}
-
-	public rebuildPlaygroundDOMStructure = (playgroundSize?: number) => {
-		this.playgroundSize = playgroundSize ? playgroundSize : GameOptions.playgroundSize;
-		this.fieldSize = playgroundSize ? playgroundSize / GameOptions.playgroundFieldsCount - 4 : GameOptions.fieldSize;
-
-		this.playgroundDOM = document.createElement("div");
-		this.preparePlaygroundDOMStructure();
-
-		this.playground.forEach((row, rowIndex) => {
-			row.forEach((column, columnIndex) => {
-				if (column === 1) {
-					const className = `.playground-${rowIndex}_${columnIndex}`;
-					const element: HTMLElement | null = this.playgroundDOM.querySelector(className);
-					if (element) {
-						element.classList.add("field-with-gradient");
-						GameOptions.currentSelectedShip?.addField(className);
-					}
-				}
-			});
-		});
-	};
+	// 				if (element) {
+	// 					element.classList.add("field-with-gradient");
+	// 					GameOptions.currentSelectedShip?.addField(className);
+	// 				}
+	// 			}
+	// 		});
+	// 	});
+	// };
 
 	private preparePlayerShips() {
 		GameOptions.availableShips.forEach((shipSize) => {
@@ -92,7 +66,7 @@ export class PlayerPlayground extends Playground {
 	}
 
 	protected addShipToPlayground = () => {
-		this.shipsOnPlaygrund++;
+		this.shipsOnPlaygrundCount++;
 		this.showButtonPlay();
 	};
 
@@ -182,7 +156,7 @@ export class PlayerPlayground extends Playground {
 
 	protected highlightCorrectShipFields(firstIndex: number, lastIndex: number, currentRow: number): void {
 		for (let i = firstIndex; i < lastIndex; i++) {
-			const className = `.playground-${currentRow}_${i}`;
+			const className = this.getPlaygroundFieldClassName(currentRow, i);
 			this.playground[currentRow][i] = 1;
 			const element: HTMLElement | null = document.querySelector(className);
 			if (element) {
@@ -197,7 +171,7 @@ export class PlayerPlayground extends Playground {
 
 		for (let i = firstIndex; i < lastIndex; i++) {
 			if (this.playground[currentRow][i] !== 1) {
-				const className = `.playground-${currentRow}_${i}`;
+				const className = this.getPlaygroundFieldClassName(currentRow, i);
 				const element: HTMLElement | null = document.querySelector(className);
 
 				if (element) {
@@ -219,7 +193,7 @@ export class PlayerPlayground extends Playground {
 		});
 
 		this.tempHighlightedFields.forEach((className) => {
-			const element: HTMLElement | null = document.querySelector(`.playground-${className}`);
+			const element: HTMLElement | null = document.querySelector(`.${this.playgroundClassPrefix}-${className}`);
 			if (element) {
 				element.classList.remove("field-with-error-gradient");
 			}

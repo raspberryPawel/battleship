@@ -18,9 +18,6 @@ export class GameOptions {
 	public static computerPlayground: ComputerPlayground;
 
 	public static changeScreen = (nextScreen: ScreenType): void => {
-		console.log("nextScreen => ", nextScreen);
-		console.log("currentScreen => ", GameOptions.currentScreen?.nextScreen);
-
 		if (nextScreen) {
 			GameOptions.currentScreen?.unregisterScreenEvents();
 
@@ -36,5 +33,14 @@ export class GameOptions {
 
 	public static getMainDOMElement(): HTMLElement {
 		return document.querySelector("main") as HTMLElement;
+	}
+
+	public static clearMainDOMElement(): void {
+		this.getMainDOMElement().innerHTML = "";
+	}
+
+	public static changeScreenContent(newContent: HTMLElement): void {
+		this.clearMainDOMElement();
+		this.getMainDOMElement().append(newContent);
 	}
 }

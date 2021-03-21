@@ -3,24 +3,18 @@ import { Game } from "../classes/Game";
 import { PlayerMoveStrategy } from "../moveStrategies/PlayerMoveStrategy";
 import { GameOptions } from "../GameOptions";
 import { ComputerPlayground } from "../playground/ComputerPlayground";
-import { PlayerPlayground } from "../playground/PlayerPlayground";
 import { SimpleComputerMoveStrategy } from "../moveStrategies/SimpleComputerMoveStrategy";
 
 export class PlayGameScreen extends GameScreen {
 	public prepareScreen(): void {
-		const main = GameOptions.getMainDOMElement();
-		main.innerHTML = "";
-
 		const section = document.createElement("section");
 		section.setAttribute("id", "playGameScreen");
 
 		GameOptions.computerPlayground = new ComputerPlayground();
-		GameOptions.playerPlayground.rebuildPlaygroundDOMStructure((GameOptions.playgroundSize * 2) / 3);
+		GameOptions.playerPlayground.changePlaygroundSize(GameOptions.playgroundSize / 2);
 
 		section.appendChild(GameOptions.computerPlayground.playgroundDOM);
 		section.appendChild(GameOptions.playerPlayground.playgroundDOM);
-
-		main.appendChild(section);
 
 		const game: Game = new Game(
 			GameOptions.playerPlayground.playground,
@@ -28,7 +22,8 @@ export class PlayGameScreen extends GameScreen {
 			new PlayerMoveStrategy(),
 			new SimpleComputerMoveStrategy()
 		);
-		
+
+		GameOptions.changeScreenContent(section);
 		game.startGame();
 	}
 

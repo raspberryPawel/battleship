@@ -30,7 +30,7 @@ export class Ship {
 
 	public createShipDOMElement(): void {
 		this.shipElement.className = "ship_container";
-		this.shipElement.style.width = `${GameOptions.fieldSize * this.shipSize + 15}px`;
+		this.shipElement.style.width = `${GameOptions.fieldSize * this.shipSize + this.shipSize * 2}px`;
 		this.shipElement.style.height = `${GameOptions.fieldSize}px`;
 
 		for (let i = 0; i < this.shipSize; i++) {

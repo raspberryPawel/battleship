@@ -9,7 +9,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
   const playgroundScreen = new PlaygroundScreen(playGameScreen);
   const startScreen = new StartScreen(playgroundScreen);
 
-  //   startScreen.prepareScreenEvents();
-  GameOptions.prepareScreen(startScreen);
-  GameOptions.currentScreen = startScreen;
+  GameOptions.changeScreen(startScreen);
 });
