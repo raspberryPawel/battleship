@@ -12,6 +12,7 @@ export class GameOptions {
 	public static availableShips: Array<number> = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 	public static currentScreen: ScreenType = null;
 	public static currentSelectedShip: Ship | null;
+	public static currentSelectedShipAfterClick: Ship | null;
 	public static currentlySelectedField: RowAndColumnIndex | null = null;
 
 	public static playerPlayground: PlayerPlayground;

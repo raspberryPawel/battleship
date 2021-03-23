@@ -113,8 +113,10 @@ export class PlayerPlayground extends Playground {
 		const { row, column } = getRowAndColumnNumberFromClassName(fieldClassName);
 
 		GameOptions.currentlySelectedField = { row, column };
-		
+
 		if (GameOptions.currentSelectedShip) {
+			GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
+			GameOptions.currentSelectedShipAfterClick = null;
 			this.setShipOnPlaygroundIfPossible(GameOptions.currentSelectedShip, row, column);
 		}
 	};

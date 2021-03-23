@@ -1,5 +1,11 @@
 @mixin main-gradient() {
-  background: #c31432;
-  background: -webkit-linear-gradient(to top left, #240b36, #c31432);
-  background: linear-gradient(to top left, #240b36, #c31432);
+	background: #c31432;
+	background: -webkit-linear-gradient(to top left, #240b36, #c31432);
+	background: linear-gradient(to top left, #240b36, #c31432);
+}
+
+@mixin green-gradient() {
+	background: #52c234;
+	background: -webkit-linear-gradient(to top left, #061700, #52c234);
+	background: linear-gradient(to top left, #061700, #52c234);
 }

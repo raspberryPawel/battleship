@@ -50,10 +50,24 @@ export class Ship {
 		});
 
 		this.shipElement.addEventListener("click", (e) => {
+			e.stopPropagation();
+			document.body.addEventListener("click", this.unselectShip);
+
+			GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
 			GameOptions.currentSelectedShip = this;
-			this.shipElement.style.border = "1px solid red";
+			GameOptions.currentSelectedShipAfterClick = this;
+
+			this.shipElement.classList.add("selected_ship");
 		});
 	}
+
+	public unselectShip = () => {
+		GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
+		GameOptions.currentSelectedShip = null;
+		GameOptions.currentSelectedShipAfterClick = null;
+
+		document.body.removeEventListener("click", this.unselectShip);
+	};
 
 	private moveShip = (e: MouseEvent): void => {
 		if (this.shipElement) {
@@ -75,7 +89,7 @@ export class Ship {
 
 	public dropShip = (): void => {
 		if (this.shipElement) {
-			this.shipElement.style.border = "none";
+			this.shipElement.classList.remove("selected_ship");
 			this.shipElement.style.position = "static";
 
 			document.body.removeEventListener("mousemove", this.moveShip);
@@ -87,6 +101,7 @@ export class Ship {
 			}
 
 			this.shipElement.style.opacity = "1";
+
 			GameOptions.currentlySelectedField = null;
 			GameOptions.currentSelectedShip = null;
 		}

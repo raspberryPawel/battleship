@@ -28,6 +28,12 @@
 		cursor: pointer;
 	}
 
+	.selected_ship {
+		.ship_field {
+			@include green-gradient();
+		}
+	}
+
 	.field-with-gradient {
 		@include main-gradient();
 	}
