@@ -1,7 +1,10 @@
 import { GameOptions } from "./GameOptions";
+import { ShipDirection } from "./types/ShipDirection";
 
 export class Ship {
 	private shipSize: number;
+	private _direction: ShipDirection = ShipDirection.horizontal;
+
 	private fieldsOnPlayground: string[] = [];
 	public readonly shipElement: HTMLElement = document.createElement("div");
 	protected addShipToPlayground: () => void = () => {};
@@ -14,6 +17,10 @@ export class Ship {
 
 	public get size(): number {
 		return this.shipSize;
+	}
+
+	public get direction(): ShipDirection {
+		return this._direction;
 	}
 
 	public get shipOnPlayground(): string[] {
@@ -47,11 +54,13 @@ export class Ship {
 
 			document.body.addEventListener("mousemove", this.moveShip);
 			document.body.addEventListener("mouseup", this.dropShip);
+			document.body.addEventListener("keydown", this.pressKey);
 		});
 
 		this.shipElement.addEventListener("click", (e) => {
 			e.stopPropagation();
 			document.body.addEventListener("click", this.unselectShip);
+			document.body.addEventListener("keydown", this.pressKey);
 
 			GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
 			GameOptions.currentSelectedShip = this;
@@ -75,6 +84,14 @@ export class Ship {
 		}
 	};
 
+	private pressKey = (e: KeyboardEvent): void => {
+		console.log(e);
+		if (e.key === "r") {
+			this.shipElement.style.flexDirection = "column";
+			this._direction = this._direction === ShipDirection.vertical ? ShipDirection.horizontal : ShipDirection.vertical;
+		}
+	};
+
 	private changeShipPosition = (x: number, y: number): void => {
 		if (this.shipElement) {
 			const slideX = 20;
@@ -94,6 +111,7 @@ export class Ship {
 
 			document.body.removeEventListener("mousemove", this.moveShip);
 			document.body.removeEventListener("mouseup", this.dropShip);
+			document.body.removeEventListener("keydown", this.pressKey);
 
 			if (GameOptions.currentlySelectedField && this.shipOnPlayground.length > 0) {
 				this.hideShip();

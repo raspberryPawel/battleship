@@ -708,10 +708,12 @@ exports.GameOptions = GameOptions;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Ship = void 0;
 var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
+var ShipDirection_1 = __webpack_require__(/*! ./types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
 var Ship = (function () {
     function Ship(shipSize, addShipToPlayground) {
         var _this = this;
         if (addShipToPlayground === void 0) { addShipToPlayground = function () { }; }
+        this._direction = ShipDirection_1.ShipDirection.horizontal;
         this.fieldsOnPlayground = [];
         this.shipElement = document.createElement("div");
         this.addShipToPlayground = function () { };
@@ -725,6 +727,13 @@ var Ship = (function () {
         this.moveShip = function (e) {
             if (_this.shipElement) {
                 _this.changeShipPosition(e.clientX, e.clientY);
+            }
+        };
+        this.pressKey = function (e) {
+            console.log(e);
+            if (e.key === "r") {
+                _this.shipElement.style.flexDirection = "column";
+                _this._direction = _this._direction === ShipDirection_1.ShipDirection.vertical ? ShipDirection_1.ShipDirection.horizontal : ShipDirection_1.ShipDirection.vertical;
             }
         };
         this.changeShipPosition = function (x, y) {
@@ -743,6 +752,7 @@ var Ship = (function () {
                 _this.shipElement.style.position = "static";
                 document.body.removeEventListener("mousemove", _this.moveShip);
                 document.body.removeEventListener("mouseup", _this.dropShip);
+                document.body.removeEventListener("keydown", _this.pressKey);
                 if (GameOptions_1.GameOptions.currentlySelectedField && _this.shipOnPlayground.length > 0) {
                     _this.hideShip();
                     _this.addShipToPlayground();
@@ -759,6 +769,13 @@ var Ship = (function () {
     Object.defineProperty(Ship.prototype, "size", {
         get: function () {
             return this.shipSize;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Ship.prototype, "direction", {
+        get: function () {
+            return this._direction;
         },
         enumerable: false,
         configurable: true
@@ -792,11 +809,13 @@ var Ship = (function () {
             GameOptions_1.GameOptions.currentSelectedShip = _this;
             document.body.addEventListener("mousemove", _this.moveShip);
             document.body.addEventListener("mouseup", _this.dropShip);
+            document.body.addEventListener("keydown", _this.pressKey);
         });
         this.shipElement.addEventListener("click", function (e) {
             var _a;
             e.stopPropagation();
             document.body.addEventListener("click", _this.unselectShip);
+            document.body.addEventListener("keydown", _this.pressKey);
             (_a = GameOptions_1.GameOptions.currentSelectedShipAfterClick) === null || _a === void 0 ? void 0 : _a.shipElement.classList.remove("selected_ship");
             GameOptions_1.GameOptions.currentSelectedShip = _this;
             GameOptions_1.GameOptions.currentSelectedShipAfterClick = _this;
@@ -1109,7 +1128,7 @@ var ComputerPlayground = (function (_super) {
     function ComputerPlayground() {
         var _this = _super.call(this) || this;
         _this.playgroundShips = [];
-        _this.showShipsOnPlayground = false;
+        _this.showShipsOnPlayground = true;
         _this.playgroundClassPrefix = "computer-playground";
         _this.randomizeShipsPosition = function () {
             _this.clearPlayground();
@@ -1166,6 +1185,7 @@ var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/Gam
 var Playground_1 = __webpack_require__(/*! ./Playground */ "./src/scripts/playground/Playground.ts");
 var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var Ship_1 = __webpack_require__(/*! ../Ship */ "./src/scripts/Ship.ts");
+var ShipDirection_1 = __webpack_require__(/*! ../types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
 var PlayerPlayground = (function (_super) {
     __extends(PlayerPlayground, _super);
     function PlayerPlayground() {
@@ -1231,7 +1251,7 @@ var PlayerPlayground = (function (_super) {
             if (GameOptions_1.GameOptions.currentSelectedShip) {
                 (_a = GameOptions_1.GameOptions.currentSelectedShipAfterClick) === null || _a === void 0 ? void 0 : _a.shipElement.classList.remove("selected_ship");
                 GameOptions_1.GameOptions.currentSelectedShipAfterClick = null;
-                _this.setShipOnPlaygroundIfPossible(GameOptions_1.GameOptions.currentSelectedShip, row, column);
+                _this.setShipOnPlaygroundIfPossible(GameOptions_1.GameOptions.currentSelectedShip, row, column, GameOptions_1.GameOptions.currentSelectedShip.direction);
             }
         };
         _this.fieldTouchMove = function (e) {
@@ -1252,39 +1272,20 @@ var PlayerPlayground = (function (_super) {
             }
         };
         _this.highlightFields = function (fieldClassName) {
-            var _a;
-            var doesSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedNearbyFieldsEmpty, getRowAndColumnNumberFromClassName = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName;
+            var _a, _b;
             var shipSize = ((_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.size) || -1;
+            if (shipSize > 0) {
+                return;
+            }
+            var getRowAndColumnNumberFromClassName = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName;
+            var shipDirection = (_b = GameOptions_1.GameOptions.currentSelectedShip) === null || _b === void 0 ? void 0 : _b.direction;
             var rowAndColumnIndex = getRowAndColumnNumberFromClassName(fieldClassName);
             var row = rowAndColumnIndex.row, column = rowAndColumnIndex.column;
             GameOptions_1.GameOptions.currentlySelectedField = rowAndColumnIndex;
             _this.clearShipFields();
-            if (shipSize > 0) {
-                if (shipSize + column <= GameOptions_1.GameOptions.playgroundFieldsCount) {
-                    var data = {
-                        playground: _this.playground,
-                        currentCheckedRow: row,
-                        firstColumn: column,
-                        lastColumn: shipSize + column,
-                    };
-                    if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-                        _this.highlightCorrectShipFields(column, shipSize + column, row);
-                    else
-                        _this.highlightIncorrectShipFields(column, shipSize + column, row);
-                }
-                else {
-                    var data = {
-                        playground: _this.playground,
-                        currentCheckedRow: row,
-                        firstColumn: GameOptions_1.GameOptions.playgroundFieldsCount - shipSize,
-                        lastColumn: GameOptions_1.GameOptions.playgroundFieldsCount,
-                    };
-                    if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-                        _this.highlightCorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, row);
-                    else
-                        _this.highlightIncorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, row);
-                }
-            }
+            shipDirection === ShipDirection_1.ShipDirection.vertical
+                ? _this.setShipVerticallyOnPlayground(shipSize, row, column)
+                : _this.setShipHorizontalyOnPlayground(shipSize, row, column);
         };
         _this.preparePlayerShips();
         _this.preparePlaygroundDOMStructure();
@@ -1317,11 +1318,79 @@ var PlayerPlayground = (function (_super) {
         this.playgroundDOM.removeEventListener("mouseover", this.playgroundMouseOver);
         this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
     };
+    PlayerPlayground.prototype.setShipVerticallyOnPlayground = function (shipSize, row, column) {
+        var doesVerticalSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedFieldsEmpty, doesVerticalSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedNearbyFieldsEmpty;
+        if (shipSize + row <= GameOptions_1.GameOptions.playgroundFieldsCount - 1) {
+            var data = {
+                playground: this.playground,
+                currentCheckedColumn: column,
+                firstRow: row - 1,
+                lastRow: shipSize + row,
+            };
+            if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
+                this.highlightVerticalyCorrectShipFields(row, shipSize + row, column);
+            }
+            else
+                this.highlightVerticalyIncorrectShipFields(row, shipSize + row, column);
+        }
+        else {
+            var data = {
+                playground: this.playground,
+                currentCheckedColumn: column,
+                firstRow: GameOptions_1.GameOptions.playgroundFieldsCount - shipSize,
+                lastRow: GameOptions_1.GameOptions.playgroundFieldsCount,
+            };
+            if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
+                this.highlightVerticalyCorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, column);
+            }
+            else
+                this.highlightVerticalyIncorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, column);
+        }
+    };
+    PlayerPlayground.prototype.setShipHorizontalyOnPlayground = function (shipSize, row, column) {
+        var doesSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedNearbyFieldsEmpty;
+        if (shipSize + column <= GameOptions_1.GameOptions.playgroundFieldsCount) {
+            var data = {
+                playground: this.playground,
+                currentCheckedRow: row,
+                firstColumn: column,
+                lastColumn: shipSize + column,
+            };
+            if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
+                this.highlightCorrectShipFields(column, shipSize + column, row);
+            else
+                this.highlightIncorrectShipFields(column, shipSize + column, row);
+        }
+        else {
+            var data = {
+                playground: this.playground,
+                currentCheckedRow: row,
+                firstColumn: GameOptions_1.GameOptions.playgroundFieldsCount - shipSize,
+                lastColumn: GameOptions_1.GameOptions.playgroundFieldsCount,
+            };
+            if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
+                this.highlightCorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, row);
+            else
+                this.highlightIncorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, row);
+        }
+    };
     PlayerPlayground.prototype.highlightCorrectShipFields = function (firstIndex, lastIndex, currentRow) {
         var _a;
         for (var i = firstIndex; i < lastIndex; i++) {
             var className = this.getPlaygroundFieldClassName(currentRow, i);
             this.playground[currentRow][i] = 1;
+            var element = document.querySelector(className);
+            if (element) {
+                element.classList.add("field-with-gradient");
+                (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.addField(className);
+            }
+        }
+    };
+    PlayerPlayground.prototype.highlightVerticalyCorrectShipFields = function (firstIndex, lastIndex, currentColumn) {
+        var _a;
+        for (var i = firstIndex; i < lastIndex; i++) {
+            var className = this.getPlaygroundFieldClassName(i, currentColumn);
+            this.playground[i][currentColumn] = 1;
             var element = document.querySelector(className);
             if (element) {
                 element.classList.add("field-with-gradient");
@@ -1339,6 +1408,17 @@ var PlayerPlayground = (function (_super) {
                     this.tempHighlightedFields.push(currentRow + "_" + i);
                     element.classList.add("field-with-error-gradient");
                 }
+            }
+        }
+    };
+    PlayerPlayground.prototype.highlightVerticalyIncorrectShipFields = function (firstIndex, lastIndex, currentColumn) {
+        GameOptions_1.GameOptions.currentlySelectedField = null;
+        for (var i = firstIndex; i < lastIndex; i++) {
+            var className = this.getPlaygroundFieldClassName(i, currentColumn);
+            var element = document.querySelector(className);
+            if (element) {
+                this.tempHighlightedFields.push(i + "_" + currentColumn);
+                element.classList.add("field-with-error-gradient");
             }
         }
     };
@@ -1450,6 +1530,45 @@ var PlayerPlaygroundUtils = (function () {
             return false;
         return true;
     };
+    PlayerPlaygroundUtils.doesVerticalSelectedFieldsEmpty = function (data) {
+        var _a;
+        var playground = data.playground, currentCheckedColumn = data.currentCheckedColumn, firstRow = data.firstRow, lastRow = data.lastRow;
+        var fields = (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.shipOnPlayground.map(function (className) {
+            var _a = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className), row = _a.row, column = _a.column;
+            return row + "_" + column;
+        });
+        for (var i = firstRow; i <= lastRow; i++) {
+            var row = playground[i];
+            if (row && row[currentCheckedColumn] === 1 && !(fields === null || fields === void 0 ? void 0 : fields.includes(i + "_" + currentCheckedColumn))) {
+                return false;
+            }
+        }
+        return true;
+    };
+    PlayerPlaygroundUtils.doesVerticalSelectedNearbyFieldsEmpty = function (data) {
+        var playground = data.playground, currentCheckedColumn = data.currentCheckedColumn, firstRow = data.firstRow, lastRow = data.lastRow;
+        var leftColumn = currentCheckedColumn - 1;
+        var rightColumn = currentCheckedColumn + 1;
+        if (leftColumn >= 0) {
+            for (var i = firstRow; i <= lastRow; i++) {
+                if (i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount) {
+                    var row = playground[i];
+                    if (row && row[leftColumn] === 1)
+                        return false;
+                }
+            }
+        }
+        if (rightColumn < GameOptions_1.GameOptions.playgroundFieldsCount) {
+            for (var i = firstRow; i <= lastRow; i++) {
+                if (i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount) {
+                    var row = playground[i];
+                    if (row && row[rightColumn] === 1)
+                        return false;
+                }
+            }
+        }
+        return true;
+    };
     return PlayerPlaygroundUtils;
 }());
 exports.PlayerPlaygroundUtils = PlayerPlaygroundUtils;
@@ -1467,6 +1586,7 @@ exports.PlayerPlaygroundUtils = PlayerPlaygroundUtils;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Playground = void 0;
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
+var ShipDirection_1 = __webpack_require__(/*! ../types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
 var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var Playground = (function () {
     function Playground(playgroundSize) {
@@ -1509,33 +1629,61 @@ var Playground = (function () {
                 var ship = _this.playgroundShips[_this.shipsOnPlaygrundCount];
                 var row = Math.floor(Math.random() * 10);
                 var column = Math.floor(Math.random() * 10);
-                _this.setShipOnPlaygroundIfPossible(ship, row, column);
+                var shipDirections = [ShipDirection_1.ShipDirection.horizontal, ShipDirection_1.ShipDirection.vertical];
+                var randomIndex = Math.floor(Math.random() * shipDirections.length - 1) + 1;
+                var shipDirection = shipDirections[randomIndex];
+                _this.setShipOnPlaygroundIfPossible(ship, row, column, shipDirection);
             }
         };
-        this.setShipOnPlaygroundIfPossible = function (ship, row, column) {
-            var doesSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedNearbyFieldsEmpty;
+        this.setShipOnPlaygroundIfPossible = function (ship, row, column, shipDirection) {
+            var doesSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedNearbyFieldsEmpty, doesVerticalSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedFieldsEmpty, doesVerticalSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedNearbyFieldsEmpty;
             GameOptions_1.GameOptions.currentlySelectedField = { row: row, column: column };
-            if (ship.size + column <= GameOptions_1.GameOptions.playgroundFieldsCount) {
-                var data = {
-                    playground: _this.playground,
-                    currentCheckedRow: row,
-                    firstColumn: column,
-                    lastColumn: ship.size + column,
-                };
-                if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
-                    _this.setShipOnPlayground(column, ship.size + column, row, ship);
+            if (shipDirection === ShipDirection_1.ShipDirection.vertical) {
+                if (ship.size + row <= GameOptions_1.GameOptions.playgroundFieldsCount) {
+                    var data = {
+                        playground: _this.playground,
+                        currentCheckedColumn: column,
+                        firstRow: row - 1,
+                        lastRow: ship.size + row,
+                    };
+                    if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
+                        _this.setVerticalyShipOnPlayground(row, ship.size + row, column, ship);
+                    }
+                }
+                else {
+                    var data = {
+                        playground: _this.playground,
+                        currentCheckedColumn: column,
+                        firstRow: GameOptions_1.GameOptions.playgroundFieldsCount - ship.size,
+                        lastRow: GameOptions_1.GameOptions.playgroundFieldsCount,
+                    };
+                    if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
+                        _this.setVerticalyShipOnPlayground(GameOptions_1.GameOptions.playgroundFieldsCount - ship.size, GameOptions_1.GameOptions.playgroundFieldsCount, column, ship);
+                    }
                 }
             }
             else {
-                var data = {
-                    playground: _this.playground,
-                    currentCheckedRow: row,
-                    firstColumn: GameOptions_1.GameOptions.playgroundFieldsCount - ship.size,
-                    lastColumn: GameOptions_1.GameOptions.playgroundFieldsCount,
-                    ship: ship,
-                };
-                if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
-                    _this.setShipOnPlayground(GameOptions_1.GameOptions.playgroundFieldsCount - ship.size, GameOptions_1.GameOptions.playgroundFieldsCount, row, ship);
+                if (ship.size + column <= GameOptions_1.GameOptions.playgroundFieldsCount) {
+                    var data = {
+                        playground: _this.playground,
+                        currentCheckedRow: row,
+                        firstColumn: column,
+                        lastColumn: ship.size + column,
+                    };
+                    if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
+                        _this.setShipOnPlayground(column, ship.size + column, row, ship);
+                    }
+                }
+                else {
+                    var data = {
+                        playground: _this.playground,
+                        currentCheckedRow: row,
+                        firstColumn: GameOptions_1.GameOptions.playgroundFieldsCount - ship.size,
+                        lastColumn: GameOptions_1.GameOptions.playgroundFieldsCount,
+                    };
+                    if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
+                        _this.setShipOnPlayground(GameOptions_1.GameOptions.playgroundFieldsCount - ship.size, GameOptions_1.GameOptions.playgroundFieldsCount, row, ship);
+                    }
                 }
             }
         };
@@ -1581,6 +1729,19 @@ var Playground = (function () {
             ship.addField(currentRow + "_" + i);
             if (this.showShipsOnPlayground) {
                 var field = this.playgroundDOM.querySelector(this.getPlaygroundFieldClassName(currentRow, i));
+                if (field) {
+                    field.classList.add("field-with-gradient");
+                }
+            }
+        }
+        ship.dropShip();
+    };
+    Playground.prototype.setVerticalyShipOnPlayground = function (firstIndex, lastIndex, currentColumn, ship) {
+        for (var i = firstIndex; i < lastIndex; i++) {
+            this.playground[i][currentColumn] = 1;
+            ship.addField(i + "_" + currentColumn);
+            if (this.showShipsOnPlayground) {
+                var field = this.playgroundDOM.querySelector(this.getPlaygroundFieldClassName(i, currentColumn));
                 if (field) {
                     field.classList.add("field-with-gradient");
                 }
@@ -1812,6 +1973,24 @@ var StartScreen = (function (_super) {
     return StartScreen;
 }(GameScreen_1.GameScreen));
 exports.StartScreen = StartScreen;
+
+
+/***/ }),
+
+/***/ "./src/scripts/types/ShipDirection.ts":
+/*!********************************************!*\
+  !*** ./src/scripts/types/ShipDirection.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ShipDirection = void 0;
+var ShipDirection;
+(function (ShipDirection) {
+    ShipDirection[ShipDirection["vertical"] = 0] = "vertical";
+    ShipDirection[ShipDirection["horizontal"] = 1] = "horizontal";
+})(ShipDirection = exports.ShipDirection || (exports.ShipDirection = {}));
 
 
 /***/ }),

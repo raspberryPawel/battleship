@@ -4,7 +4,7 @@ import { Ship } from "../Ship";
 
 export class ComputerPlayground extends Playground {
 	public playgroundShips: Ship[] = [];
-	protected showShipsOnPlayground: boolean = false;
+	protected showShipsOnPlayground: boolean = true;
 	protected playgroundClassPrefix: string = "computer-playground";
 
 	constructor() {

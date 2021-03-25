@@ -2,6 +2,7 @@ import { GameOptions } from "../GameOptions";
 import { Playground } from "./Playground";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 import { Ship } from "../Ship";
+import { ShipDirection } from "../types/ShipDirection";
 
 export class PlayerPlayground extends Playground {
 	protected tempHighlightedFields: string[] = [];
@@ -117,7 +118,12 @@ export class PlayerPlayground extends Playground {
 		if (GameOptions.currentSelectedShip) {
 			GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
 			GameOptions.currentSelectedShipAfterClick = null;
-			this.setShipOnPlaygroundIfPossible(GameOptions.currentSelectedShip, row, column);
+			this.setShipOnPlaygroundIfPossible(
+				GameOptions.currentSelectedShip,
+				row,
+				column,
+				GameOptions.currentSelectedShip.direction
+			);
 		}
 	};
 
@@ -141,60 +147,115 @@ export class PlayerPlayground extends Playground {
 	};
 
 	protected highlightFields = (fieldClassName: string): void => {
-		const {
-			doesSelectedFieldsEmpty,
-			doesSelectedNearbyFieldsEmpty,
-			getRowAndColumnNumberFromClassName,
-		} = PlayerPlaygroundUtils;
 
 		const shipSize = GameOptions.currentSelectedShip?.size || -1;
+		if (shipSize > 0) {
+			return;
+		}
+
+		const { getRowAndColumnNumberFromClassName } = PlayerPlaygroundUtils;
+		const shipDirection = GameOptions.currentSelectedShip?.direction;
 		const rowAndColumnIndex = getRowAndColumnNumberFromClassName(fieldClassName);
 		const { row, column } = rowAndColumnIndex;
 
 		GameOptions.currentlySelectedField = rowAndColumnIndex;
-
+		
 		this.clearShipFields();
 
-		if (shipSize > 0) {
-			if (shipSize + column <= GameOptions.playgroundFieldsCount) {
-				const data = {
-					playground: this.playground,
-					currentCheckedRow: row,
-					firstColumn: column,
-					lastColumn: shipSize + column,
-				};
-
-				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-					this.highlightCorrectShipFields(column, shipSize + column, row);
-				else this.highlightIncorrectShipFields(column, shipSize + column, row);
-			} else {
-				const data = {
-					playground: this.playground,
-					currentCheckedRow: row,
-					firstColumn: GameOptions.playgroundFieldsCount - shipSize,
-					lastColumn: GameOptions.playgroundFieldsCount,
-				};
-
-				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-					this.highlightCorrectShipFields(
-						GameOptions.playgroundFieldsCount - shipSize,
-						GameOptions.playgroundFieldsCount,
-						row
-					);
-				else
-					this.highlightIncorrectShipFields(
-						GameOptions.playgroundFieldsCount - shipSize,
-						GameOptions.playgroundFieldsCount,
-						row
-					);
-			}
-		}
+		shipDirection === ShipDirection.vertical
+			? this.setShipVerticallyOnPlayground(shipSize, row, column)
+			: this.setShipHorizontalyOnPlayground(shipSize, row, column);
 	};
+
+	protected setShipVerticallyOnPlayground(shipSize: number, row: number, column: number) {
+		const { doesVerticalSelectedFieldsEmpty, doesVerticalSelectedNearbyFieldsEmpty } = PlayerPlaygroundUtils;
+
+		if (shipSize + row <= GameOptions.playgroundFieldsCount - 1) {
+			const data = {
+				playground: this.playground,
+				currentCheckedColumn: column,
+				firstRow: row - 1,
+				lastRow: shipSize + row,
+			};
+
+			if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
+				this.highlightVerticalyCorrectShipFields(row, shipSize + row, column);
+			} else this.highlightVerticalyIncorrectShipFields(row, shipSize + row, column);
+		} else {
+			const data = {
+				playground: this.playground,
+				currentCheckedColumn: column,
+				firstRow: GameOptions.playgroundFieldsCount - shipSize,
+				lastRow: GameOptions.playgroundFieldsCount,
+			};
+
+			if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
+				this.highlightVerticalyCorrectShipFields(
+					GameOptions.playgroundFieldsCount - shipSize,
+					GameOptions.playgroundFieldsCount,
+					column
+				);
+			} else
+				this.highlightVerticalyIncorrectShipFields(
+					GameOptions.playgroundFieldsCount - shipSize,
+					GameOptions.playgroundFieldsCount,
+					column
+				);
+		}
+	}
+
+	protected setShipHorizontalyOnPlayground(shipSize: number, row: number, column: number) {
+		const { doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty } = PlayerPlaygroundUtils;
+		if (shipSize + column <= GameOptions.playgroundFieldsCount) {
+			const data = {
+				playground: this.playground,
+				currentCheckedRow: row,
+				firstColumn: column,
+				lastColumn: shipSize + column,
+			};
+
+			if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
+				this.highlightCorrectShipFields(column, shipSize + column, row);
+			else this.highlightIncorrectShipFields(column, shipSize + column, row);
+		} else {
+			const data = {
+				playground: this.playground,
+				currentCheckedRow: row,
+				firstColumn: GameOptions.playgroundFieldsCount - shipSize,
+				lastColumn: GameOptions.playgroundFieldsCount,
+			};
+
+			if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
+				this.highlightCorrectShipFields(
+					GameOptions.playgroundFieldsCount - shipSize,
+					GameOptions.playgroundFieldsCount,
+					row
+				);
+			else
+				this.highlightIncorrectShipFields(
+					GameOptions.playgroundFieldsCount - shipSize,
+					GameOptions.playgroundFieldsCount,
+					row
+				);
+		}
+	}
 
 	protected highlightCorrectShipFields(firstIndex: number, lastIndex: number, currentRow: number): void {
 		for (let i = firstIndex; i < lastIndex; i++) {
 			const className = this.getPlaygroundFieldClassName(currentRow, i);
 			this.playground[currentRow][i] = 1;
+			const element: HTMLElement | null = document.querySelector(className);
+			if (element) {
+				element.classList.add("field-with-gradient");
+				GameOptions.currentSelectedShip?.addField(className);
+			}
+		}
+	}
+
+	protected highlightVerticalyCorrectShipFields(firstIndex: number, lastIndex: number, currentColumn: number): void {
+		for (let i = firstIndex; i < lastIndex; i++) {
+			const className = this.getPlaygroundFieldClassName(i, currentColumn);
+			this.playground[i][currentColumn] = 1;
 			const element: HTMLElement | null = document.querySelector(className);
 			if (element) {
 				element.classList.add("field-with-gradient");
@@ -215,6 +276,20 @@ export class PlayerPlayground extends Playground {
 					this.tempHighlightedFields.push(`${currentRow}_${i}`);
 					element.classList.add("field-with-error-gradient");
 				}
+			}
+		}
+	}
+
+	protected highlightVerticalyIncorrectShipFields(firstIndex: number, lastIndex: number, currentColumn: number): void {
+		GameOptions.currentlySelectedField = null;
+
+		for (let i = firstIndex; i < lastIndex; i++) {
+			const className = this.getPlaygroundFieldClassName(i, currentColumn);
+			const element: HTMLElement | null = document.querySelector(className);
+
+			if (element) {
+				this.tempHighlightedFields.push(`${i}_${currentColumn}`);
+				element.classList.add("field-with-error-gradient");
 			}
 		}
 	}

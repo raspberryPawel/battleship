@@ -1,5 +1,5 @@
 import { GameOptions } from "../GameOptions";
-import { DoesSelectedFieldsEmptyData } from "../types/DoesSelectedFieldsEmptyData";
+import { DoesSelectedFieldsEmptyData, DoesVerticalSelectedFieldsEmptyData } from "../types/DoesSelectedFieldsEmptyData";
 import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
 
 export class PlayerPlaygroundUtils {
@@ -68,6 +68,57 @@ export class PlayerPlaygroundUtils {
 		if (row && row[firstColumn - 1] && row[firstColumn - 1] === 1) return false;
 		if (rowAbove && rowAbove[firstColumn - 1] && rowAbove[firstColumn - 1] === 1) return false;
 		if (rowBelow && rowBelow[firstColumn - 1] && rowBelow[firstColumn - 1] === 1) return false;
+
+		return true;
+	};
+
+	public static doesVerticalSelectedFieldsEmpty = (data: DoesVerticalSelectedFieldsEmptyData): boolean => {
+		const { playground, currentCheckedColumn, firstRow, lastRow } = data;
+
+		const fields = GameOptions.currentSelectedShip?.shipOnPlayground.map((className: string) => {
+			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className);
+			return `${row}_${column}`;
+		});
+
+		for (let i = firstRow; i <= lastRow; i++) {
+			const row = playground[i];
+
+			if (row && row[currentCheckedColumn] === 1 && !fields?.includes(`${i}_${currentCheckedColumn}`)) {
+				return false;
+			}
+		}
+
+		return true;
+	};
+
+	public static doesVerticalSelectedNearbyFieldsEmpty = (data: DoesVerticalSelectedFieldsEmptyData): boolean => {
+		const { playground, currentCheckedColumn, firstRow, lastRow } = data;
+
+		// const column = playground[currentCheckedColumn];
+		const leftColumn = currentCheckedColumn - 1;
+		const rightColumn = currentCheckedColumn + 1;
+
+		if (leftColumn >= 0) {
+			for (let i = firstRow; i <= lastRow; i++) {
+				if (i >= 0 && i < GameOptions.playgroundFieldsCount) {
+					const row = playground[i];
+					if (row && row[leftColumn] === 1) return false;
+				}
+			}
+		}
+
+		if (rightColumn < GameOptions.playgroundFieldsCount) {
+			for (let i = firstRow; i <= lastRow; i++) {
+				if (i >= 0 && i < GameOptions.playgroundFieldsCount) {
+					const row = playground[i];
+					if (row && row[rightColumn] === 1) return false;
+				}
+			}
+		}
+
+		// if (column && column[firstRow - 1] && column[firstRow - 1] === 1) return false;
+		// if (leftColumn && leftColumn[firstRow - 1] && leftColumn[firstRow - 1] === 1) return false;
+		// if (rightColumn && rightColumn[firstRow - 1] && rightColumn[firstRow - 1] === 1) return false;
 
 		return true;
 	};
