@@ -28,7 +28,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap);"]);
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(_images_ship_svg__WEBPACK_IMPORTED_MODULE_3__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n#startScreen {\n  width: 100vw;\n  height: 100vh;\n  max-height: 750px;\n  display: flex;\n  flex-direction: column;\n  padding: 20% 0;\n  justify-content: space-around;\n  align-items: center;\n}\n#startScreen .logoContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#startScreen .logoContainer strong {\n  width: 100%;\n  display: block;\n  text-transform: uppercase;\n  font-weight: 400;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n}\n#startScreen .logoContainer .logo {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  width: 200px;\n  height: 200px;\n  margin-top: 40px;\n  border-radius: 100px;\n  position: relative;\n}\n#startScreen .logoContainer .logo::before {\n  content: \"\";\n  position: absolute;\n  top: -15px;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n}\n#startScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#startScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n#playgroundScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playgroundScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playgroundScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n#playgroundScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1px;\n  cursor: pointer;\n}\n#playgroundScreen .selected_ship .ship_field {\n  background: #52c234;\n  background: -webkit-linear-gradient(to top left, #061700, #52c234);\n  background: linear-gradient(to top left, #061700, #52c234);\n}\n#playgroundScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playgroundScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playgroundScreen .btn-play {\n  display: none;\n}\n#playgroundScreen .btn-play,\n#playgroundScreen .btn-randomize {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  margin-top: 25px;\n  margin-right: 20px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playgroundScreen .btn-play:hover,\n#playgroundScreen .btn-randomize:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n#playGameScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playGameScreen .player-playground {\n  margin-top: 20px;\n}\n#playGameScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playGameScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n#playGameScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1.5px;\n  cursor: pointer;\n}\n#playGameScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playGameScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playGameScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: none;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playGameScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n#playGameScreen .hit_field {\n  position: relative;\n}\n#playGameScreen .hit_field::after {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  content: \"✕\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  color: white;\n  font-family: \"Roboto\", sans-serif;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#playGameScreen .misplaced_field {\n  position: relative;\n}\n#playGameScreen .misplaced_field::after {\n  content: \"•\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  font-family: \"Roboto\", sans-serif;\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  background-color: #14142d;\n  background: #0f0c29;\n  background: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  background: linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  user-select: none;\n  font-family: \"Roboto\", sans-serif;\n}\nbody main {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  height: 100vh;\n  overflow-x: hidden;\n  overflow-y: auto;\n}", "",{"version":3,"sources":["webpack://./src/styles/index.scss","webpack://./src/styles/StartScreen.scss","webpack://./src/styles/variables.scss","webpack://./src/styles/PlaygroundScreen.scss","webpack://./src/styles/PlayGameScreen.scss"],"names":[],"mappings":"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","sourcesContent":["@import url(\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap\");\r\n@import \"./StartScreen.scss\";\r\n@import \"./PlaygroundScreen.scss\";\r\n@import \"./PlayGameScreen.scss\";\r\n\r\nbody {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbackground-color: #14142d;\r\n\tbackground: #0f0c29;\r\n\tbackground: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tbackground: linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tuser-select: none;\r\n\r\n\tfont-family: \"Roboto\", sans-serif;\r\n\r\n\tmain {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t\twidth: 100%;\r\n\t\theight: 100vh;\r\n\t\toverflow-x: hidden;\r\n\t\toverflow-y: auto;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#startScreen {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  max-height: 750px;\r\n\r\n  display: flex;\r\n  flex-direction: column;\r\n  padding: 20% 0;\r\n  justify-content: space-around;\r\n  align-items: center;\r\n\r\n  .logoContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n\r\n    strong {\r\n      width: 100%;\r\n      display: block;\r\n      text-transform: uppercase;\r\n      font-weight: 400;\r\n\r\n      color: white;\r\n      font-size: 30px;\r\n      text-align: center;\r\n    }\r\n\r\n    .logo {\r\n      @include main-gradient();\r\n\r\n      width: 200px;\r\n      height: 200px;\r\n      margin-top: 40px;\r\n      border-radius: 100px;\r\n      position: relative;\r\n\r\n      &::before {\r\n        content: \"\";\r\n        position: absolute;\r\n        top: -15px;\r\n        left: 0;\r\n\r\n        width: 100%;\r\n        height: 100%;\r\n\r\n        background-image: url(\"../images/ship.svg\");\r\n        background-size: cover;\r\n      }\r\n    }\r\n  }\r\n\r\n  .btn-play {\r\n    @include main-gradient();\r\n    \r\n    border: none;\r\n    outline: none;\r\n\r\n    text-transform: uppercase;\r\n    font-family: \"Roboto\", sans-serif;\r\n    font-weight: 500;\r\n    font-size: 0.85rem;\r\n    color: #fff;\r\n\r\n    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2),\r\n      0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n    padding: 0.7rem 1.5rem 0.5rem ;\r\n    \r\n    border-radius: 10rem;\r\n\r\n    cursor: pointer;\r\n    transition-duration: 0.3s;\r\n\r\n    &:hover {\r\n      transition-duration: 0.3s;\r\n      transform: scale(1.1);\r\n    }\r\n  }\r\n}\r\n","@mixin main-gradient() {\r\n\tbackground: #c31432;\r\n\tbackground: -webkit-linear-gradient(to top left, #240b36, #c31432);\r\n\tbackground: linear-gradient(to top left, #240b36, #c31432);\r\n}\r\n\r\n@mixin green-gradient() {\r\n\tbackground: #52c234;\r\n\tbackground: -webkit-linear-gradient(to top left, #061700, #52c234);\r\n\tbackground: linear-gradient(to top left, #061700, #52c234);\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#playgroundScreen {\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.selected_ship {\r\n\t\t.ship_field {\r\n\t\t\t@include green-gradient();\r\n\t\t}\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\tdisplay: none;\r\n\t}\r\n\r\n\t.btn-play,\r\n\t.btn-randomize {\r\n\t\t@include main-gradient();\r\n\r\n\t\tborder: none;\r\n\t\toutline: none;\r\n\r\n\t\ttext-transform: uppercase;\r\n\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\tfont-weight: 500;\r\n\t\tfont-size: 0.85rem;\r\n\t\tcolor: #fff;\r\n\r\n\t\tmargin-top: 25px;\r\n\t\tmargin-right: 20px;\r\n\r\n\t\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\t\tborder-radius: 10rem;\r\n\r\n\t\tcursor: pointer;\r\n\t\ttransition-duration: 0.3s;\r\n\r\n\t\t&:hover {\r\n\t\t\ttransition-duration: 0.3s;\r\n\t\t\ttransform: scale(1.1);\r\n\t\t}\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#playGameScreen {\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.player-playground {\r\n\t\t// transform: scale(0.5);\r\n\t\tmargin-top: 20px;\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1.5px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\t@include main-gradient();\r\n\r\n\t\tborder: none;\r\n\t\toutline: none;\r\n\r\n\t\ttext-transform: uppercase;\r\n\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\tfont-weight: 500;\r\n\t\tfont-size: 0.85rem;\r\n\t\tcolor: #fff;\r\n\r\n\t\tdisplay: none;\r\n\t\tmargin-top: 25px;\r\n\r\n\t\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\t\tborder-radius: 10rem;\r\n\r\n\t\tcursor: pointer;\r\n\t\ttransition-duration: 0.3s;\r\n\r\n\t\t&:hover {\r\n\t\t\ttransition-duration: 0.3s;\r\n\t\t\ttransform: scale(1.1);\r\n\t\t}\r\n\t}\r\n\r\n\t.hit_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\t@include main-gradient();\r\n\t\t\tcontent: \"✕\";\r\n\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tcolor: white;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.misplaced_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\tcontent: \"•\";\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tcolor: white;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n#startScreen {\n  width: 100vw;\n  height: 100vh;\n  max-height: 750px;\n  display: flex;\n  flex-direction: column;\n  padding: 20% 0;\n  justify-content: space-around;\n  align-items: center;\n}\n#startScreen .logoContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#startScreen .logoContainer strong {\n  width: 100%;\n  display: block;\n  text-transform: uppercase;\n  font-weight: 400;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n}\n#startScreen .logoContainer .logo {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  width: 200px;\n  height: 200px;\n  margin-top: 40px;\n  border-radius: 100px;\n  position: relative;\n}\n#startScreen .logoContainer .logo::before {\n  content: \"\";\n  position: absolute;\n  top: -15px;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n}\n#startScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#startScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n#playgroundScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playgroundScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playgroundScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n#playgroundScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1px;\n  cursor: pointer;\n}\n#playgroundScreen .selected_ship .ship_field {\n  background: #52c234;\n  background: -webkit-linear-gradient(to top left, #061700, #52c234);\n  background: linear-gradient(to top left, #061700, #52c234);\n}\n#playgroundScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playgroundScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playgroundScreen .btn-play {\n  display: none;\n}\n#playgroundScreen .btn-play,\n#playgroundScreen .btn-randomize,\n#playgroundScreen .btn-rotate {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.8rem;\n  color: #fff;\n  margin-top: 25px;\n  margin-right: 15px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playgroundScreen .btn-play:hover,\n#playgroundScreen .btn-randomize:hover,\n#playgroundScreen .btn-rotate:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n#playGameScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playGameScreen .player-playground {\n  margin-top: 20px;\n}\n#playGameScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playGameScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n#playGameScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1.5px;\n  cursor: pointer;\n}\n#playGameScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playGameScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playGameScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: none;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playGameScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n#playGameScreen .hit_field {\n  position: relative;\n}\n#playGameScreen .hit_field::after {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  content: \"✕\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  color: white;\n  font-family: \"Roboto\", sans-serif;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#playGameScreen .misplaced_field {\n  position: relative;\n}\n#playGameScreen .misplaced_field::after {\n  content: \"•\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  font-family: \"Roboto\", sans-serif;\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  background-color: #14142d;\n  background: #0f0c29;\n  background: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  background: linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  user-select: none;\n  font-family: \"Roboto\", sans-serif;\n}\nbody main {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  height: 100vh;\n  overflow-x: hidden;\n  overflow-y: auto;\n}", "",{"version":3,"sources":["webpack://./src/styles/index.scss","webpack://./src/styles/StartScreen.scss","webpack://./src/styles/variables.scss","webpack://./src/styles/PlaygroundScreen.scss","webpack://./src/styles/PlayGameScreen.scss"],"names":[],"mappings":"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","sourcesContent":["@import url(\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap\");\r\n@import \"./StartScreen.scss\";\r\n@import \"./PlaygroundScreen.scss\";\r\n@import \"./PlayGameScreen.scss\";\r\n\r\nbody {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbackground-color: #14142d;\r\n\tbackground: #0f0c29;\r\n\tbackground: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tbackground: linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tuser-select: none;\r\n\r\n\tfont-family: \"Roboto\", sans-serif;\r\n\r\n\tmain {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t\twidth: 100%;\r\n\t\theight: 100vh;\r\n\t\toverflow-x: hidden;\r\n\t\toverflow-y: auto;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#startScreen {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  max-height: 750px;\r\n\r\n  display: flex;\r\n  flex-direction: column;\r\n  padding: 20% 0;\r\n  justify-content: space-around;\r\n  align-items: center;\r\n\r\n  .logoContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n\r\n    strong {\r\n      width: 100%;\r\n      display: block;\r\n      text-transform: uppercase;\r\n      font-weight: 400;\r\n\r\n      color: white;\r\n      font-size: 30px;\r\n      text-align: center;\r\n    }\r\n\r\n    .logo {\r\n      @include main-gradient();\r\n\r\n      width: 200px;\r\n      height: 200px;\r\n      margin-top: 40px;\r\n      border-radius: 100px;\r\n      position: relative;\r\n\r\n      &::before {\r\n        content: \"\";\r\n        position: absolute;\r\n        top: -15px;\r\n        left: 0;\r\n\r\n        width: 100%;\r\n        height: 100%;\r\n\r\n        background-image: url(\"../images/ship.svg\");\r\n        background-size: cover;\r\n      }\r\n    }\r\n  }\r\n\r\n  .btn-play {\r\n    @include main-gradient();\r\n    \r\n    border: none;\r\n    outline: none;\r\n\r\n    text-transform: uppercase;\r\n    font-family: \"Roboto\", sans-serif;\r\n    font-weight: 500;\r\n    font-size: 0.85rem;\r\n    color: #fff;\r\n\r\n    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2),\r\n      0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n    padding: 0.7rem 1.5rem 0.5rem ;\r\n    \r\n    border-radius: 10rem;\r\n\r\n    cursor: pointer;\r\n    transition-duration: 0.3s;\r\n\r\n    &:hover {\r\n      transition-duration: 0.3s;\r\n      transform: scale(1.1);\r\n    }\r\n  }\r\n}\r\n","@mixin main-gradient() {\r\n\tbackground: #c31432;\r\n\tbackground: -webkit-linear-gradient(to top left, #240b36, #c31432);\r\n\tbackground: linear-gradient(to top left, #240b36, #c31432);\r\n}\r\n\r\n@mixin green-gradient() {\r\n\tbackground: #52c234;\r\n\tbackground: -webkit-linear-gradient(to top left, #061700, #52c234);\r\n\tbackground: linear-gradient(to top left, #061700, #52c234);\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#playgroundScreen {\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.selected_ship {\r\n\t\t.ship_field {\r\n\t\t\t@include green-gradient();\r\n\t\t}\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\tdisplay: none;\r\n\t}\r\n\r\n\t.btn-play,\r\n\t.btn-randomize,\r\n\t.btn-rotate {\r\n\t\t@include main-gradient();\r\n\r\n\t\tborder: none;\r\n\t\toutline: none;\r\n\r\n\t\ttext-transform: uppercase;\r\n\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\tfont-weight: 500;\r\n\t\tfont-size: 0.8rem;\r\n\t\tcolor: #fff;\r\n\r\n\t\tmargin-top: 25px;\r\n\t\tmargin-right: 15px;\r\n\r\n\t\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\t\tborder-radius: 10rem;\r\n\r\n\t\tcursor: pointer;\r\n\t\ttransition-duration: 0.3s;\r\n\r\n\t\t&:hover {\r\n\t\t\ttransition-duration: 0.3s;\r\n\t\t\ttransform: scale(1.1);\r\n\t\t}\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#playGameScreen {\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.player-playground {\r\n\t\t// transform: scale(0.5);\r\n\t\tmargin-top: 20px;\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1.5px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\t@include main-gradient();\r\n\r\n\t\tborder: none;\r\n\t\toutline: none;\r\n\r\n\t\ttext-transform: uppercase;\r\n\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\tfont-weight: 500;\r\n\t\tfont-size: 0.85rem;\r\n\t\tcolor: #fff;\r\n\r\n\t\tdisplay: none;\r\n\t\tmargin-top: 25px;\r\n\r\n\t\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\t\tborder-radius: 10rem;\r\n\r\n\t\tcursor: pointer;\r\n\t\ttransition-duration: 0.3s;\r\n\r\n\t\t&:hover {\r\n\t\t\ttransition-duration: 0.3s;\r\n\t\t\ttransform: scale(1.1);\r\n\t\t}\r\n\t}\r\n\r\n\t.hit_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\t@include main-gradient();\r\n\t\t\tcontent: \"✕\";\r\n\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tcolor: white;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.misplaced_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\tcontent: \"•\";\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tcolor: white;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -708,18 +708,22 @@ exports.GameOptions = GameOptions;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Ship = void 0;
 var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
+var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var ShipDirection_1 = __webpack_require__(/*! ./types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
 var Ship = (function () {
-    function Ship(shipSize, addShipToPlayground) {
+    function Ship(shipSize, addShipToPlayground, onShipRotate) {
         var _this = this;
         if (addShipToPlayground === void 0) { addShipToPlayground = function () { }; }
         this._direction = ShipDirection_1.ShipDirection.horizontal;
         this.fieldsOnPlayground = [];
         this.shipElement = document.createElement("div");
         this.addShipToPlayground = function () { };
-        this.unselectShip = function () {
-            var _a;
-            (_a = GameOptions_1.GameOptions.currentSelectedShipAfterClick) === null || _a === void 0 ? void 0 : _a.shipElement.classList.remove("selected_ship");
+        this.onShipRotate = function () { };
+        this.unselectShip = function (e) {
+            if (GameOptions_1.GameOptions.currentSelectedShipAfterClick) {
+                GameOptions_1.GameOptions.currentSelectedShipAfterClick.shipElement.style.opacity = "1";
+                GameOptions_1.GameOptions.currentSelectedShipAfterClick.shipElement.classList.remove("selected_ship");
+            }
             GameOptions_1.GameOptions.currentSelectedShip = null;
             GameOptions_1.GameOptions.currentSelectedShipAfterClick = null;
             document.body.removeEventListener("click", _this.unselectShip);
@@ -730,10 +734,8 @@ var Ship = (function () {
             }
         };
         this.pressKey = function (e) {
-            console.log(e);
             if (e.key === "r") {
-                _this.shipElement.style.flexDirection = "column";
-                _this._direction = _this._direction === ShipDirection_1.ShipDirection.vertical ? ShipDirection_1.ShipDirection.horizontal : ShipDirection_1.ShipDirection.vertical;
+                _this.rotateShip();
             }
         };
         this.changeShipPosition = function (x, y) {
@@ -765,6 +767,8 @@ var Ship = (function () {
         this.shipSize = shipSize;
         this.createShipDOMElement();
         this.addShipToPlayground = addShipToPlayground;
+        if (onShipRotate)
+            this.onShipRotate = onShipRotate;
     }
     Object.defineProperty(Ship.prototype, "size", {
         get: function () {
@@ -811,16 +815,21 @@ var Ship = (function () {
             document.body.addEventListener("mouseup", _this.dropShip);
             document.body.addEventListener("keydown", _this.pressKey);
         });
-        this.shipElement.addEventListener("click", function (e) {
-            var _a;
-            e.stopPropagation();
-            document.body.addEventListener("click", _this.unselectShip);
-            document.body.addEventListener("keydown", _this.pressKey);
-            (_a = GameOptions_1.GameOptions.currentSelectedShipAfterClick) === null || _a === void 0 ? void 0 : _a.shipElement.classList.remove("selected_ship");
-            GameOptions_1.GameOptions.currentSelectedShip = _this;
-            GameOptions_1.GameOptions.currentSelectedShipAfterClick = _this;
-            _this.shipElement.classList.add("selected_ship");
-        });
+        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            this.shipElement.addEventListener("click", function (e) {
+                var _a;
+                e.stopPropagation();
+                document.body.addEventListener("click", _this.unselectShip);
+                (_a = GameOptions_1.GameOptions.currentSelectedShipAfterClick) === null || _a === void 0 ? void 0 : _a.shipElement.classList.remove("selected_ship");
+                GameOptions_1.GameOptions.currentSelectedShip = _this;
+                GameOptions_1.GameOptions.currentSelectedShipAfterClick = _this;
+                _this.shipElement.classList.add("selected_ship");
+            });
+        }
+    };
+    Ship.prototype.rotateShip = function () {
+        this._direction = this._direction === ShipDirection_1.ShipDirection.vertical ? ShipDirection_1.ShipDirection.horizontal : ShipDirection_1.ShipDirection.vertical;
+        this.onShipRotate();
     };
     Ship.prototype.hideShip = function () {
         this.shipElement.style.display = "none";
@@ -843,8 +852,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MoveDirection = void 0;
 var MoveDirection;
 (function (MoveDirection) {
-    MoveDirection[MoveDirection["Left"] = 0] = "Left";
-    MoveDirection[MoveDirection["Right"] = 1] = "Right";
+    MoveDirection["Left"] = "Left";
+    MoveDirection["Right"] = "Right";
+    MoveDirection["Top"] = "Top";
+    MoveDirection["Bottom"] = "Bottom";
 })(MoveDirection = exports.MoveDirection || (exports.MoveDirection = {}));
 
 
@@ -914,6 +925,7 @@ exports.SimpleComputerMoveStrategy = void 0;
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var MoveDirection_1 = __webpack_require__(/*! ./MoveDirection */ "./src/scripts/moveStrategies/MoveDirection.ts");
+var ShipDirection_1 = __webpack_require__(/*! ../types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
 var SimpleComputerMoveStrategy = (function () {
     function SimpleComputerMoveStrategy() {
         this.availableShips = [];
@@ -921,7 +933,9 @@ var SimpleComputerMoveStrategy = (function () {
         this.hitFields = [];
         this.fieldsToCheckAfterHit = [];
         this.hitsInARow = 0;
+        this.firstHitField = null;
         this.moveDirection = MoveDirection_1.MoveDirection.Right;
+        this.shipDirection = ShipDirection_1.ShipDirection.horizontal;
         this.checkIfFieldHasShip = function (row, column) { return false; };
         this.resolveMove = function () { };
         this.availableShips = GameOptions_1.GameOptions.availableShips.sort(function (shipA, shipB) { return shipA - shipB; });
@@ -943,37 +957,59 @@ var SimpleComputerMoveStrategy = (function () {
         this.resolveMove(true);
     };
     SimpleComputerMoveStrategy.prototype.removeFieldFromAvailable = function (row, column) {
-        var index = this.availableFields[row].indexOf(row + "_" + column);
-        if (index !== -1)
-            this.availableFields[row].splice(index, 1);
+        var areRowCorrect = row >= 0 && row < GameOptions_1.GameOptions.playgroundFieldsCount;
+        var areColumnCorrect = column >= 0 && column < GameOptions_1.GameOptions.playgroundFieldsCount;
+        if (areRowCorrect && areColumnCorrect) {
+            var index = this.availableFields[row].indexOf(row + "_" + column);
+            if (index !== -1) {
+                this.availableFields[row].splice(index, 1);
+            }
+        }
     };
     SimpleComputerMoveStrategy.prototype.checkIFieldHasShip = function (row, column) {
         var _this = this;
         var hasShip = this.checkIfFieldHasShip(row, column);
+        var fieldWasHit = false;
         if (hasShip)
             this.hitFields.push(row + "_" + column);
         if (this.fieldsToCheckAfterHit.length && hasShip) {
             this.hitsInARow += 1;
             this.fieldsToCheckAfterHit.splice(0, 1);
-            this.setMoveDirectionBasedOnNextFieldToHit(column);
+            this.checkIfShipIsVerticalOrHorizontal();
+            this.setMoveDirectionBasedOnNextFieldToHit(row, column);
+            fieldWasHit = true;
         }
         else if (this.fieldsToCheckAfterHit.length && !hasShip) {
-            this.removeFieldsWhereThereIsNoShips(column);
+            this.removeFieldsWhereThereIsNoShips(row, column);
         }
-        if (!this.fieldsToCheckAfterHit.length && hasShip) {
+        if (!this.fieldsToCheckAfterHit.length && hasShip && !fieldWasHit) {
+            this.firstHitField = { row: row, column: column };
             this.setFieldsToCheckAfterHit(row, column);
-            this.setMoveDirectionBasedOnNextFieldToHit(column);
+            this.setMoveDirectionBasedOnNextFieldToHit(row, column);
         }
         var getIndexAndExcludeFieldsWhereThereIsNoShips = function () {
             var indexOfSunkShip = _this.availableShips.indexOf(_this.hitsInARow);
             _this.availableShips.splice(indexOfSunkShip, 1);
             _this.hitsInARow = 0;
             _this.fieldsToCheckAfterHit.length = 0;
+            _this.firstHitField = null;
             _this.excludeFieldsWhereThereIsNoShips();
         };
         this.checkIfLongestShipWasSunk(getIndexAndExcludeFieldsWhereThereIsNoShips);
         this.checkIfSomeShipWasSunk(getIndexAndExcludeFieldsWhereThereIsNoShips);
         return hasShip;
+    };
+    SimpleComputerMoveStrategy.prototype.checkIfShipIsVerticalOrHorizontal = function () {
+        var isVertical = this.moveDirection === MoveDirection_1.MoveDirection.Top || this.moveDirection === MoveDirection_1.MoveDirection.Bottom;
+        var isHorizontal = this.moveDirection === MoveDirection_1.MoveDirection.Left || this.moveDirection === MoveDirection_1.MoveDirection.Right;
+        if (this.firstHitField && isHorizontal) {
+            this.removeFieldsOnTop(this.firstHitField.row, this.firstHitField.column);
+            this.removeFieldsOnBottom(this.firstHitField.row, this.firstHitField.column);
+            this.shipDirection = ShipDirection_1.ShipDirection.horizontal;
+        }
+        else if (this.firstHitField && isVertical) {
+            this.shipDirection = ShipDirection_1.ShipDirection.vertical;
+        }
     };
     SimpleComputerMoveStrategy.prototype.checkIfLongestShipWasSunk = function (getIndexAndExcludeFieldsWhereThereIsNoShips) {
         if (this.hitsInARow === Math.max.apply(Math, this.availableShips)) {
@@ -988,64 +1024,119 @@ var SimpleComputerMoveStrategy = (function () {
     SimpleComputerMoveStrategy.prototype.excludeFieldsWhereThereIsNoShips = function () {
         var _this = this;
         this.hitFields.sort(function (a, b) {
-            var columnA = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(a).column;
-            var columnB = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(b).column;
-            return columnA - columnB;
+            var rowAndColumnA = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(a);
+            var rowAndColumnB = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(b);
+            return _this.shipDirection === ShipDirection_1.ShipDirection.vertical
+                ? rowAndColumnA.row - rowAndColumnB.row
+                : rowAndColumnA.column - rowAndColumnB.column;
         });
         var firstHitField = this.hitFields[0];
         var lastHitField = this.hitFields[this.hitFields.length - 1];
         var firstRowAndColumn = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(firstHitField);
         var lastRowAndColumn = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(lastHitField);
-        this.hitFields.forEach(function (field) {
-            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
-            var rowAbove = row + 1;
-            var rowBelow = row - 1;
-            if (rowAbove >= 0 && rowAbove < GameOptions_1.GameOptions.playgroundFieldsCount)
-                _this.removeFieldFromAvailable(rowAbove, column);
-            if (rowBelow >= 0 && rowBelow < GameOptions_1.GameOptions.playgroundFieldsCount)
-                _this.removeFieldFromAvailable(rowBelow, column);
-        });
-        var columnBefore = firstRowAndColumn.column - 1;
-        var rowAbove = firstRowAndColumn.row + 1;
-        var rowBelow = firstRowAndColumn.row - 1;
-        if (columnBefore >= 0 && columnBefore < GameOptions_1.GameOptions.playgroundFieldsCount) {
-            if (rowAbove >= 0 && rowAbove < GameOptions_1.GameOptions.playgroundFieldsCount)
-                this.removeFieldFromAvailable(rowAbove, columnBefore);
-            if (rowBelow >= 0 && rowBelow < GameOptions_1.GameOptions.playgroundFieldsCount)
-                this.removeFieldFromAvailable(rowBelow, columnBefore);
+        if (this.shipDirection === ShipDirection_1.ShipDirection.vertical) {
+            this.removeFieldFromAvailable(firstRowAndColumn.row - 1, firstRowAndColumn.column);
+            this.removeFieldFromAvailable(lastRowAndColumn.row + 1, lastRowAndColumn.column);
+            this.hitFields.forEach(function (field) {
+                var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+                var columnLeft = column - 1;
+                var columnRight = column + 1;
+                _this.removeFieldFromAvailable(row, columnLeft);
+                _this.removeFieldFromAvailable(row, columnRight);
+            });
+            this.removeFieldFromAvailable(firstRowAndColumn.row - 1, firstRowAndColumn.column - 1);
+            this.removeFieldFromAvailable(firstRowAndColumn.row - 1, firstRowAndColumn.column + 1);
+            this.removeFieldFromAvailable(lastRowAndColumn.row + 1, lastRowAndColumn.column - 1);
+            this.removeFieldFromAvailable(lastRowAndColumn.row + 1, lastRowAndColumn.column + 1);
         }
-        if (lastRowAndColumn.column + 1 < GameOptions_1.GameOptions.playgroundFieldsCount) {
-            if (lastRowAndColumn.row + 1 < GameOptions_1.GameOptions.playgroundFieldsCount) {
-                this.removeFieldFromAvailable(lastRowAndColumn.row + 1, lastRowAndColumn.column + 1);
-            }
-            if (lastRowAndColumn.row - 1 >= 0) {
-                this.removeFieldFromAvailable(lastRowAndColumn.row - 1, lastRowAndColumn.column + 1);
-            }
+        else {
+            var columnBefore = firstRowAndColumn.column - 1;
+            var columnAfter = firstRowAndColumn.column + 1;
+            var rowAbove = firstRowAndColumn.row + 1;
+            var rowBelow = firstRowAndColumn.row - 1;
+            this.removeFieldFromAvailable(rowAbove, columnBefore);
+            this.removeFieldFromAvailable(firstRowAndColumn.row, columnBefore);
+            this.removeFieldFromAvailable(firstRowAndColumn.row, columnAfter);
+            this.removeFieldFromAvailable(rowBelow, columnBefore);
+            this.hitFields.forEach(function (field) {
+                var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+                var rowAbove = row + 1;
+                var rowBelow = row - 1;
+                _this.removeFieldFromAvailable(rowAbove, column);
+                _this.removeFieldFromAvailable(rowBelow, column);
+            });
+            this.removeFieldFromAvailable(lastRowAndColumn.row + 1, lastRowAndColumn.column - 1);
+            this.removeFieldFromAvailable(lastRowAndColumn.row + 1, lastRowAndColumn.column + 1);
+            this.removeFieldFromAvailable(lastRowAndColumn.row - 1, lastRowAndColumn.column - 1);
+            this.removeFieldFromAvailable(lastRowAndColumn.row - 1, lastRowAndColumn.column + 1);
         }
         this.hitFields.length = 0;
     };
-    SimpleComputerMoveStrategy.prototype.removeFieldsWhereThereIsNoShips = function (currentColumn) {
+    SimpleComputerMoveStrategy.prototype.removeFieldsWhereThereIsNoShips = function (currentRow, currentColumn) {
         if (this.moveDirection === MoveDirection_1.MoveDirection.Right) {
-            var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
-                var column = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field).column;
-                return column >= currentColumn;
-            });
-            this.fieldsToCheckAfterHit.splice(0, fieldsToRemove.length);
-            this.setMoveDirectionBasedOnNextFieldToHit(currentColumn);
+            this.removeFieldsOnRight(currentRow, currentColumn);
             return;
         }
         if (this.moveDirection === MoveDirection_1.MoveDirection.Left) {
-            var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
-                var column = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field).column;
-                return column <= currentColumn;
-            });
-            this.fieldsToCheckAfterHit.splice(0, fieldsToRemove.length);
+            this.removeFieldsOnLeft(currentRow, currentColumn);
+            return;
+        }
+        if (this.moveDirection === MoveDirection_1.MoveDirection.Bottom) {
+            this.removeFieldsOnBottom(currentRow, currentColumn);
+            return;
+        }
+        if (this.moveDirection === MoveDirection_1.MoveDirection.Top) {
+            this.removeFieldsOnTop(currentRow, currentColumn);
             return;
         }
     };
-    SimpleComputerMoveStrategy.prototype.setMoveDirectionBasedOnNextFieldToHit = function (currentColumn) {
-        var column = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]).column;
-        this.moveDirection = column > currentColumn ? MoveDirection_1.MoveDirection.Right : MoveDirection_1.MoveDirection.Left;
+    SimpleComputerMoveStrategy.prototype.removeFieldsOnLeft = function (currentRow, currentColumn) {
+        var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
+            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+            return row === currentRow && column <= currentColumn;
+        });
+        this.fieldsToCheckAfterHit.splice(0, fieldsToRemove.length);
+        this.setMoveDirectionBasedOnNextFieldToHit(currentRow, currentColumn);
+    };
+    SimpleComputerMoveStrategy.prototype.removeFieldsOnRight = function (currentRow, currentColumn) {
+        var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
+            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+            return row === currentRow && column >= currentColumn;
+        });
+        this.fieldsToCheckAfterHit.splice(0, fieldsToRemove.length);
+        this.setMoveDirectionBasedOnNextFieldToHit(currentRow, currentColumn);
+    };
+    SimpleComputerMoveStrategy.prototype.removeFieldsOnBottom = function (currentRow, currentColumn) {
+        var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
+            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+            return column === currentColumn && row >= currentRow;
+        });
+        var index = this.fieldsToCheckAfterHit.indexOf(fieldsToRemove[0]);
+        if (index !== -1)
+            this.fieldsToCheckAfterHit.splice(index, fieldsToRemove.length);
+        this.setMoveDirectionBasedOnNextFieldToHit(currentRow, currentColumn);
+    };
+    SimpleComputerMoveStrategy.prototype.removeFieldsOnTop = function (currentRow, currentColumn) {
+        var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
+            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+            return column === currentColumn && row <= currentRow;
+        });
+        var index = this.fieldsToCheckAfterHit.indexOf(fieldsToRemove[0]);
+        if (index !== -1)
+            this.fieldsToCheckAfterHit.splice(index, fieldsToRemove.length);
+        this.setMoveDirectionBasedOnNextFieldToHit(currentRow, currentColumn);
+    };
+    SimpleComputerMoveStrategy.prototype.setMoveDirectionBasedOnNextFieldToHit = function (currentRow, currentColumn) {
+        var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]), row = _a.row, column = _a.column;
+        if (row === -1 && column === -1) {
+            this.fieldsToCheckAfterHit.length = 0;
+            this.moveDirection = MoveDirection_1.MoveDirection.Right;
+            return;
+        }
+        if (currentRow === row)
+            this.moveDirection = column > currentColumn ? MoveDirection_1.MoveDirection.Right : MoveDirection_1.MoveDirection.Left;
+        else
+            this.moveDirection = row > currentRow ? MoveDirection_1.MoveDirection.Bottom : MoveDirection_1.MoveDirection.Top;
     };
     SimpleComputerMoveStrategy.prototype.setFieldsToCheckAfterHit = function (row, column) {
         this.hitsInARow = 1;
@@ -1060,6 +1151,18 @@ var SimpleComputerMoveStrategy = (function () {
             if (i >= 0 && this.availableFields[row].indexOf(row + "_" + i) !== -1)
                 this.fieldsToCheckAfterHit.push(row + "_" + i);
             if (this.availableFields[row].indexOf(row + "_" + i) === -1)
+                break;
+        }
+        for (var i = row + 1; i < row + longestShipToSink; i++) {
+            if (i < GameOptions_1.GameOptions.playgroundFieldsCount && this.availableFields[i].indexOf(i + "_" + column) !== -1)
+                this.fieldsToCheckAfterHit.push(i + "_" + column);
+            if (i < GameOptions_1.GameOptions.playgroundFieldsCount && this.availableFields[i].indexOf(i + "_" + column) === -1)
+                break;
+        }
+        for (var i = row - 1; i > row - longestShipToSink; i--) {
+            if (i >= 0 && this.availableFields[i].indexOf(i + "_" + column) !== -1)
+                this.fieldsToCheckAfterHit.push(i + "_" + column);
+            if (i >= 0 && this.availableFields[i].indexOf(i + "_" + column) === -1)
                 break;
         }
     };
@@ -1128,7 +1231,7 @@ var ComputerPlayground = (function (_super) {
     function ComputerPlayground() {
         var _this = _super.call(this) || this;
         _this.playgroundShips = [];
-        _this.showShipsOnPlayground = true;
+        _this.showShipsOnPlayground = false;
         _this.playgroundClassPrefix = "computer-playground";
         _this.randomizeShipsPosition = function () {
             _this.clearPlayground();
@@ -1186,11 +1289,17 @@ var Playground_1 = __webpack_require__(/*! ./Playground */ "./src/scripts/playgr
 var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var Ship_1 = __webpack_require__(/*! ../Ship */ "./src/scripts/Ship.ts");
 var ShipDirection_1 = __webpack_require__(/*! ../types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
+var FieldClassNames;
+(function (FieldClassNames) {
+    FieldClassNames["hit"] = "field-with-gradient";
+    FieldClassNames["missplaced"] = "field-with-error-gradient";
+})(FieldClassNames || (FieldClassNames = {}));
 var PlayerPlayground = (function (_super) {
     __extends(PlayerPlayground, _super);
     function PlayerPlayground() {
         var _this = _super.call(this) || this;
         _this.tempHighlightedFields = [];
+        _this.currentlySelectedField = "";
         _this.playgroundClassPrefix = "player-playground";
         _this.playgroundShips = [];
         _this.randomizeShipsPosition = function () {
@@ -1199,18 +1308,20 @@ var PlayerPlayground = (function (_super) {
             _this.hideShips();
             _this.showButtonPlay();
         };
-        _this.addListenersOnPlaygroundShips = function () {
-            _this.playgroundShips.forEach(function (ship) {
-                ship;
-            });
-        };
         _this.addListenerOnPlaygroundField = function (div) {
-            div.addEventListener("click", _this.fieldClick);
-            div.addEventListener("mouseenter", _this.fieldMouseOver);
+            if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+                div.addEventListener("click", _this.fieldClick);
+            }
+            else {
+                div.addEventListener("mouseenter", _this.fieldMouseOver);
+            }
         };
         _this.addShipToPlayground = function () {
             _this.shipsOnPlaygrundCount++;
             _this.showButtonPlay();
+        };
+        _this.onShipRotate = function () {
+            _this.highlightFields(_this.currentlySelectedField);
         };
         _this.showButtonPlay = function () {
             if (_this.arePlaygroundReady()) {
@@ -1220,8 +1331,9 @@ var PlayerPlayground = (function (_super) {
             }
         };
         _this.playgroundMouseOver = function () {
-            if (GameOptions_1.GameOptions.currentSelectedShip)
+            if (GameOptions_1.GameOptions.currentSelectedShip) {
                 GameOptions_1.GameOptions.currentSelectedShip.shipElement.style.opacity = "0";
+            }
         };
         _this.playgroundMouseLeave = function () {
             if (GameOptions_1.GameOptions.currentSelectedShip) {
@@ -1251,15 +1363,24 @@ var PlayerPlayground = (function (_super) {
             if (GameOptions_1.GameOptions.currentSelectedShip) {
                 (_a = GameOptions_1.GameOptions.currentSelectedShipAfterClick) === null || _a === void 0 ? void 0 : _a.shipElement.classList.remove("selected_ship");
                 GameOptions_1.GameOptions.currentSelectedShipAfterClick = null;
-                _this.setShipOnPlaygroundIfPossible(GameOptions_1.GameOptions.currentSelectedShip, row, column, GameOptions_1.GameOptions.currentSelectedShip.direction);
+                var wasSetted = _this.setShipOnPlaygroundIfPossible(GameOptions_1.GameOptions.currentSelectedShip, row, column, GameOptions_1.GameOptions.currentSelectedShip.direction);
+                if (GameOptions_1.GameOptions.currentSelectedShip) {
+                    if (wasSetted)
+                        GameOptions_1.GameOptions.currentSelectedShip.shipElement.style.display = "none";
+                    else
+                        GameOptions_1.GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+                }
+                _this.clearShipFields();
+                GameOptions_1.GameOptions.currentSelectedShip = null;
             }
+            GameOptions_1.GameOptions.currentSelectedShip;
         };
         _this.fieldTouchMove = function (e) {
             _this.playgroundDOM.removeEventListener("touchend", _this.playgroundTouchEnd, false);
             _this.playgroundDOM.addEventListener("touchend", _this.playgroundTouchEnd, false);
+            var selectedField;
             var x = e.touches[0].clientX;
             var y = e.touches[0].clientY;
-            var selectedField;
             var fields = _this.playgroundDOM.querySelectorAll(".playground-field");
             fields.forEach(function (field) {
                 var rect = field.getBoundingClientRect();
@@ -1273,8 +1394,9 @@ var PlayerPlayground = (function (_super) {
         };
         _this.highlightFields = function (fieldClassName) {
             var _a, _b;
+            _this.currentlySelectedField = fieldClassName;
             var shipSize = ((_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.size) || -1;
-            if (shipSize > 0) {
+            if (shipSize === 0) {
                 return;
             }
             var getRowAndColumnNumberFromClassName = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName;
@@ -1289,12 +1411,16 @@ var PlayerPlayground = (function (_super) {
         };
         _this.preparePlayerShips();
         _this.preparePlaygroundDOMStructure();
-        _this.addListenersOnPlaygroundShips();
         _this.addEventsOnPlayerPlayground();
         return _this;
     }
     PlayerPlayground.prototype.arePlaygroundReady = function () {
         return this.shipsOnPlaygrundCount === GameOptions_1.GameOptions.availableShips.length;
+    };
+    PlayerPlayground.prototype.rotateShip = function (e) {
+        var _a;
+        e.stopPropagation();
+        (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.rotateShip();
     };
     PlayerPlayground.prototype.getShipsDOMElements = function () {
         return this.playgroundShips.map(function (ship) { return ship.shipElement; });
@@ -1305,18 +1431,30 @@ var PlayerPlayground = (function (_super) {
     PlayerPlayground.prototype.preparePlayerShips = function () {
         var _this = this;
         GameOptions_1.GameOptions.availableShips.forEach(function (shipSize) {
-            var ship = new Ship_1.Ship(shipSize, _this.addShipToPlayground);
+            var ship = new Ship_1.Ship(shipSize, _this.addShipToPlayground, _this.onShipRotate);
             _this.playgroundShips.push(ship);
         });
     };
     PlayerPlayground.prototype.addEventsOnPlayerPlayground = function () {
-        this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
-        this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
-        this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
+        this.playgroundDOM.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
+        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
+        }
+        if (!PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
+            this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
+        }
     };
     PlayerPlayground.prototype.removeEventsFromPlayerPlayground = function () {
-        this.playgroundDOM.removeEventListener("mouseover", this.playgroundMouseOver);
-        this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
+        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            this.playgroundDOM.removeEventListener("touchmove", this.fieldTouchMove, false);
+        }
+        if (!PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            this.playgroundDOM.removeEventListener("mouseover", this.playgroundMouseOver);
+            this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
+        }
     };
     PlayerPlayground.prototype.setShipVerticallyOnPlayground = function (shipSize, row, column) {
         var doesVerticalSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedFieldsEmpty, doesVerticalSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedNearbyFieldsEmpty;
@@ -1324,14 +1462,14 @@ var PlayerPlayground = (function (_super) {
             var data = {
                 playground: this.playground,
                 currentCheckedColumn: column,
-                firstRow: row - 1,
+                firstRow: row,
                 lastRow: shipSize + row,
             };
             if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
                 this.highlightVerticalyCorrectShipFields(row, shipSize + row, column);
             }
             else
-                this.highlightVerticalyIncorrectShipFields(row, shipSize + row, column);
+                this.highlightVerticalIncorrectShipFields(row, shipSize + row, column);
         }
         else {
             var data = {
@@ -1344,7 +1482,7 @@ var PlayerPlayground = (function (_super) {
                 this.highlightVerticalyCorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, column);
             }
             else
-                this.highlightVerticalyIncorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, column);
+                this.highlightVerticalIncorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, column);
         }
     };
     PlayerPlayground.prototype.setShipHorizontalyOnPlayground = function (shipSize, row, column) {
@@ -1377,11 +1515,9 @@ var PlayerPlayground = (function (_super) {
     PlayerPlayground.prototype.highlightCorrectShipFields = function (firstIndex, lastIndex, currentRow) {
         var _a;
         for (var i = firstIndex; i < lastIndex; i++) {
-            var className = this.getPlaygroundFieldClassName(currentRow, i);
             this.playground[currentRow][i] = 1;
-            var element = document.querySelector(className);
-            if (element) {
-                element.classList.add("field-with-gradient");
+            if (this.highlightField(currentRow, i, FieldClassNames.hit)) {
+                var className = this.getPlaygroundFieldClassName(currentRow, i);
                 (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.addField(className);
             }
         }
@@ -1389,11 +1525,9 @@ var PlayerPlayground = (function (_super) {
     PlayerPlayground.prototype.highlightVerticalyCorrectShipFields = function (firstIndex, lastIndex, currentColumn) {
         var _a;
         for (var i = firstIndex; i < lastIndex; i++) {
-            var className = this.getPlaygroundFieldClassName(i, currentColumn);
             this.playground[i][currentColumn] = 1;
-            var element = document.querySelector(className);
-            if (element) {
-                element.classList.add("field-with-gradient");
+            if (this.highlightField(i, currentColumn, FieldClassNames.hit)) {
+                var className = this.getPlaygroundFieldClassName(i, currentColumn);
                 (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.addField(className);
             }
         }
@@ -1401,26 +1535,27 @@ var PlayerPlayground = (function (_super) {
     PlayerPlayground.prototype.highlightIncorrectShipFields = function (firstIndex, lastIndex, currentRow) {
         GameOptions_1.GameOptions.currentlySelectedField = null;
         for (var i = firstIndex; i < lastIndex; i++) {
-            if (this.playground[currentRow][i] !== 1) {
-                var className = this.getPlaygroundFieldClassName(currentRow, i);
-                var element = document.querySelector(className);
-                if (element) {
-                    this.tempHighlightedFields.push(currentRow + "_" + i);
-                    element.classList.add("field-with-error-gradient");
-                }
+            if (this.highlightField(currentRow, i, FieldClassNames.missplaced)) {
+                this.tempHighlightedFields.push(currentRow + "_" + i);
             }
         }
     };
-    PlayerPlayground.prototype.highlightVerticalyIncorrectShipFields = function (firstIndex, lastIndex, currentColumn) {
+    PlayerPlayground.prototype.highlightVerticalIncorrectShipFields = function (firstIndex, lastIndex, currentColumn) {
         GameOptions_1.GameOptions.currentlySelectedField = null;
         for (var i = firstIndex; i < lastIndex; i++) {
-            var className = this.getPlaygroundFieldClassName(i, currentColumn);
-            var element = document.querySelector(className);
-            if (element) {
+            if (this.highlightField(i, currentColumn, FieldClassNames.missplaced)) {
                 this.tempHighlightedFields.push(i + "_" + currentColumn);
-                element.classList.add("field-with-error-gradient");
             }
         }
+    };
+    PlayerPlayground.prototype.highlightField = function (row, column, className) {
+        var elementClass = this.getPlaygroundFieldClassName(row, column);
+        var element = document.querySelector(elementClass);
+        if (element) {
+            element.classList.add(className);
+            return true;
+        }
+        return false;
     };
     PlayerPlayground.prototype.clearShipFields = function () {
         var _this = this;
@@ -1469,10 +1604,20 @@ var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/Gam
 var PlayerPlaygroundUtils = (function () {
     function PlayerPlaygroundUtils() {
     }
+    PlayerPlaygroundUtils.getCurrentlySelectedShipFields = function () {
+        var _a;
+        return (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.shipOnPlayground.map(function (className) {
+            var _a = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className), row = _a.row, column = _a.column;
+            return row + "_" + column;
+        });
+    };
+    PlayerPlaygroundUtils.isMobile = function () {
+        return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    };
     PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName = function (className) {
         var defaultRowAndColumn = {
-            row: 0,
-            column: 0,
+            row: -1,
+            column: -1,
         };
         try {
             var regex = /[0-9]_[0-9]/g;
@@ -1491,81 +1636,73 @@ var PlayerPlaygroundUtils = (function () {
         }
     };
     PlayerPlaygroundUtils.doesSelectedFieldsEmpty = function (data) {
-        var _a;
         var playground = data.playground, currentCheckedRow = data.currentCheckedRow, firstColumn = data.firstColumn, lastColumn = data.lastColumn;
-        var fields = (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.shipOnPlayground.map(function (className) {
-            var _a = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className), row = _a.row, column = _a.column;
-            return row + "_" + column;
-        });
-        var row = playground[currentCheckedRow];
+        var doesFieldEmpty = PlayerPlaygroundUtils.doesFieldEmpty, getCurrentlySelectedShipFields = PlayerPlaygroundUtils.getCurrentlySelectedShipFields;
+        var fields = getCurrentlySelectedShipFields();
         for (var i = firstColumn; i <= lastColumn; i++) {
-            if (row[i] === 1 && !(fields === null || fields === void 0 ? void 0 : fields.includes(currentCheckedRow + "_" + i))) {
+            if (!doesFieldEmpty(playground, currentCheckedRow, i) && !(fields === null || fields === void 0 ? void 0 : fields.includes(currentCheckedRow + "_" + i)))
                 return false;
-            }
+        }
+        return true;
+    };
+    PlayerPlaygroundUtils.doesVerticalSelectedFieldsEmpty = function (data) {
+        var playground = data.playground, currentCheckedColumn = data.currentCheckedColumn, firstRow = data.firstRow, lastRow = data.lastRow;
+        var doesFieldEmpty = PlayerPlaygroundUtils.doesFieldEmpty, getCurrentlySelectedShipFields = PlayerPlaygroundUtils.getCurrentlySelectedShipFields;
+        var fields = getCurrentlySelectedShipFields();
+        for (var i = firstRow; i <= lastRow; i++) {
+            if (!doesFieldEmpty(playground, i, currentCheckedColumn) && !(fields === null || fields === void 0 ? void 0 : fields.includes(i + "_" + currentCheckedColumn)))
+                return false;
         }
         return true;
     };
     PlayerPlaygroundUtils.doesSelectedNearbyFieldsEmpty = function (data) {
         var playground = data.playground, currentCheckedRow = data.currentCheckedRow, firstColumn = data.firstColumn, lastColumn = data.lastColumn;
-        var row = playground[currentCheckedRow];
-        var rowAbove = playground[currentCheckedRow - 1];
-        var rowBelow = playground[currentCheckedRow + 1];
-        if (rowAbove) {
-            for (var i = firstColumn; i <= lastColumn; i++) {
-                if (rowAbove[i] === 1)
-                    return false;
-            }
-        }
-        if (rowBelow) {
-            for (var i = firstColumn; i <= lastColumn; i++) {
-                if (rowBelow[i] === 1)
-                    return false;
-            }
-        }
-        if (row && row[firstColumn - 1] && row[firstColumn - 1] === 1)
-            return false;
-        if (rowAbove && rowAbove[firstColumn - 1] && rowAbove[firstColumn - 1] === 1)
-            return false;
-        if (rowBelow && rowBelow[firstColumn - 1] && rowBelow[firstColumn - 1] === 1)
-            return false;
-        return true;
-    };
-    PlayerPlaygroundUtils.doesVerticalSelectedFieldsEmpty = function (data) {
-        var _a;
-        var playground = data.playground, currentCheckedColumn = data.currentCheckedColumn, firstRow = data.firstRow, lastRow = data.lastRow;
-        var fields = (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.shipOnPlayground.map(function (className) {
-            var _a = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className), row = _a.row, column = _a.column;
-            return row + "_" + column;
-        });
-        for (var i = firstRow; i <= lastRow; i++) {
-            var row = playground[i];
-            if (row && row[currentCheckedColumn] === 1 && !(fields === null || fields === void 0 ? void 0 : fields.includes(i + "_" + currentCheckedColumn))) {
+        var doesFieldEmpty = PlayerPlaygroundUtils.doesFieldEmpty;
+        for (var i = firstColumn; i <= lastColumn; i++) {
+            if (!doesFieldEmpty(playground, currentCheckedRow - 1, i))
                 return false;
-            }
         }
+        for (var i = firstColumn; i <= lastColumn; i++) {
+            if (!doesFieldEmpty(playground, currentCheckedRow + 1, i))
+                return false;
+        }
+        if (!doesFieldEmpty(playground, currentCheckedRow, firstColumn - 1))
+            return false;
+        if (!doesFieldEmpty(playground, currentCheckedRow + 1, firstColumn - 1))
+            return false;
+        if (!doesFieldEmpty(playground, currentCheckedRow - 1, firstColumn - 1))
+            return false;
         return true;
     };
     PlayerPlaygroundUtils.doesVerticalSelectedNearbyFieldsEmpty = function (data) {
         var playground = data.playground, currentCheckedColumn = data.currentCheckedColumn, firstRow = data.firstRow, lastRow = data.lastRow;
-        var leftColumn = currentCheckedColumn - 1;
-        var rightColumn = currentCheckedColumn + 1;
-        if (leftColumn >= 0) {
-            for (var i = firstRow; i <= lastRow; i++) {
-                if (i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount) {
-                    var row = playground[i];
-                    if (row && row[leftColumn] === 1)
-                        return false;
-                }
-            }
+        var doesFieldEmpty = PlayerPlaygroundUtils.doesFieldEmpty;
+        for (var i = firstRow; i <= lastRow; i++) {
+            if (!doesFieldEmpty(playground, i, currentCheckedColumn - 1))
+                return false;
         }
-        if (rightColumn < GameOptions_1.GameOptions.playgroundFieldsCount) {
-            for (var i = firstRow; i <= lastRow; i++) {
-                if (i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount) {
-                    var row = playground[i];
-                    if (row && row[rightColumn] === 1)
-                        return false;
-                }
-            }
+        for (var i = firstRow; i <= lastRow; i++) {
+            if (!doesFieldEmpty(playground, i, currentCheckedColumn + 1))
+                return false;
+        }
+        if (!doesFieldEmpty(playground, firstRow - 1, currentCheckedColumn))
+            return false;
+        if (!doesFieldEmpty(playground, lastRow - 1, currentCheckedColumn))
+            return false;
+        if (!doesFieldEmpty(playground, firstRow - 1, currentCheckedColumn - 1))
+            return false;
+        if (!doesFieldEmpty(playground, firstRow - 1, currentCheckedColumn + 1))
+            return false;
+        return true;
+    };
+    PlayerPlaygroundUtils.doesFieldEmpty = function (playground, row, column) {
+        var areRowCorrect = row >= 0 && row < GameOptions_1.GameOptions.playgroundFieldsCount;
+        var areColumnCorrect = column >= 0 && column < GameOptions_1.GameOptions.playgroundFieldsCount;
+        if (areRowCorrect && areColumnCorrect) {
+            if (playground[row][column])
+                return false;
+            else
+                return true;
         }
         return true;
     };
@@ -1648,7 +1785,10 @@ var Playground = (function () {
                     };
                     if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
                         _this.setVerticalyShipOnPlayground(row, ship.size + row, column, ship);
+                        return true;
                     }
+                    else
+                        return false;
                 }
                 else {
                     var data = {
@@ -1659,7 +1799,10 @@ var Playground = (function () {
                     };
                     if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
                         _this.setVerticalyShipOnPlayground(GameOptions_1.GameOptions.playgroundFieldsCount - ship.size, GameOptions_1.GameOptions.playgroundFieldsCount, column, ship);
+                        return true;
                     }
+                    else
+                        return false;
                 }
             }
             else {
@@ -1672,7 +1815,10 @@ var Playground = (function () {
                     };
                     if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
                         _this.setShipOnPlayground(column, ship.size + column, row, ship);
+                        return true;
                     }
+                    else
+                        return false;
                 }
                 else {
                     var data = {
@@ -1683,9 +1829,13 @@ var Playground = (function () {
                     };
                     if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
                         _this.setShipOnPlayground(GameOptions_1.GameOptions.playgroundFieldsCount - ship.size, GameOptions_1.GameOptions.playgroundFieldsCount, row, ship);
+                        return true;
                     }
+                    else
+                        return false;
                 }
             }
+            return false;
         };
         this.playgroundSizeInPx = playgroundSize ? playgroundSize : GameOptions_1.GameOptions.playgroundSize;
         this.fieldSizeInPx = playgroundSize
@@ -1859,6 +2009,7 @@ exports.PlaygroundScreen = void 0;
 var GameScreen_1 = __webpack_require__(/*! ../../interfaces/GameScreen */ "./src/interfaces/GameScreen.ts");
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var PlayerPlayground_1 = __webpack_require__(/*! ../playground/PlayerPlayground */ "./src/scripts/playground/PlayerPlayground.ts");
+var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var PlaygroundScreen = (function (_super) {
     __extends(PlaygroundScreen, _super);
     function PlaygroundScreen() {
@@ -1889,6 +2040,12 @@ var PlaygroundScreen = (function (_super) {
         section.appendChild(GameOptions_1.GameOptions.playerPlayground.playgroundDOM);
         section.appendChild(buttonPlay);
         section.appendChild(buttonRandomize);
+        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            var buttonRotate = document.createElement("button");
+            buttonRotate.setAttribute("class", "btn-rotate");
+            buttonRotate.innerText = "Rotate ship!";
+            section.appendChild(buttonRotate);
+        }
         GameOptions_1.GameOptions.changeScreenContent(section);
     };
     PlaygroundScreen.prototype.prepareScreenEvents = function () {
@@ -1896,11 +2053,21 @@ var PlaygroundScreen = (function (_super) {
         playButton === null || playButton === void 0 ? void 0 : playButton.addEventListener("click", this.startGame);
         var buttonRandomize = document.querySelector(".btn-randomize");
         buttonRandomize === null || buttonRandomize === void 0 ? void 0 : buttonRandomize.addEventListener("click", GameOptions_1.GameOptions.playerPlayground.randomizeShipsPosition);
+        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            var buttonRotate = document.querySelector(".btn-rotate");
+            buttonRotate === null || buttonRotate === void 0 ? void 0 : buttonRotate.addEventListener("click", GameOptions_1.GameOptions.playerPlayground.rotateShip);
+        }
     };
     PlaygroundScreen.prototype.unregisterScreenEvents = function () {
         GameOptions_1.GameOptions.playerPlayground.removeEventsFromPlayerPlayground();
         var playButton = document.querySelector(".btn-play");
         playButton === null || playButton === void 0 ? void 0 : playButton.removeEventListener("click", this.startGame);
+        var buttonRandomize = document.querySelector(".btn-randomize");
+        buttonRandomize === null || buttonRandomize === void 0 ? void 0 : buttonRandomize.removeEventListener("click", GameOptions_1.GameOptions.playerPlayground.randomizeShipsPosition);
+        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            var buttonRotate = document.querySelector(".btn-rotate");
+            buttonRotate === null || buttonRotate === void 0 ? void 0 : buttonRotate.removeEventListener("click", GameOptions_1.GameOptions.playerPlayground.rotateShip);
+        }
     };
     return PlaygroundScreen;
 }(GameScreen_1.GameScreen));
@@ -1988,8 +2155,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ShipDirection = void 0;
 var ShipDirection;
 (function (ShipDirection) {
-    ShipDirection[ShipDirection["vertical"] = 0] = "vertical";
-    ShipDirection[ShipDirection["horizontal"] = 1] = "horizontal";
+    ShipDirection["vertical"] = "vertical";
+    ShipDirection["horizontal"] = "horizontal";
 })(ShipDirection = exports.ShipDirection || (exports.ShipDirection = {}));
 
 

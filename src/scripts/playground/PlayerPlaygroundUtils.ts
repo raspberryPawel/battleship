@@ -1,12 +1,13 @@
 import { GameOptions } from "../GameOptions";
-import { DoesSelectedFieldsEmptyData, DoesVerticalSelectedFieldsEmptyData } from "../types/DoesSelectedFieldsEmptyData";
+import { DoesSelectedFieldsEmptyData } from "../types/DoesSelectedFieldsEmptyData";
+import { DoesVerticalSelectedFieldsEmptyData } from "../types/DoesVerticalSelectedFieldsEmptyData";
 import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
 
 export class PlayerPlaygroundUtils {
 	public static getRowAndColumnNumberFromClassName = (className: string): RowAndColumnIndex => {
 		const defaultRowAndColumn = {
-			row: 0,
-			column: 0,
+			row: -1,
+			column: -1,
 		};
 
 		try {
@@ -30,96 +31,89 @@ export class PlayerPlaygroundUtils {
 
 	public static doesSelectedFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
 		const { playground, currentCheckedRow, firstColumn, lastColumn } = data;
+		const { doesFieldEmpty, getCurrentlySelectedShipFields } = PlayerPlaygroundUtils;
 
-		const fields = GameOptions.currentSelectedShip?.shipOnPlayground.map((className: string) => {
-			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className);
-			return `${row}_${column}`;
-		});
-
-		const row = playground[currentCheckedRow];
+		const fields = getCurrentlySelectedShipFields();
 		for (let i = firstColumn; i <= lastColumn; i++) {
-			if (row[i] === 1 && !fields?.includes(`${currentCheckedRow}_${i}`)) {
+			if (!doesFieldEmpty(playground, currentCheckedRow, i) && !fields?.includes(`${currentCheckedRow}_${i}`))
 				return false;
-			}
 		}
-
-		return true;
-	};
-
-	public static doesSelectedNearbyFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
-		const { playground, currentCheckedRow, firstColumn, lastColumn } = data;
-
-		const row = playground[currentCheckedRow];
-		const rowAbove = playground[currentCheckedRow - 1];
-		const rowBelow = playground[currentCheckedRow + 1];
-
-		if (rowAbove) {
-			for (let i = firstColumn; i <= lastColumn; i++) {
-				if (rowAbove[i] === 1) return false;
-			}
-		}
-
-		if (rowBelow) {
-			for (let i = firstColumn; i <= lastColumn; i++) {
-				if (rowBelow[i] === 1) return false;
-			}
-		}
-
-		if (row && row[firstColumn - 1] && row[firstColumn - 1] === 1) return false;
-		if (rowAbove && rowAbove[firstColumn - 1] && rowAbove[firstColumn - 1] === 1) return false;
-		if (rowBelow && rowBelow[firstColumn - 1] && rowBelow[firstColumn - 1] === 1) return false;
 
 		return true;
 	};
 
 	public static doesVerticalSelectedFieldsEmpty = (data: DoesVerticalSelectedFieldsEmptyData): boolean => {
 		const { playground, currentCheckedColumn, firstRow, lastRow } = data;
+		const { doesFieldEmpty, getCurrentlySelectedShipFields } = PlayerPlaygroundUtils;
 
-		const fields = GameOptions.currentSelectedShip?.shipOnPlayground.map((className: string) => {
+		const fields = getCurrentlySelectedShipFields();
+		for (let i = firstRow; i <= lastRow; i++) {
+			if (!doesFieldEmpty(playground, i, currentCheckedColumn) && !fields?.includes(`${i}_${currentCheckedColumn}`))
+				return false;
+		}
+
+		return true;
+	};
+
+	protected static getCurrentlySelectedShipFields() {
+		return GameOptions.currentSelectedShip?.shipOnPlayground.map((className: string) => {
 			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className);
 			return `${row}_${column}`;
 		});
+	}
 
-		for (let i = firstRow; i <= lastRow; i++) {
-			const row = playground[i];
+	public static doesSelectedNearbyFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
+		const { playground, currentCheckedRow, firstColumn, lastColumn } = data;
+		const { doesFieldEmpty } = PlayerPlaygroundUtils;
 
-			if (row && row[currentCheckedColumn] === 1 && !fields?.includes(`${i}_${currentCheckedColumn}`)) {
-				return false;
-			}
+		for (let i = firstColumn; i <= lastColumn; i++) {
+			if (!doesFieldEmpty(playground, currentCheckedRow - 1, i)) return false;
 		}
+
+		for (let i = firstColumn; i <= lastColumn; i++) {
+			if (!doesFieldEmpty(playground, currentCheckedRow + 1, i)) return false;
+		}
+
+		if (!doesFieldEmpty(playground, currentCheckedRow, firstColumn - 1)) return false;
+		if (!doesFieldEmpty(playground, currentCheckedRow + 1, firstColumn - 1)) return false;
+		if (!doesFieldEmpty(playground, currentCheckedRow - 1, firstColumn - 1)) return false;
 
 		return true;
 	};
 
 	public static doesVerticalSelectedNearbyFieldsEmpty = (data: DoesVerticalSelectedFieldsEmptyData): boolean => {
 		const { playground, currentCheckedColumn, firstRow, lastRow } = data;
+		const { doesFieldEmpty } = PlayerPlaygroundUtils;
 
-		// const column = playground[currentCheckedColumn];
-		const leftColumn = currentCheckedColumn - 1;
-		const rightColumn = currentCheckedColumn + 1;
-
-		if (leftColumn >= 0) {
-			for (let i = firstRow; i <= lastRow; i++) {
-				if (i >= 0 && i < GameOptions.playgroundFieldsCount) {
-					const row = playground[i];
-					if (row && row[leftColumn] === 1) return false;
-				}
-			}
+		for (let i = firstRow; i <= lastRow; i++) {
+			if (!doesFieldEmpty(playground, i, currentCheckedColumn - 1)) return false;
 		}
 
-		if (rightColumn < GameOptions.playgroundFieldsCount) {
-			for (let i = firstRow; i <= lastRow; i++) {
-				if (i >= 0 && i < GameOptions.playgroundFieldsCount) {
-					const row = playground[i];
-					if (row && row[rightColumn] === 1) return false;
-				}
-			}
+		for (let i = firstRow; i <= lastRow; i++) {
+			if (!doesFieldEmpty(playground, i, currentCheckedColumn + 1)) return false;
 		}
 
-		// if (column && column[firstRow - 1] && column[firstRow - 1] === 1) return false;
-		// if (leftColumn && leftColumn[firstRow - 1] && leftColumn[firstRow - 1] === 1) return false;
-		// if (rightColumn && rightColumn[firstRow - 1] && rightColumn[firstRow - 1] === 1) return false;
+		if (!doesFieldEmpty(playground, firstRow - 1, currentCheckedColumn)) return false;
+		if (!doesFieldEmpty(playground, lastRow - 1, currentCheckedColumn)) return false;
+		if (!doesFieldEmpty(playground, firstRow - 1, currentCheckedColumn - 1)) return false;
+		if (!doesFieldEmpty(playground, firstRow - 1, currentCheckedColumn + 1)) return false;
 
 		return true;
 	};
+
+	protected static doesFieldEmpty = (playground: number[][], row: number, column: number) => {
+		const areRowCorrect = row >= 0 && row < GameOptions.playgroundFieldsCount;
+		const areColumnCorrect = column >= 0 && column < GameOptions.playgroundFieldsCount;
+
+		if (areRowCorrect && areColumnCorrect) {
+			if (playground[row][column]) return false;
+			else return true;
+		}
+
+		return true;
+	};
+
+	public static isMobile() {
+		return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+	}
 }

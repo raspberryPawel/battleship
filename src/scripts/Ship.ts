@@ -1,4 +1,5 @@
 import { GameOptions } from "./GameOptions";
+import { PlayerPlaygroundUtils } from "./playground/PlayerPlaygroundUtils";
 import { ShipDirection } from "./types/ShipDirection";
 
 export class Ship {
@@ -8,11 +9,13 @@ export class Ship {
 	private fieldsOnPlayground: string[] = [];
 	public readonly shipElement: HTMLElement = document.createElement("div");
 	protected addShipToPlayground: () => void = () => {};
+	protected onShipRotate: () => void = () => {};
 
-	constructor(shipSize: number, addShipToPlayground: () => void = () => {}) {
+	constructor(shipSize: number, addShipToPlayground: () => void = () => {}, onShipRotate?: () => void) {
 		this.shipSize = shipSize;
 		this.createShipDOMElement();
 		this.addShipToPlayground = addShipToPlayground;
+		if (onShipRotate) this.onShipRotate = onShipRotate;
 	}
 
 	public get size(): number {
@@ -57,21 +60,27 @@ export class Ship {
 			document.body.addEventListener("keydown", this.pressKey);
 		});
 
-		this.shipElement.addEventListener("click", (e) => {
-			e.stopPropagation();
-			document.body.addEventListener("click", this.unselectShip);
-			document.body.addEventListener("keydown", this.pressKey);
+		//dodać removeEventLisenrer
+		if (PlayerPlaygroundUtils.isMobile()) {
+			this.shipElement.addEventListener("click", (e: Event) => {
+				e.stopPropagation();
+				document.body.addEventListener("click", this.unselectShip);
 
-			GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
-			GameOptions.currentSelectedShip = this;
-			GameOptions.currentSelectedShipAfterClick = this;
+				GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
+				GameOptions.currentSelectedShip = this;
+				GameOptions.currentSelectedShipAfterClick = this;
 
-			this.shipElement.classList.add("selected_ship");
-		});
+				this.shipElement.classList.add("selected_ship");
+			});
+		}
 	}
 
-	public unselectShip = () => {
-		GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
+	public unselectShip = (e: Event) => {
+		if (GameOptions.currentSelectedShipAfterClick) {
+			GameOptions.currentSelectedShipAfterClick.shipElement.style.opacity = "1";
+			GameOptions.currentSelectedShipAfterClick.shipElement.classList.remove("selected_ship");
+		}
+
 		GameOptions.currentSelectedShip = null;
 		GameOptions.currentSelectedShipAfterClick = null;
 
@@ -85,12 +94,15 @@ export class Ship {
 	};
 
 	private pressKey = (e: KeyboardEvent): void => {
-		console.log(e);
 		if (e.key === "r") {
-			this.shipElement.style.flexDirection = "column";
-			this._direction = this._direction === ShipDirection.vertical ? ShipDirection.horizontal : ShipDirection.vertical;
+			this.rotateShip();
 		}
 	};
+
+	public rotateShip() {
+		this._direction = this._direction === ShipDirection.vertical ? ShipDirection.horizontal : ShipDirection.vertical;
+		this.onShipRotate();
+	}
 
 	private changeShipPosition = (x: number, y: number): void => {
 		if (this.shipElement) {

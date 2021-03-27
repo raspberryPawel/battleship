@@ -4,8 +4,14 @@ import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 import { Ship } from "../Ship";
 import { ShipDirection } from "../types/ShipDirection";
 
+enum FieldClassNames {
+	hit = "field-with-gradient",
+	missplaced = "field-with-error-gradient",
+}
+
 export class PlayerPlayground extends Playground {
 	protected tempHighlightedFields: string[] = [];
+	protected currentlySelectedField: string = "";
 	protected playgroundClassPrefix: string = "player-playground";
 
 	public playgroundShips: Ship[] = [];
@@ -15,12 +21,16 @@ export class PlayerPlayground extends Playground {
 
 		this.preparePlayerShips();
 		this.preparePlaygroundDOMStructure();
-		this.addListenersOnPlaygroundShips();
 		this.addEventsOnPlayerPlayground();
 	}
 
 	public arePlaygroundReady(): boolean {
 		return this.shipsOnPlaygrundCount === GameOptions.availableShips.length;
+	}
+
+	public rotateShip(e: Event): void {
+		e.stopPropagation();
+		GameOptions.currentSelectedShip?.rotateShip();
 	}
 
 	public randomizeShipsPosition = () => {
@@ -34,15 +44,12 @@ export class PlayerPlayground extends Playground {
 		return this.playgroundShips.map((ship) => ship.shipElement);
 	}
 
-	protected addListenersOnPlaygroundShips = () => {
-		this.playgroundShips.forEach((ship: Ship) => {
-			ship;
-		});
-	};
-
 	protected addListenerOnPlaygroundField = (div: HTMLElement) => {
-		div.addEventListener("click", this.fieldClick);
-		div.addEventListener("mouseenter", this.fieldMouseOver);
+		if (PlayerPlaygroundUtils.isMobile()) {
+			div.addEventListener("click", this.fieldClick);
+		} else {
+			div.addEventListener("mouseenter", this.fieldMouseOver);
+		}
 	};
 
 	protected hideShips() {
@@ -51,7 +58,7 @@ export class PlayerPlayground extends Playground {
 
 	private preparePlayerShips() {
 		GameOptions.availableShips.forEach((shipSize) => {
-			const ship = new Ship(shipSize, this.addShipToPlayground);
+			const ship = new Ship(shipSize, this.addShipToPlayground, this.onShipRotate);
 			this.playgroundShips.push(ship);
 		});
 	}
@@ -59,6 +66,10 @@ export class PlayerPlayground extends Playground {
 	protected addShipToPlayground = () => {
 		this.shipsOnPlaygrundCount++;
 		this.showButtonPlay();
+	};
+
+	protected onShipRotate = () => {
+		this.highlightFields(this.currentlySelectedField);
 	};
 
 	protected showButtonPlay = () => {
@@ -69,19 +80,35 @@ export class PlayerPlayground extends Playground {
 	};
 
 	protected addEventsOnPlayerPlayground() {
-		this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
-		this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
+		//doddać remove event listener
+		this.playgroundDOM.addEventListener("click", (e: Event) => {
+			e.stopPropagation();
+		});
+		if (PlayerPlaygroundUtils.isMobile()) {
+			this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
+		}
 
-		this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
+		if (!PlayerPlaygroundUtils.isMobile()) {
+			this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
+			this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
+		}
 	}
 
 	public removeEventsFromPlayerPlayground() {
-		this.playgroundDOM.removeEventListener("mouseover", this.playgroundMouseOver);
-		this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
+		if (PlayerPlaygroundUtils.isMobile()) {
+			this.playgroundDOM.removeEventListener("touchmove", this.fieldTouchMove, false);
+		}
+
+		if (!PlayerPlaygroundUtils.isMobile()) {
+			this.playgroundDOM.removeEventListener("mouseover", this.playgroundMouseOver);
+			this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
+		}
 	}
 
 	protected playgroundMouseOver = () => {
-		if (GameOptions.currentSelectedShip) GameOptions.currentSelectedShip.shipElement.style.opacity = "0";
+		if (GameOptions.currentSelectedShip) {
+			GameOptions.currentSelectedShip.shipElement.style.opacity = "0";
+		}
 	};
 
 	protected playgroundMouseLeave = () => {
@@ -118,23 +145,34 @@ export class PlayerPlayground extends Playground {
 		if (GameOptions.currentSelectedShip) {
 			GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
 			GameOptions.currentSelectedShipAfterClick = null;
-			this.setShipOnPlaygroundIfPossible(
+
+			const wasSetted = this.setShipOnPlaygroundIfPossible(
 				GameOptions.currentSelectedShip,
 				row,
 				column,
 				GameOptions.currentSelectedShip.direction
 			);
+
+			if (GameOptions.currentSelectedShip) {
+				if (wasSetted) GameOptions.currentSelectedShip.shipElement.style.display = "none";
+				else GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+			}
+			this.clearShipFields();
+			GameOptions.currentSelectedShip = null;
 		}
+
+		GameOptions.currentSelectedShip;
 	};
 
 	protected fieldTouchMove = (e: TouchEvent): void => {
 		this.playgroundDOM.removeEventListener("touchend", this.playgroundTouchEnd, false);
 		this.playgroundDOM.addEventListener("touchend", this.playgroundTouchEnd, false);
 
+		let selectedField;
 		const x = e.touches[0].clientX;
 		const y = e.touches[0].clientY;
-		let selectedField;
 		const fields = this.playgroundDOM.querySelectorAll(".playground-field") as NodeListOf<HTMLElement>;
+
 		fields.forEach((field: HTMLElement) => {
 			var rect = field.getBoundingClientRect();
 			if (x >= rect.left && x <= rect.right && y <= rect.bottom && y >= rect.top) selectedField = field;
@@ -147,9 +185,10 @@ export class PlayerPlayground extends Playground {
 	};
 
 	protected highlightFields = (fieldClassName: string): void => {
-
+		this.currentlySelectedField = fieldClassName;
 		const shipSize = GameOptions.currentSelectedShip?.size || -1;
-		if (shipSize > 0) {
+
+		if (shipSize === 0) {
 			return;
 		}
 
@@ -159,7 +198,7 @@ export class PlayerPlayground extends Playground {
 		const { row, column } = rowAndColumnIndex;
 
 		GameOptions.currentlySelectedField = rowAndColumnIndex;
-		
+
 		this.clearShipFields();
 
 		shipDirection === ShipDirection.vertical
@@ -174,13 +213,13 @@ export class PlayerPlayground extends Playground {
 			const data = {
 				playground: this.playground,
 				currentCheckedColumn: column,
-				firstRow: row - 1,
+				firstRow: row,
 				lastRow: shipSize + row,
 			};
 
 			if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
 				this.highlightVerticalyCorrectShipFields(row, shipSize + row, column);
-			} else this.highlightVerticalyIncorrectShipFields(row, shipSize + row, column);
+			} else this.highlightVerticalIncorrectShipFields(row, shipSize + row, column);
 		} else {
 			const data = {
 				playground: this.playground,
@@ -196,7 +235,7 @@ export class PlayerPlayground extends Playground {
 					column
 				);
 			} else
-				this.highlightVerticalyIncorrectShipFields(
+				this.highlightVerticalIncorrectShipFields(
 					GameOptions.playgroundFieldsCount - shipSize,
 					GameOptions.playgroundFieldsCount,
 					column
@@ -242,11 +281,10 @@ export class PlayerPlayground extends Playground {
 
 	protected highlightCorrectShipFields(firstIndex: number, lastIndex: number, currentRow: number): void {
 		for (let i = firstIndex; i < lastIndex; i++) {
-			const className = this.getPlaygroundFieldClassName(currentRow, i);
 			this.playground[currentRow][i] = 1;
-			const element: HTMLElement | null = document.querySelector(className);
-			if (element) {
-				element.classList.add("field-with-gradient");
+
+			if (this.highlightField(currentRow, i, FieldClassNames.hit)) {
+				const className = this.getPlaygroundFieldClassName(currentRow, i);
 				GameOptions.currentSelectedShip?.addField(className);
 			}
 		}
@@ -254,11 +292,10 @@ export class PlayerPlayground extends Playground {
 
 	protected highlightVerticalyCorrectShipFields(firstIndex: number, lastIndex: number, currentColumn: number): void {
 		for (let i = firstIndex; i < lastIndex; i++) {
-			const className = this.getPlaygroundFieldClassName(i, currentColumn);
 			this.playground[i][currentColumn] = 1;
-			const element: HTMLElement | null = document.querySelector(className);
-			if (element) {
-				element.classList.add("field-with-gradient");
+
+			if (this.highlightField(i, currentColumn, FieldClassNames.hit)) {
+				const className = this.getPlaygroundFieldClassName(i, currentColumn);
 				GameOptions.currentSelectedShip?.addField(className);
 			}
 		}
@@ -268,30 +305,32 @@ export class PlayerPlayground extends Playground {
 		GameOptions.currentlySelectedField = null;
 
 		for (let i = firstIndex; i < lastIndex; i++) {
-			if (this.playground[currentRow][i] !== 1) {
-				const className = this.getPlaygroundFieldClassName(currentRow, i);
-				const element: HTMLElement | null = document.querySelector(className);
-
-				if (element) {
-					this.tempHighlightedFields.push(`${currentRow}_${i}`);
-					element.classList.add("field-with-error-gradient");
-				}
+			if (this.highlightField(currentRow, i, FieldClassNames.missplaced)) {
+				this.tempHighlightedFields.push(`${currentRow}_${i}`);
 			}
 		}
 	}
 
-	protected highlightVerticalyIncorrectShipFields(firstIndex: number, lastIndex: number, currentColumn: number): void {
+	protected highlightVerticalIncorrectShipFields(firstIndex: number, lastIndex: number, currentColumn: number): void {
 		GameOptions.currentlySelectedField = null;
 
 		for (let i = firstIndex; i < lastIndex; i++) {
-			const className = this.getPlaygroundFieldClassName(i, currentColumn);
-			const element: HTMLElement | null = document.querySelector(className);
-
-			if (element) {
+			if (this.highlightField(i, currentColumn, FieldClassNames.missplaced)) {
 				this.tempHighlightedFields.push(`${i}_${currentColumn}`);
-				element.classList.add("field-with-error-gradient");
 			}
 		}
+	}
+
+	protected highlightField(row: number, column: number, className: FieldClassNames): boolean {
+		const elementClass = this.getPlaygroundFieldClassName(row, column);
+		const element: HTMLElement | null = document.querySelector(elementClass);
+
+		if (element) {
+			element.classList.add(className);
+			return true;
+		}
+
+		return false;
 	}
 
 	protected clearShipFields(): void {

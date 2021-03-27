@@ -1,4 +1,6 @@
 export enum MoveDirection {
-	Left,
-	Right,
+	Left = "Left",
+	Right = "Right",
+	Top = "Top",
+	Bottom = "Bottom",
 }

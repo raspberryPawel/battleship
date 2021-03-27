@@ -110,8 +110,13 @@ export abstract class Playground {
 		}
 	};
 
-	protected setShipOnPlaygroundIfPossible = (ship: Ship, row: number, column: number, shipDirection: ShipDirection) => {
-		// const shipDirection = GameOptions.currentSelectedShip?.direction
+	protected setShipOnPlaygroundIfPossible = (
+		ship: Ship,
+		row: number,
+		column: number,
+		shipDirection: ShipDirection
+	): boolean => {
+
 		const {
 			doesSelectedFieldsEmpty,
 			doesSelectedNearbyFieldsEmpty,
@@ -131,7 +136,8 @@ export abstract class Playground {
 
 				if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
 					this.setVerticalyShipOnPlayground(row, ship.size + row, column, ship);
-				}
+					return true;
+				} else return false;
 			} else {
 				const data = {
 					playground: this.playground,
@@ -147,7 +153,8 @@ export abstract class Playground {
 						column,
 						ship
 					);
-				}
+					return true;
+				} else return false;
 			}
 		} else {
 			if (ship.size + column <= GameOptions.playgroundFieldsCount) {
@@ -160,7 +167,8 @@ export abstract class Playground {
 
 				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
 					this.setShipOnPlayground(column, ship.size + column, row, ship);
-				}
+					return true;
+				} else return false;
 			} else {
 				const data = {
 					playground: this.playground,
@@ -176,9 +184,12 @@ export abstract class Playground {
 						row,
 						ship
 					);
-				}
+					return true;
+				} else return false;
 			}
 		}
+
+		return false;
 	};
 
 	protected setShipOnPlayground(firstIndex: number, lastIndex: number, currentRow: number, ship: Ship): void {

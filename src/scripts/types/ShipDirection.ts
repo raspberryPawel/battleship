@@ -1,4 +1,4 @@
 export enum ShipDirection {
-	vertical, //pion
-	horizontal, //poziom
+	vertical = "vertical", //pion
+	horizontal = "horizontal", //poziom
 }

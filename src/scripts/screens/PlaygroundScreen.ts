@@ -1,8 +1,7 @@
 import { GameScreen } from "../../interfaces/GameScreen";
-import { Game } from "../Game";
 import { GameOptions } from "../GameOptions";
-import { ComputerPlayground } from "../playground/ComputerPlayground";
 import { PlayerPlayground } from "../playground/PlayerPlayground";
+import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
 
 export class PlaygroundScreen extends GameScreen {
 	public prepareScreen(): void {
@@ -31,6 +30,13 @@ export class PlaygroundScreen extends GameScreen {
 		section.appendChild(buttonPlay);
 		section.appendChild(buttonRandomize);
 
+		if (PlayerPlaygroundUtils.isMobile()) {
+			const buttonRotate = document.createElement("button");
+			buttonRotate.setAttribute("class", "btn-rotate");
+			buttonRotate.innerText = "Rotate ship!";
+			section.appendChild(buttonRotate);
+		}
+
 		GameOptions.changeScreenContent(section);
 	}
 
@@ -40,6 +46,11 @@ export class PlaygroundScreen extends GameScreen {
 
 		const buttonRandomize = document.querySelector(".btn-randomize");
 		buttonRandomize?.addEventListener("click", GameOptions.playerPlayground.randomizeShipsPosition);
+
+		if (PlayerPlaygroundUtils.isMobile()) {
+			const buttonRotate = document.querySelector(".btn-rotate");
+			buttonRotate?.addEventListener("click", GameOptions.playerPlayground.rotateShip);
+		}
 	}
 
 	public startGame = (): void => {
@@ -53,5 +64,13 @@ export class PlaygroundScreen extends GameScreen {
 
 		const playButton = document.querySelector(".btn-play");
 		playButton?.removeEventListener("click", this.startGame);
+
+		const buttonRandomize = document.querySelector(".btn-randomize");
+		buttonRandomize?.removeEventListener("click", GameOptions.playerPlayground.randomizeShipsPosition);
+
+		if (PlayerPlaygroundUtils.isMobile()) {
+			const buttonRotate = document.querySelector(".btn-rotate");
+			buttonRotate?.removeEventListener("click", GameOptions.playerPlayground.rotateShip);
+		}
 	}
 }
