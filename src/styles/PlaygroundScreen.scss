@@ -1,6 +1,38 @@
 @import "./variables.scss";
 
 #playgroundScreen {
+	.playground-section {
+		display: flex;
+		flex-direction: row;
+
+		@include phone {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+
+	.playground-ships {
+		@include desktop {
+			width: auto !important;
+			min-width: 160px;
+		}
+
+		@include phone {
+			width: 90%;
+
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			margin-bottom: 20px;
+		}
+	}
+
+	.all-ships-setted{
+		@include desktop {
+			min-width: unset !important;
+		}
+	}
+
 	.playground-field {
 		margin: 0 0.5px;
 		border: 0.5px solid #fff;
@@ -19,6 +51,11 @@
 		justify-content: start;
 		align-items: center;
 		margin: 3px;
+
+		@include phone {
+			margin-right: 10px;
+			margin-top: 10px;
+		}
 	}
 
 	.ship_field {

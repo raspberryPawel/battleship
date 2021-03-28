@@ -1,14 +1,45 @@
 @import "./variables.scss";
 
 #playGameScreen {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	@include phone {
+		flex-direction: column;
+	}
+
+	@include desktop {
+		flex-direction: row;
+	}
+
 	.playground-field {
 		margin: 0 0.5px;
 		border: 0.5px solid #fff;
 	}
 
-	.player-playground {
-		// transform: scale(0.5);
+	.player-playground-container,
+	.computer-playground-container {
+		.playground {
+			margin-top: 10px;
+		}
+
+		strong {
+			font-family: "Roboto", sans-serif;
+			font-weight: 300;
+			font-size: 1rem;
+			color: #fff;
+		}
+	}
+
+	.player-playground-container {
 		margin-top: 20px;
+	}
+
+	.computer-playground-container {
+		@include desktop {
+			margin: 0 30px;
+		}
 	}
 
 	.playground-row {

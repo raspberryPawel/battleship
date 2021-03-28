@@ -3,6 +3,7 @@ import { Playground } from "./Playground";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 import { Ship } from "../Ship";
 import { ShipDirection } from "../types/ShipDirection";
+import { Events } from "../types/Events";
 
 enum FieldClassNames {
 	hit = "field-with-gradient",
@@ -24,20 +25,10 @@ export class PlayerPlayground extends Playground {
 		this.addEventsOnPlayerPlayground();
 	}
 
-	public arePlaygroundReady(): boolean {
-		return this.shipsOnPlaygrundCount === GameOptions.availableShips.length;
-	}
-
-	public rotateShip(e: Event): void {
-		e.stopPropagation();
-		GameOptions.currentSelectedShip?.rotateShip();
-	}
-
 	public randomizeShipsPosition = () => {
 		this.clearPlayground();
 		this.randomizeShipsPositions();
 		this.hideShips();
-		this.showButtonPlay();
 	};
 
 	public getShipsDOMElements(): HTMLElement[] {
@@ -58,25 +49,13 @@ export class PlayerPlayground extends Playground {
 
 	private preparePlayerShips() {
 		GameOptions.availableShips.forEach((shipSize) => {
-			const ship = new Ship(shipSize, this.addShipToPlayground, this.onShipRotate);
+			const ship = new Ship(shipSize);
 			this.playgroundShips.push(ship);
 		});
 	}
 
-	protected addShipToPlayground = () => {
-		this.shipsOnPlaygrundCount++;
-		this.showButtonPlay();
-	};
-
 	protected onShipRotate = () => {
 		this.highlightFields(this.currentlySelectedField);
-	};
-
-	protected showButtonPlay = () => {
-		if (this.arePlaygroundReady()) {
-			const playButton: HTMLElement | null = document.querySelector(".btn-play");
-			if (playButton) playButton.style.display = "block";
-		}
 	};
 
 	protected addEventsOnPlayerPlayground() {
@@ -84,6 +63,7 @@ export class PlayerPlayground extends Playground {
 		this.playgroundDOM.addEventListener("click", (e: Event) => {
 			e.stopPropagation();
 		});
+
 		if (PlayerPlaygroundUtils.isMobile()) {
 			this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
 		}
@@ -92,9 +72,13 @@ export class PlayerPlayground extends Playground {
 			this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
 			this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
 		}
+
+		document.body.addEventListener(Events.ROTATE_SHIP, this.onShipRotate);
 	}
 
 	public removeEventsFromPlayerPlayground() {
+		super.removeEventsFromPlayerPlayground();
+
 		if (PlayerPlaygroundUtils.isMobile()) {
 			this.playgroundDOM.removeEventListener("touchmove", this.fieldTouchMove, false);
 		}
@@ -103,6 +87,8 @@ export class PlayerPlayground extends Playground {
 			this.playgroundDOM.removeEventListener("mouseover", this.playgroundMouseOver);
 			this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
 		}
+
+		document.body.removeEventListener(Events.ROTATE_SHIP, this.onShipRotate);
 	}
 
 	protected playgroundMouseOver = () => {

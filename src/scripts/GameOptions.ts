@@ -3,6 +3,7 @@ import { ComputerPlayground } from "./playground/ComputerPlayground";
 import { PlayerPlayground } from "./playground/PlayerPlayground";
 import { RowAndColumnIndex } from "./types/RowAndColumnIndex";
 import { Ship } from "./Ship";
+import { Events } from "./types/Events";
 
 export class GameOptions {
 	public static playgroundFieldsCount: number = 10;
@@ -44,4 +45,12 @@ export class GameOptions {
 		this.clearMainDOMElement();
 		this.getMainDOMElement().append(newContent);
 	}
+
+	public static dispatchEvent = (event: string, data: any) => {
+		document.body.dispatchEvent(
+			new CustomEvent(event, {
+				detail: data,
+			})
+		);
+	};
 }

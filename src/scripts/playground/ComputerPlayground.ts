@@ -22,12 +22,8 @@ export class ComputerPlayground extends Playground {
 	protected addListenerOnPlaygroundField = (div: HTMLElement) => {};
 	private prepareComputerShips() {
 		GameOptions.availableShips.forEach((shipSize) => {
-			const ship = new Ship(shipSize, this.addShipToPlayground);
+			const ship = new Ship(shipSize);
 			this.playgroundShips.push(ship);
 		});
 	}
-
-	protected addShipToPlayground = () => {
-		this.shipsOnPlaygrundCount++;
-	};
 }

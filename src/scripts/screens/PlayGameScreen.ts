@@ -10,11 +10,28 @@ export class PlayGameScreen extends GameScreen {
 		const section = document.createElement("section");
 		section.setAttribute("id", "playGameScreen");
 
-		GameOptions.computerPlayground = new ComputerPlayground();
-		GameOptions.playerPlayground.changePlaygroundSize(GameOptions.playgroundSize / 2);
+		const computerPlaygroundText = document.createElement("strong");
+		computerPlaygroundText.innerText = "Computer playground: ";
 
-		section.appendChild(GameOptions.computerPlayground.playgroundDOM);
-		section.appendChild(GameOptions.playerPlayground.playgroundDOM);
+		const playerPlaygroundText = document.createElement("strong");
+		playerPlaygroundText.innerText = "Player playground: ";
+
+		GameOptions.computerPlayground = new ComputerPlayground();
+		GameOptions.playerPlayground.changePlaygroundSize((GameOptions.playgroundSize * 2) / 3);
+
+		const computerSection = document.createElement("section");
+		computerSection.classList.add("computer-playground-container");
+
+		const playerSection = document.createElement("section");
+		playerSection.classList.add("player-playground-container");
+
+		computerSection.appendChild(computerPlaygroundText);
+		computerSection.appendChild(GameOptions.computerPlayground.playgroundDOM);
+		playerSection.appendChild(playerPlaygroundText);
+		playerSection.appendChild(GameOptions.playerPlayground.playgroundDOM);
+
+		section.appendChild(computerSection);
+		section.appendChild(playerSection);
 
 		const game: Game = new Game(
 			GameOptions.playerPlayground.playground,

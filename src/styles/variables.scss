@@ -9,3 +9,18 @@
 	background: -webkit-linear-gradient(to top left, #061700, #52c234);
 	background: linear-gradient(to top left, #061700, #52c234);
 }
+
+$mobile-width: 600px;
+$desktop-width: 1024px;
+
+@mixin phone {
+	@media (max-width: #{$mobile-width}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: #{$mobile-width + 1}) {
+		@content;
+	}
+}

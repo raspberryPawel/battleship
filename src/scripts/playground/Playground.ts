@@ -1,5 +1,6 @@
 import { GameOptions } from "../GameOptions";
 import { Ship } from "../Ship";
+import { Events } from "../types/Events";
 import { ShipDirection } from "../types/ShipDirection";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 
@@ -21,7 +22,13 @@ export abstract class Playground {
 			: GameOptions.fieldSize;
 
 		this.preparePlayground();
+		//dodać removeEventListener
+		document.body.addEventListener(Events.SHIP_WAS_SETTED, this.shipsWasSetted);
 	}
+
+	protected shipsWasSetted = () => {
+		this.shipsOnPlaygrundCount++;
+	};
 
 	public changePlaygroundSize = (playgroundSizeInPx: number) => {
 		this.playgroundSizeInPx = playgroundSizeInPx ? playgroundSizeInPx : GameOptions.playgroundSize;
@@ -55,6 +62,10 @@ export abstract class Playground {
 			});
 		});
 	};
+
+	public removeEventsFromPlayerPlayground() {
+		document.body.removeEventListener(Events.SHIP_WAS_SETTED, this.shipsWasSetted);
+	}
 
 	protected preparePlayground() {
 		for (let i = 0; i < GameOptions.playgroundFieldsCount; i++) {
@@ -116,7 +127,6 @@ export abstract class Playground {
 		column: number,
 		shipDirection: ShipDirection
 	): boolean => {
-
 		const {
 			doesSelectedFieldsEmpty,
 			doesSelectedNearbyFieldsEmpty,

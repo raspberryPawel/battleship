@@ -1,5 +1,6 @@
 import { GameOptions } from "./GameOptions";
 import { PlayerPlaygroundUtils } from "./playground/PlayerPlaygroundUtils";
+import { Events } from "./types/Events";
 import { ShipDirection } from "./types/ShipDirection";
 
 export class Ship {
@@ -8,14 +9,12 @@ export class Ship {
 
 	private fieldsOnPlayground: string[] = [];
 	public readonly shipElement: HTMLElement = document.createElement("div");
-	protected addShipToPlayground: () => void = () => {};
-	protected onShipRotate: () => void = () => {};
+	// protected onShipRotate: () => void = () => {};
 
-	constructor(shipSize: number, addShipToPlayground: () => void = () => {}, onShipRotate?: () => void) {
+	constructor(shipSize: number) {
 		this.shipSize = shipSize;
 		this.createShipDOMElement();
-		this.addShipToPlayground = addShipToPlayground;
-		if (onShipRotate) this.onShipRotate = onShipRotate;
+		// if (onShipRotate) this.onShipRotate = onShipRotate;
 	}
 
 	public get size(): number {
@@ -24,6 +23,10 @@ export class Ship {
 
 	public get direction(): ShipDirection {
 		return this._direction;
+	}
+
+	public set direction(_direction: ShipDirection) {
+		this._direction = _direction;
 	}
 
 	public get shipOnPlayground(): string[] {
@@ -99,9 +102,26 @@ export class Ship {
 		}
 	};
 
+	public static rotateCurrentlySelectedShip(e: Event) {
+		e.stopPropagation();
+		
+		if (GameOptions.currentSelectedShip) {
+			const direction =
+				GameOptions.currentSelectedShip.direction === ShipDirection.vertical
+					? ShipDirection.horizontal
+					: ShipDirection.vertical;
+
+			GameOptions.currentSelectedShip.direction = direction;
+			GameOptions.dispatchEvent(Events.ROTATE_SHIP, {
+				shipSize: GameOptions.currentSelectedShip.size,
+				shipDirection: direction,
+			});
+		}
+	}
+
 	public rotateShip() {
 		this._direction = this._direction === ShipDirection.vertical ? ShipDirection.horizontal : ShipDirection.vertical;
-		this.onShipRotate();
+		GameOptions.dispatchEvent(Events.ROTATE_SHIP, { shipSize: this.size, shipDirection: this._direction });
 	}
 
 	private changeShipPosition = (x: number, y: number): void => {
@@ -127,7 +147,7 @@ export class Ship {
 
 			if (GameOptions.currentlySelectedField && this.shipOnPlayground.length > 0) {
 				this.hideShip();
-				this.addShipToPlayground();
+				GameOptions.dispatchEvent(Events.SHIP_WAS_SETTED, { shipSize: this.size, shipDirection: this._direction });
 			}
 
 			this.shipElement.style.opacity = "1";
