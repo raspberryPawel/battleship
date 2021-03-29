@@ -1,7 +1,9 @@
 import { MoveType } from "./consts/MoveType";
+import { PlayerType } from "./consts/PlayerType";
 import { GameOptions } from "./GameOptions";
 import { PlayerMoveStrategy } from "./moveStrategies/PlayerMoveStrategy";
 import { SimpleComputerMoveStrategy } from "./moveStrategies/SimpleComputerMoveStrategy";
+import { Events } from "./types/Events";
 import { PlaygroundType } from "./types/PlaygroundType";
 import { ResolveMove } from "./types/ResolveMove";
 
@@ -57,11 +59,11 @@ export class Game {
 	private nextMove() {
 		if (this.computerSunkFields === this.shipFieldsCount) {
 			this.gameInProgress = false;
-			alert("player won");
+			Events.dispatchEvent(Events.GAME_END, { win: PlayerType.player });
 		}
 		if (this.playerSunkFields === this.shipFieldsCount) {
 			this.gameInProgress = false;
-			alert("computer won");
+			Events.dispatchEvent(Events.GAME_END, { win: PlayerType.computer });
 		}
 
 		this.move = this.move === MoveType.computerMove ? MoveType.playerMove : MoveType.computerMove;

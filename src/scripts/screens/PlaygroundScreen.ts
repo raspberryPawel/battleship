@@ -92,7 +92,7 @@ export class PlaygroundScreen extends GameScreen {
 	public unregisterScreenEvents(): void {
 		GameOptions.playerPlayground.removeEventsFromPlayerPlayground();
 
-		document.body.removeEventListener(Events.ALL_SHIPS_WAS_SETTED, this.shipsWasSetted);
+		document.body.removeEventListener(Events.SHIP_WAS_SETTED, this.shipsWasSetted);
 
 		const playButton = document.querySelector(".btn-play");
 		playButton?.removeEventListener("click", this.startGame);

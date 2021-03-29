@@ -48,6 +48,7 @@ export class PlayerPlayground extends Playground {
 	}
 
 	private preparePlayerShips() {
+		console.log("siemaneczko => ", GameOptions.availableShips);
 		GameOptions.availableShips.forEach((shipSize) => {
 			const ship = new Ship(shipSize);
 			this.playgroundShips.push(ship);

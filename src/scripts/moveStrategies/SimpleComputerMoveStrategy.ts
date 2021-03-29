@@ -20,7 +20,7 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 	private checkIfFieldHasShip: (row: number, column: number) => boolean;
 
 	constructor() {
-		this.availableShips = GameOptions.availableShips.sort((shipA, shipB) => shipA - shipB);
+		this.availableShips = [...GameOptions.availableShips].sort((shipA, shipB) => shipA - shipB);
 
 		for (let i = 0; i < GameOptions.playgroundFieldsCount; i++) {
 			const row = [];

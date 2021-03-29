@@ -2,6 +2,621 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/canvas-confetti/dist/confetti.module.mjs":
+/*!***************************************************************!*\
+  !*** ./node_modules/canvas-confetti/dist/confetti.module.mjs ***!
+  \***************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "create": () => (/* binding */ create)
+/* harmony export */ });
+// canvas-confetti v1.4.0 built on 2021-03-10T12:32:33.488Z
+var module = {};
+
+// source content
+(function main(global, module, isWorker, workerSize) {
+  var canUseWorker = !!(
+    global.Worker &&
+    global.Blob &&
+    global.Promise &&
+    global.OffscreenCanvas &&
+    global.OffscreenCanvasRenderingContext2D &&
+    global.HTMLCanvasElement &&
+    global.HTMLCanvasElement.prototype.transferControlToOffscreen &&
+    global.URL &&
+    global.URL.createObjectURL);
+
+  function noop() {}
+
+  // create a promise if it exists, otherwise, just
+  // call the function directly
+  function promise(func) {
+    var ModulePromise = module.exports.Promise;
+    var Prom = ModulePromise !== void 0 ? ModulePromise : global.Promise;
+
+    if (typeof Prom === 'function') {
+      return new Prom(func);
+    }
+
+    func(noop, noop);
+
+    return null;
+  }
+
+  var raf = (function () {
+    var TIME = Math.floor(1000 / 60);
+    var frame, cancel;
+    var frames = {};
+    var lastFrameTime = 0;
+
+    if (typeof requestAnimationFrame === 'function' && typeof cancelAnimationFrame === 'function') {
+      frame = function (cb) {
+        var id = Math.random();
+
+        frames[id] = requestAnimationFrame(function onFrame(time) {
+          if (lastFrameTime === time || lastFrameTime + TIME - 1 < time) {
+            lastFrameTime = time;
+            delete frames[id];
+
+            cb();
+          } else {
+            frames[id] = requestAnimationFrame(onFrame);
+          }
+        });
+
+        return id;
+      };
+      cancel = function (id) {
+        if (frames[id]) {
+          cancelAnimationFrame(frames[id]);
+        }
+      };
+    } else {
+      frame = function (cb) {
+        return setTimeout(cb, TIME);
+      };
+      cancel = function (timer) {
+        return clearTimeout(timer);
+      };
+    }
+
+    return { frame: frame, cancel: cancel };
+  }());
+
+  var getWorker = (function () {
+    var worker;
+    var prom;
+    var resolves = {};
+
+    function decorate(worker) {
+      function execute(options, callback) {
+        worker.postMessage({ options: options || {}, callback: callback });
+      }
+      worker.init = function initWorker(canvas) {
+        var offscreen = canvas.transferControlToOffscreen();
+        worker.postMessage({ canvas: offscreen }, [offscreen]);
+      };
+
+      worker.fire = function fireWorker(options, size, done) {
+        if (prom) {
+          execute(options, null);
+          return prom;
+        }
+
+        var id = Math.random().toString(36).slice(2);
+
+        prom = promise(function (resolve) {
+          function workerDone(msg) {
+            if (msg.data.callback !== id) {
+              return;
+            }
+
+            delete resolves[id];
+            worker.removeEventListener('message', workerDone);
+
+            prom = null;
+            done();
+            resolve();
+          }
+
+          worker.addEventListener('message', workerDone);
+          execute(options, id);
+
+          resolves[id] = workerDone.bind(null, { data: { callback: id }});
+        });
+
+        return prom;
+      };
+
+      worker.reset = function resetWorker() {
+        worker.postMessage({ reset: true });
+
+        for (var id in resolves) {
+          resolves[id]();
+          delete resolves[id];
+        }
+      };
+    }
+
+    return function () {
+      if (worker) {
+        return worker;
+      }
+
+      if (!isWorker && canUseWorker) {
+        var code = [
+          'var CONFETTI, SIZE = {}, module = {};',
+          '(' + main.toString() + ')(this, module, true, SIZE);',
+          'onmessage = function(msg) {',
+          '  if (msg.data.options) {',
+          '    CONFETTI(msg.data.options).then(function () {',
+          '      if (msg.data.callback) {',
+          '        postMessage({ callback: msg.data.callback });',
+          '      }',
+          '    });',
+          '  } else if (msg.data.reset) {',
+          '    CONFETTI.reset();',
+          '  } else if (msg.data.resize) {',
+          '    SIZE.width = msg.data.resize.width;',
+          '    SIZE.height = msg.data.resize.height;',
+          '  } else if (msg.data.canvas) {',
+          '    SIZE.width = msg.data.canvas.width;',
+          '    SIZE.height = msg.data.canvas.height;',
+          '    CONFETTI = module.exports.create(msg.data.canvas);',
+          '  }',
+          '}',
+        ].join('\n');
+        try {
+          worker = new Worker(URL.createObjectURL(new Blob([code])));
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          typeof console !== undefined && typeof console.warn === 'function' ? console.warn('🎊 Could not load worker', e) : null;
+
+          return null;
+        }
+
+        decorate(worker);
+      }
+
+      return worker;
+    };
+  })();
+
+  var defaults = {
+    particleCount: 50,
+    angle: 90,
+    spread: 45,
+    startVelocity: 45,
+    decay: 0.9,
+    gravity: 1,
+    drift: 0,
+    ticks: 200,
+    x: 0.5,
+    y: 0.5,
+    shapes: ['square', 'circle'],
+    zIndex: 100,
+    colors: [
+      '#26ccff',
+      '#a25afd',
+      '#ff5e7e',
+      '#88ff5a',
+      '#fcff42',
+      '#ffa62d',
+      '#ff36ff'
+    ],
+    // probably should be true, but back-compat
+    disableForReducedMotion: false,
+    scalar: 1
+  };
+
+  function convert(val, transform) {
+    return transform ? transform(val) : val;
+  }
+
+  function isOk(val) {
+    return !(val === null || val === undefined);
+  }
+
+  function prop(options, name, transform) {
+    return convert(
+      options && isOk(options[name]) ? options[name] : defaults[name],
+      transform
+    );
+  }
+
+  function onlyPositiveInt(number){
+    return number < 0 ? 0 : Math.floor(number);
+  }
+
+  function randomInt(min, max) {
+    // [min, max)
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  function toDecimal(str) {
+    return parseInt(str, 16);
+  }
+
+  function colorsToRgb(colors) {
+    return colors.map(hexToRgb);
+  }
+
+  function hexToRgb(str) {
+    var val = String(str).replace(/[^0-9a-f]/gi, '');
+
+    if (val.length < 6) {
+        val = val[0]+val[0]+val[1]+val[1]+val[2]+val[2];
+    }
+
+    return {
+      r: toDecimal(val.substring(0,2)),
+      g: toDecimal(val.substring(2,4)),
+      b: toDecimal(val.substring(4,6))
+    };
+  }
+
+  function getOrigin(options) {
+    var origin = prop(options, 'origin', Object);
+    origin.x = prop(origin, 'x', Number);
+    origin.y = prop(origin, 'y', Number);
+
+    return origin;
+  }
+
+  function setCanvasWindowSize(canvas) {
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
+  }
+
+  function setCanvasRectSize(canvas) {
+    var rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+  }
+
+  function getCanvas(zIndex) {
+    var canvas = document.createElement('canvas');
+
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0px';
+    canvas.style.left = '0px';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = zIndex;
+
+    return canvas;
+  }
+
+  function ellipse(context, x, y, radiusX, radiusY, rotation, startAngle, endAngle, antiClockwise) {
+    context.save();
+    context.translate(x, y);
+    context.rotate(rotation);
+    context.scale(radiusX, radiusY);
+    context.arc(0, 0, 1, startAngle, endAngle, antiClockwise);
+    context.restore();
+  }
+
+  function randomPhysics(opts) {
+    var radAngle = opts.angle * (Math.PI / 180);
+    var radSpread = opts.spread * (Math.PI / 180);
+
+    return {
+      x: opts.x,
+      y: opts.y,
+      wobble: Math.random() * 10,
+      velocity: (opts.startVelocity * 0.5) + (Math.random() * opts.startVelocity),
+      angle2D: -radAngle + ((0.5 * radSpread) - (Math.random() * radSpread)),
+      tiltAngle: Math.random() * Math.PI,
+      color: opts.color,
+      shape: opts.shape,
+      tick: 0,
+      totalTicks: opts.ticks,
+      decay: opts.decay,
+      drift: opts.drift,
+      random: Math.random() + 5,
+      tiltSin: 0,
+      tiltCos: 0,
+      wobbleX: 0,
+      wobbleY: 0,
+      gravity: opts.gravity * 3,
+      ovalScalar: 0.6,
+      scalar: opts.scalar
+    };
+  }
+
+  function updateFetti(context, fetti) {
+    fetti.x += Math.cos(fetti.angle2D) * fetti.velocity + fetti.drift;
+    fetti.y += Math.sin(fetti.angle2D) * fetti.velocity + fetti.gravity;
+    fetti.wobble += 0.1;
+    fetti.velocity *= fetti.decay;
+    fetti.tiltAngle += 0.1;
+    fetti.tiltSin = Math.sin(fetti.tiltAngle);
+    fetti.tiltCos = Math.cos(fetti.tiltAngle);
+    fetti.random = Math.random() + 5;
+    fetti.wobbleX = fetti.x + ((10 * fetti.scalar) * Math.cos(fetti.wobble));
+    fetti.wobbleY = fetti.y + ((10 * fetti.scalar) * Math.sin(fetti.wobble));
+
+    var progress = (fetti.tick++) / fetti.totalTicks;
+
+    var x1 = fetti.x + (fetti.random * fetti.tiltCos);
+    var y1 = fetti.y + (fetti.random * fetti.tiltSin);
+    var x2 = fetti.wobbleX + (fetti.random * fetti.tiltCos);
+    var y2 = fetti.wobbleY + (fetti.random * fetti.tiltSin);
+
+    context.fillStyle = 'rgba(' + fetti.color.r + ', ' + fetti.color.g + ', ' + fetti.color.b + ', ' + (1 - progress) + ')';
+    context.beginPath();
+
+    if (fetti.shape === 'circle') {
+      context.ellipse ?
+        context.ellipse(fetti.x, fetti.y, Math.abs(x2 - x1) * fetti.ovalScalar, Math.abs(y2 - y1) * fetti.ovalScalar, Math.PI / 10 * fetti.wobble, 0, 2 * Math.PI) :
+        ellipse(context, fetti.x, fetti.y, Math.abs(x2 - x1) * fetti.ovalScalar, Math.abs(y2 - y1) * fetti.ovalScalar, Math.PI / 10 * fetti.wobble, 0, 2 * Math.PI);
+    } else {
+      context.moveTo(Math.floor(fetti.x), Math.floor(fetti.y));
+      context.lineTo(Math.floor(fetti.wobbleX), Math.floor(y1));
+      context.lineTo(Math.floor(x2), Math.floor(y2));
+      context.lineTo(Math.floor(x1), Math.floor(fetti.wobbleY));
+    }
+
+    context.closePath();
+    context.fill();
+
+    return fetti.tick < fetti.totalTicks;
+  }
+
+  function animate(canvas, fettis, resizer, size, done) {
+    var animatingFettis = fettis.slice();
+    var context = canvas.getContext('2d');
+    var animationFrame;
+    var destroy;
+
+    var prom = promise(function (resolve) {
+      function onDone() {
+        animationFrame = destroy = null;
+
+        context.clearRect(0, 0, size.width, size.height);
+
+        done();
+        resolve();
+      }
+
+      function update() {
+        if (isWorker && !(size.width === workerSize.width && size.height === workerSize.height)) {
+          size.width = canvas.width = workerSize.width;
+          size.height = canvas.height = workerSize.height;
+        }
+
+        if (!size.width && !size.height) {
+          resizer(canvas);
+          size.width = canvas.width;
+          size.height = canvas.height;
+        }
+
+        context.clearRect(0, 0, size.width, size.height);
+
+        animatingFettis = animatingFettis.filter(function (fetti) {
+          return updateFetti(context, fetti);
+        });
+
+        if (animatingFettis.length) {
+          animationFrame = raf.frame(update);
+        } else {
+          onDone();
+        }
+      }
+
+      animationFrame = raf.frame(update);
+      destroy = onDone;
+    });
+
+    return {
+      addFettis: function (fettis) {
+        animatingFettis = animatingFettis.concat(fettis);
+
+        return prom;
+      },
+      canvas: canvas,
+      promise: prom,
+      reset: function () {
+        if (animationFrame) {
+          raf.cancel(animationFrame);
+        }
+
+        if (destroy) {
+          destroy();
+        }
+      }
+    };
+  }
+
+  function confettiCannon(canvas, globalOpts) {
+    var isLibCanvas = !canvas;
+    var allowResize = !!prop(globalOpts || {}, 'resize');
+    var globalDisableForReducedMotion = prop(globalOpts, 'disableForReducedMotion', Boolean);
+    var shouldUseWorker = canUseWorker && !!prop(globalOpts || {}, 'useWorker');
+    var worker = shouldUseWorker ? getWorker() : null;
+    var resizer = isLibCanvas ? setCanvasWindowSize : setCanvasRectSize;
+    var initialized = (canvas && worker) ? !!canvas.__confetti_initialized : false;
+    var preferLessMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion)').matches;
+    var animationObj;
+
+    function fireLocal(options, size, done) {
+      var particleCount = prop(options, 'particleCount', onlyPositiveInt);
+      var angle = prop(options, 'angle', Number);
+      var spread = prop(options, 'spread', Number);
+      var startVelocity = prop(options, 'startVelocity', Number);
+      var decay = prop(options, 'decay', Number);
+      var gravity = prop(options, 'gravity', Number);
+      var drift = prop(options, 'drift', Number);
+      var colors = prop(options, 'colors', colorsToRgb);
+      var ticks = prop(options, 'ticks', Number);
+      var shapes = prop(options, 'shapes');
+      var scalar = prop(options, 'scalar');
+      var origin = getOrigin(options);
+
+      var temp = particleCount;
+      var fettis = [];
+
+      var startX = canvas.width * origin.x;
+      var startY = canvas.height * origin.y;
+
+      while (temp--) {
+        fettis.push(
+          randomPhysics({
+            x: startX,
+            y: startY,
+            angle: angle,
+            spread: spread,
+            startVelocity: startVelocity,
+            color: colors[temp % colors.length],
+            shape: shapes[randomInt(0, shapes.length)],
+            ticks: ticks,
+            decay: decay,
+            gravity: gravity,
+            drift: drift,
+            scalar: scalar
+          })
+        );
+      }
+
+      // if we have a previous canvas already animating,
+      // add to it
+      if (animationObj) {
+        return animationObj.addFettis(fettis);
+      }
+
+      animationObj = animate(canvas, fettis, resizer, size , done);
+
+      return animationObj.promise;
+    }
+
+    function fire(options) {
+      var disableForReducedMotion = globalDisableForReducedMotion || prop(options, 'disableForReducedMotion', Boolean);
+      var zIndex = prop(options, 'zIndex', Number);
+
+      if (disableForReducedMotion && preferLessMotion) {
+        return promise(function (resolve) {
+          resolve();
+        });
+      }
+
+      if (isLibCanvas && animationObj) {
+        // use existing canvas from in-progress animation
+        canvas = animationObj.canvas;
+      } else if (isLibCanvas && !canvas) {
+        // create and initialize a new canvas
+        canvas = getCanvas(zIndex);
+        document.body.appendChild(canvas);
+      }
+
+      if (allowResize && !initialized) {
+        // initialize the size of a user-supplied canvas
+        resizer(canvas);
+      }
+
+      var size = {
+        width: canvas.width,
+        height: canvas.height
+      };
+
+      if (worker && !initialized) {
+        worker.init(canvas);
+      }
+
+      initialized = true;
+
+      if (worker) {
+        canvas.__confetti_initialized = true;
+      }
+
+      function onResize() {
+        if (worker) {
+          // TODO this really shouldn't be immediate, because it is expensive
+          var obj = {
+            getBoundingClientRect: function () {
+              if (!isLibCanvas) {
+                return canvas.getBoundingClientRect();
+              }
+            }
+          };
+
+          resizer(obj);
+
+          worker.postMessage({
+            resize: {
+              width: obj.width,
+              height: obj.height
+            }
+          });
+          return;
+        }
+
+        // don't actually query the size here, since this
+        // can execute frequently and rapidly
+        size.width = size.height = null;
+      }
+
+      function done() {
+        animationObj = null;
+
+        if (allowResize) {
+          global.removeEventListener('resize', onResize);
+        }
+
+        if (isLibCanvas && canvas) {
+          document.body.removeChild(canvas);
+          canvas = null;
+          initialized = false;
+        }
+      }
+
+      if (allowResize) {
+        global.addEventListener('resize', onResize, false);
+      }
+
+      if (worker) {
+        return worker.fire(options, size, done);
+      }
+
+      return fireLocal(options, size, done);
+    }
+
+    fire.reset = function () {
+      if (worker) {
+        worker.reset();
+      }
+
+      if (animationObj) {
+        animationObj.reset();
+      }
+    };
+
+    return fire;
+  }
+
+  module.exports = confettiCannon(null, { useWorker: true, resize: true });
+  module.exports.create = confettiCannon;
+}((function () {
+  if (typeof window !== 'undefined') {
+    return window;
+  }
+
+  if (typeof self !== 'undefined') {
+    return self;
+  }
+
+  return this || {};
+})(), module, false));
+
+// end source content
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (module.exports);
+var create = module.exports.create;
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/index.scss":
 /*!************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/index.scss ***!
@@ -28,7 +643,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap);"]);
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(_images_ship_svg__WEBPACK_IMPORTED_MODULE_3__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n#startScreen {\n  width: 100vw;\n  height: 100vh;\n  max-height: 750px;\n  display: flex;\n  flex-direction: column;\n  padding: 20% 0;\n  justify-content: space-around;\n  align-items: center;\n}\n#startScreen .logoContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#startScreen .logoContainer strong {\n  width: 100%;\n  display: block;\n  text-transform: uppercase;\n  font-weight: 400;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n}\n#startScreen .logoContainer .logo {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  width: 200px;\n  height: 200px;\n  margin-top: 40px;\n  border-radius: 100px;\n  position: relative;\n}\n#startScreen .logoContainer .logo::before {\n  content: \"\";\n  position: absolute;\n  top: -15px;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n}\n#startScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#startScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n#playgroundScreen .playground-section {\n  display: flex;\n  flex-direction: row;\n}\n@media (max-width: 600px) {\n  #playgroundScreen .playground-section {\n    flex-direction: column;\n    align-items: center;\n  }\n}\n@media (min-width: 601px) {\n  #playgroundScreen .playground-ships {\n    width: auto !important;\n    min-width: 160px;\n  }\n}\n@media (max-width: 600px) {\n  #playgroundScreen .playground-ships {\n    width: 90%;\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n    margin-bottom: 20px;\n  }\n}\n@media (min-width: 601px) {\n  #playgroundScreen .all-ships-setted {\n    min-width: unset !important;\n  }\n}\n#playgroundScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playgroundScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playgroundScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n@media (max-width: 600px) {\n  #playgroundScreen .ship_container {\n    margin-right: 10px;\n    margin-top: 10px;\n  }\n}\n#playgroundScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1px;\n  cursor: pointer;\n}\n#playgroundScreen .selected_ship .ship_field {\n  background: #52c234;\n  background: -webkit-linear-gradient(to top left, #061700, #52c234);\n  background: linear-gradient(to top left, #061700, #52c234);\n}\n#playgroundScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playgroundScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playgroundScreen .btn-play {\n  display: none;\n}\n#playgroundScreen .btn-play,\n#playgroundScreen .btn-randomize,\n#playgroundScreen .btn-rotate {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.8rem;\n  color: #fff;\n  margin-top: 25px;\n  margin-right: 15px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playgroundScreen .btn-play:hover,\n#playgroundScreen .btn-randomize:hover,\n#playgroundScreen .btn-rotate:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n#playGameScreen {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n@media (max-width: 600px) {\n  #playGameScreen {\n    flex-direction: column;\n  }\n}\n@media (min-width: 601px) {\n  #playGameScreen {\n    flex-direction: row;\n  }\n}\n#playGameScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playGameScreen .player-playground-container .playground,\n#playGameScreen .computer-playground-container .playground {\n  margin-top: 10px;\n}\n#playGameScreen .player-playground-container strong,\n#playGameScreen .computer-playground-container strong {\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 300;\n  font-size: 1rem;\n  color: #fff;\n}\n#playGameScreen .player-playground-container {\n  margin-top: 20px;\n}\n@media (min-width: 601px) {\n  #playGameScreen .computer-playground-container {\n    margin: 0 30px;\n  }\n}\n#playGameScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playGameScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n#playGameScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1.5px;\n  cursor: pointer;\n}\n#playGameScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playGameScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playGameScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: none;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playGameScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n#playGameScreen .hit_field {\n  position: relative;\n}\n#playGameScreen .hit_field::after {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  content: \"✕\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  color: white;\n  font-family: \"Roboto\", sans-serif;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#playGameScreen .misplaced_field {\n  position: relative;\n}\n#playGameScreen .misplaced_field::after {\n  content: \"•\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  font-family: \"Roboto\", sans-serif;\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  background-color: #14142d;\n  background: #0f0c29;\n  background: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  background: linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  user-select: none;\n  font-family: \"Roboto\", sans-serif;\n}\nbody main {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  height: 100vh;\n  overflow-x: hidden;\n  overflow-y: auto;\n}", "",{"version":3,"sources":["webpack://./src/styles/index.scss","webpack://./src/styles/StartScreen.scss","webpack://./src/styles/variables.scss","webpack://./src/styles/PlaygroundScreen.scss","webpack://./src/styles/PlayGameScreen.scss"],"names":[],"mappings":"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","sourcesContent":["@import url(\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap\");\r\n@import \"./StartScreen.scss\";\r\n@import \"./PlaygroundScreen.scss\";\r\n@import \"./PlayGameScreen.scss\";\r\n\r\nbody {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbackground-color: #14142d;\r\n\tbackground: #0f0c29;\r\n\tbackground: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tbackground: linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tuser-select: none;\r\n\r\n\tfont-family: \"Roboto\", sans-serif;\r\n\r\n\tmain {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t\twidth: 100%;\r\n\t\theight: 100vh;\r\n\t\toverflow-x: hidden;\r\n\t\toverflow-y: auto;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#startScreen {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  max-height: 750px;\r\n\r\n  display: flex;\r\n  flex-direction: column;\r\n  padding: 20% 0;\r\n  justify-content: space-around;\r\n  align-items: center;\r\n\r\n  .logoContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n\r\n    strong {\r\n      width: 100%;\r\n      display: block;\r\n      text-transform: uppercase;\r\n      font-weight: 400;\r\n\r\n      color: white;\r\n      font-size: 30px;\r\n      text-align: center;\r\n    }\r\n\r\n    .logo {\r\n      @include main-gradient();\r\n\r\n      width: 200px;\r\n      height: 200px;\r\n      margin-top: 40px;\r\n      border-radius: 100px;\r\n      position: relative;\r\n\r\n      &::before {\r\n        content: \"\";\r\n        position: absolute;\r\n        top: -15px;\r\n        left: 0;\r\n\r\n        width: 100%;\r\n        height: 100%;\r\n\r\n        background-image: url(\"../images/ship.svg\");\r\n        background-size: cover;\r\n      }\r\n    }\r\n  }\r\n\r\n  .btn-play {\r\n    @include main-gradient();\r\n    \r\n    border: none;\r\n    outline: none;\r\n\r\n    text-transform: uppercase;\r\n    font-family: \"Roboto\", sans-serif;\r\n    font-weight: 500;\r\n    font-size: 0.85rem;\r\n    color: #fff;\r\n\r\n    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2),\r\n      0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n    padding: 0.7rem 1.5rem 0.5rem ;\r\n    \r\n    border-radius: 10rem;\r\n\r\n    cursor: pointer;\r\n    transition-duration: 0.3s;\r\n\r\n    &:hover {\r\n      transition-duration: 0.3s;\r\n      transform: scale(1.1);\r\n    }\r\n  }\r\n}\r\n","@mixin main-gradient() {\r\n\tbackground: #c31432;\r\n\tbackground: -webkit-linear-gradient(to top left, #240b36, #c31432);\r\n\tbackground: linear-gradient(to top left, #240b36, #c31432);\r\n}\r\n\r\n@mixin green-gradient() {\r\n\tbackground: #52c234;\r\n\tbackground: -webkit-linear-gradient(to top left, #061700, #52c234);\r\n\tbackground: linear-gradient(to top left, #061700, #52c234);\r\n}\r\n\r\n$mobile-width: 600px;\r\n$desktop-width: 1024px;\r\n\r\n@mixin phone {\r\n\t@media (max-width: #{$mobile-width}) {\r\n\t\t@content;\r\n\t}\r\n}\r\n\r\n@mixin desktop {\r\n\t@media (min-width: #{$mobile-width + 1}) {\r\n\t\t@content;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#playgroundScreen {\r\n\t.playground-section {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\r\n\t\t@include phone {\r\n\t\t\tflex-direction: column;\r\n\t\t\talign-items: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-ships {\r\n\t\t@include desktop {\r\n\t\t\twidth: auto !important;\r\n\t\t\tmin-width: 160px;\r\n\t\t}\r\n\r\n\t\t@include phone {\r\n\t\t\twidth: 90%;\r\n\r\n\t\t\tdisplay: flex;\r\n\t\t\tflex-direction: row;\r\n\t\t\tflex-wrap: wrap;\r\n\t\t\tmargin-bottom: 20px;\r\n\t\t}\r\n\t}\r\n\r\n\t.all-ships-setted{\r\n\t\t@include desktop {\r\n\t\t\tmin-width: unset !important;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\r\n\t\t@include phone {\r\n\t\t\tmargin-right: 10px;\r\n\t\t\tmargin-top: 10px;\r\n\t\t}\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.selected_ship {\r\n\t\t.ship_field {\r\n\t\t\t@include green-gradient();\r\n\t\t}\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\tdisplay: none;\r\n\t}\r\n\r\n\t.btn-play,\r\n\t.btn-randomize,\r\n\t.btn-rotate {\r\n\t\t@include main-gradient();\r\n\r\n\t\tborder: none;\r\n\t\toutline: none;\r\n\r\n\t\ttext-transform: uppercase;\r\n\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\tfont-weight: 500;\r\n\t\tfont-size: 0.8rem;\r\n\t\tcolor: #fff;\r\n\r\n\t\tmargin-top: 25px;\r\n\t\tmargin-right: 15px;\r\n\r\n\t\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\t\tborder-radius: 10rem;\r\n\r\n\t\tcursor: pointer;\r\n\t\ttransition-duration: 0.3s;\r\n\r\n\t\t&:hover {\r\n\t\t\ttransition-duration: 0.3s;\r\n\t\t\ttransform: scale(1.1);\r\n\t\t}\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#playGameScreen {\r\n\tdisplay: flex;\r\n\tflex-wrap: wrap;\r\n\tjustify-content: center;\r\n\r\n\t@include phone {\r\n\t\tflex-direction: column;\r\n\t}\r\n\r\n\t@include desktop {\r\n\t\tflex-direction: row;\r\n\t}\r\n\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.player-playground-container,\r\n\t.computer-playground-container {\r\n\t\t.playground {\r\n\t\t\tmargin-top: 10px;\r\n\t\t}\r\n\r\n\t\tstrong {\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tfont-weight: 300;\r\n\t\t\tfont-size: 1rem;\r\n\t\t\tcolor: #fff;\r\n\t\t}\r\n\t}\r\n\r\n\t.player-playground-container {\r\n\t\tmargin-top: 20px;\r\n\t}\r\n\r\n\t.computer-playground-container {\r\n\t\t@include desktop {\r\n\t\t\tmargin: 0 30px;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1.5px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\t@include main-gradient();\r\n\r\n\t\tborder: none;\r\n\t\toutline: none;\r\n\r\n\t\ttext-transform: uppercase;\r\n\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\tfont-weight: 500;\r\n\t\tfont-size: 0.85rem;\r\n\t\tcolor: #fff;\r\n\r\n\t\tdisplay: none;\r\n\t\tmargin-top: 25px;\r\n\r\n\t\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\t\tborder-radius: 10rem;\r\n\r\n\t\tcursor: pointer;\r\n\t\ttransition-duration: 0.3s;\r\n\r\n\t\t&:hover {\r\n\t\t\ttransition-duration: 0.3s;\r\n\t\t\ttransform: scale(1.1);\r\n\t\t}\r\n\t}\r\n\r\n\t.hit_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\t@include main-gradient();\r\n\t\t\tcontent: \"✕\";\r\n\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tcolor: white;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.misplaced_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\tcontent: \"•\";\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tcolor: white;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n#startScreen {\n  width: 100vw;\n  height: 100vh;\n  max-height: 750px;\n  display: flex;\n  flex-direction: column;\n  padding: 20% 0;\n  justify-content: space-around;\n  align-items: center;\n}\n#startScreen .logoContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#startScreen .logoContainer strong {\n  width: 100%;\n  display: block;\n  text-transform: uppercase;\n  font-weight: 400;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n}\n#startScreen .logoContainer .logo {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  width: 200px;\n  height: 200px;\n  margin-top: 40px;\n  border-radius: 100px;\n  position: relative;\n}\n#startScreen .logoContainer .logo::before {\n  content: \"\";\n  position: absolute;\n  top: -15px;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n}\n#startScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#startScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n#playgroundScreen .playground-section {\n  display: flex;\n  flex-direction: row;\n}\n@media (max-width: 600px) {\n  #playgroundScreen .playground-section {\n    flex-direction: column;\n    align-items: center;\n  }\n}\n@media (min-width: 601px) {\n  #playgroundScreen .playground-ships {\n    width: auto !important;\n    min-width: 160px;\n  }\n}\n@media (max-width: 600px) {\n  #playgroundScreen .playground-ships {\n    width: 90%;\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n    margin-bottom: 20px;\n  }\n}\n@media (min-width: 601px) {\n  #playgroundScreen .all-ships-setted {\n    min-width: unset !important;\n  }\n}\n#playgroundScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playgroundScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playgroundScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n@media (max-width: 600px) {\n  #playgroundScreen .ship_container {\n    margin-right: 10px;\n    margin-top: 10px;\n  }\n}\n#playgroundScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1px;\n  cursor: pointer;\n}\n#playgroundScreen .selected_ship .ship_field {\n  background: #52c234;\n  background: -webkit-linear-gradient(to top left, #061700, #52c234);\n  background: linear-gradient(to top left, #061700, #52c234);\n}\n#playgroundScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playgroundScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playgroundScreen .btn-play {\n  display: none;\n}\n#playgroundScreen .btn-play,\n#playgroundScreen .btn-randomize,\n#playgroundScreen .btn-rotate {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.8rem;\n  color: #fff;\n  margin-top: 25px;\n  margin-right: 15px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playgroundScreen .btn-play:hover,\n#playgroundScreen .btn-randomize:hover,\n#playgroundScreen .btn-rotate:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n.confettiCanvas {\n  width: 100vw;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n#playGameScreen {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n@media (max-width: 600px) {\n  #playGameScreen {\n    flex-direction: column;\n  }\n}\n@media (min-width: 601px) {\n  #playGameScreen {\n    flex-direction: row;\n  }\n}\n#playGameScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playGameScreen .player-playground-container .playground,\n#playGameScreen .computer-playground-container .playground {\n  margin-top: 10px;\n}\n#playGameScreen .player-playground-container strong,\n#playGameScreen .computer-playground-container strong {\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 300;\n  font-size: 1rem;\n  color: #fff;\n}\n#playGameScreen .player-playground-container {\n  margin-top: 20px;\n}\n@media (min-width: 601px) {\n  #playGameScreen .computer-playground-container {\n    margin: 0 30px;\n  }\n}\n#playGameScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playGameScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n#playGameScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1.5px;\n  cursor: pointer;\n}\n#playGameScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playGameScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playGameScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: none;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playGameScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n#playGameScreen .hit_field {\n  position: relative;\n}\n#playGameScreen .hit_field::after {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  content: \"✕\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  color: white;\n  font-family: \"Roboto\", sans-serif;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#playGameScreen .misplaced_field {\n  position: relative;\n}\n#playGameScreen .misplaced_field::after {\n  content: \"•\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  font-family: \"Roboto\", sans-serif;\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.modal-window {\n  position: fixed;\n  background-color: rgba(255, 255, 255, 0.1);\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 999;\n  visibility: hidden;\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.3s;\n}\n.modal-window:target {\n  visibility: visible;\n  opacity: 1;\n  pointer-events: auto;\n}\n.modal-window > div {\n  width: 80%;\n  max-width: 400px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  padding: 2em;\n  background: white;\n}\n.modal-window header {\n  font-weight: bold;\n}\n.modal-window h1 {\n  font-size: 150%;\n  margin: 0 0 15px;\n}\n\n.modal-close {\n  color: #aaa;\n  line-height: 50px;\n  font-size: 80%;\n  position: absolute;\n  right: 0;\n  text-align: center;\n  top: 0;\n  width: 70px;\n  text-decoration: none;\n}\n.modal-close:hover {\n  color: black;\n}\n\n.modal-window > div {\n  border-radius: 1rem;\n}\n\n.btn-play-again {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: flex;\n  float: right;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n.btn-play-again:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  background-color: #14142d;\n  background: #0f0c29;\n  background: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  background: linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  user-select: none;\n  font-family: \"Roboto\", sans-serif;\n}\nbody main {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  height: 100vh;\n  overflow-x: hidden;\n  overflow-y: auto;\n}", "",{"version":3,"sources":["webpack://./src/styles/index.scss","webpack://./src/styles/StartScreen.scss","webpack://./src/styles/variables.scss","webpack://./src/styles/PlaygroundScreen.scss","webpack://./src/styles/PlayGameScreen.scss","webpack://./src/styles/Modal.scss"],"names":[],"mappings":"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","sourcesContent":["@import url(\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap\");\r\n@import \"./StartScreen.scss\";\r\n@import \"./PlaygroundScreen.scss\";\r\n@import \"./PlayGameScreen.scss\";\r\n@import \"./Modal.scss\";\r\n\r\nbody {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbackground-color: #14142d;\r\n\tbackground: #0f0c29;\r\n\tbackground: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tbackground: linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tuser-select: none;\r\n\r\n\tfont-family: \"Roboto\", sans-serif;\r\n\r\n\tmain {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t\twidth: 100%;\r\n\t\theight: 100vh;\r\n\t\toverflow-x: hidden;\r\n\t\toverflow-y: auto;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#startScreen {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  max-height: 750px;\r\n\r\n  display: flex;\r\n  flex-direction: column;\r\n  padding: 20% 0;\r\n  justify-content: space-around;\r\n  align-items: center;\r\n\r\n  .logoContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n\r\n    strong {\r\n      width: 100%;\r\n      display: block;\r\n      text-transform: uppercase;\r\n      font-weight: 400;\r\n\r\n      color: white;\r\n      font-size: 30px;\r\n      text-align: center;\r\n    }\r\n\r\n    .logo {\r\n      @include main-gradient();\r\n\r\n      width: 200px;\r\n      height: 200px;\r\n      margin-top: 40px;\r\n      border-radius: 100px;\r\n      position: relative;\r\n\r\n      &::before {\r\n        content: \"\";\r\n        position: absolute;\r\n        top: -15px;\r\n        left: 0;\r\n\r\n        width: 100%;\r\n        height: 100%;\r\n\r\n        background-image: url(\"../images/ship.svg\");\r\n        background-size: cover;\r\n      }\r\n    }\r\n  }\r\n\r\n  .btn-play {\r\n    @include main-gradient();\r\n    \r\n    border: none;\r\n    outline: none;\r\n\r\n    text-transform: uppercase;\r\n    font-family: \"Roboto\", sans-serif;\r\n    font-weight: 500;\r\n    font-size: 0.85rem;\r\n    color: #fff;\r\n\r\n    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2),\r\n      0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n    padding: 0.7rem 1.5rem 0.5rem ;\r\n    \r\n    border-radius: 10rem;\r\n\r\n    cursor: pointer;\r\n    transition-duration: 0.3s;\r\n\r\n    &:hover {\r\n      transition-duration: 0.3s;\r\n      transform: scale(1.1);\r\n    }\r\n  }\r\n}\r\n","@mixin main-gradient() {\r\n\tbackground: #c31432;\r\n\tbackground: -webkit-linear-gradient(to top left, #240b36, #c31432);\r\n\tbackground: linear-gradient(to top left, #240b36, #c31432);\r\n}\r\n\r\n@mixin green-gradient() {\r\n\tbackground: #52c234;\r\n\tbackground: -webkit-linear-gradient(to top left, #061700, #52c234);\r\n\tbackground: linear-gradient(to top left, #061700, #52c234);\r\n}\r\n\r\n$mobile-width: 600px;\r\n$desktop-width: 1024px;\r\n\r\n@mixin phone {\r\n\t@media (max-width: #{$mobile-width}) {\r\n\t\t@content;\r\n\t}\r\n}\r\n\r\n@mixin desktop {\r\n\t@media (min-width: #{$mobile-width + 1}) {\r\n\t\t@content;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#playgroundScreen {\r\n\t.playground-section {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\r\n\t\t@include phone {\r\n\t\t\tflex-direction: column;\r\n\t\t\talign-items: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-ships {\r\n\t\t@include desktop {\r\n\t\t\twidth: auto !important;\r\n\t\t\tmin-width: 160px;\r\n\t\t}\r\n\r\n\t\t@include phone {\r\n\t\t\twidth: 90%;\r\n\r\n\t\t\tdisplay: flex;\r\n\t\t\tflex-direction: row;\r\n\t\t\tflex-wrap: wrap;\r\n\t\t\tmargin-bottom: 20px;\r\n\t\t}\r\n\t}\r\n\r\n\t.all-ships-setted{\r\n\t\t@include desktop {\r\n\t\t\tmin-width: unset !important;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\r\n\t\t@include phone {\r\n\t\t\tmargin-right: 10px;\r\n\t\t\tmargin-top: 10px;\r\n\t\t}\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.selected_ship {\r\n\t\t.ship_field {\r\n\t\t\t@include green-gradient();\r\n\t\t}\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\tdisplay: none;\r\n\t}\r\n\r\n\t.btn-play,\r\n\t.btn-randomize,\r\n\t.btn-rotate {\r\n\t\t@include main-gradient();\r\n\r\n\t\tborder: none;\r\n\t\toutline: none;\r\n\r\n\t\ttext-transform: uppercase;\r\n\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\tfont-weight: 500;\r\n\t\tfont-size: 0.8rem;\r\n\t\tcolor: #fff;\r\n\r\n\t\tmargin-top: 25px;\r\n\t\tmargin-right: 15px;\r\n\r\n\t\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\t\tborder-radius: 10rem;\r\n\r\n\t\tcursor: pointer;\r\n\t\ttransition-duration: 0.3s;\r\n\r\n\t\t&:hover {\r\n\t\t\ttransition-duration: 0.3s;\r\n\t\t\ttransform: scale(1.1);\r\n\t\t}\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n.confettiCanvas {\r\n\twidth: 100vw;\r\n\theight: 100vh;\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n}\r\n\r\n#playGameScreen {\r\n\tdisplay: flex;\r\n\tflex-wrap: wrap;\r\n\tjustify-content: center;\r\n\r\n\t@include phone {\r\n\t\tflex-direction: column;\r\n\t}\r\n\r\n\t@include desktop {\r\n\t\tflex-direction: row;\r\n\t}\r\n\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.player-playground-container,\r\n\t.computer-playground-container {\r\n\t\t.playground {\r\n\t\t\tmargin-top: 10px;\r\n\t\t}\r\n\r\n\t\tstrong {\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tfont-weight: 300;\r\n\t\t\tfont-size: 1rem;\r\n\t\t\tcolor: #fff;\r\n\t\t}\r\n\t}\r\n\r\n\t.player-playground-container {\r\n\t\tmargin-top: 20px;\r\n\t}\r\n\r\n\t.computer-playground-container {\r\n\t\t@include desktop {\r\n\t\t\tmargin: 0 30px;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1.5px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\t@include main-gradient();\r\n\r\n\t\tborder: none;\r\n\t\toutline: none;\r\n\r\n\t\ttext-transform: uppercase;\r\n\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\tfont-weight: 500;\r\n\t\tfont-size: 0.85rem;\r\n\t\tcolor: #fff;\r\n\r\n\t\tdisplay: none;\r\n\t\tmargin-top: 25px;\r\n\r\n\t\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\t\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\t\tborder-radius: 10rem;\r\n\r\n\t\tcursor: pointer;\r\n\t\ttransition-duration: 0.3s;\r\n\r\n\t\t&:hover {\r\n\t\t\ttransition-duration: 0.3s;\r\n\t\t\ttransform: scale(1.1);\r\n\t\t}\r\n\t}\r\n\r\n\t.hit_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\t@include main-gradient();\r\n\t\t\tcontent: \"✕\";\r\n\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tcolor: white;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.misplaced_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\tcontent: \"•\";\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tcolor: white;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n}\r\n",".modal-window {\r\n\tposition: fixed;\r\n\tbackground-color: rgba(255, 255, 255, 0.1);\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n\tleft: 0;\r\n\tz-index: 999;\r\n\tvisibility: hidden;\r\n\topacity: 0;\r\n\tpointer-events: none;\r\n\ttransition: all 0.3s;\r\n\r\n\t&:target {\r\n\t\tvisibility: visible;\r\n\t\topacity: 1;\r\n\t\tpointer-events: auto;\r\n\t}\r\n\t& > div {\r\n\t\twidth: 80%;\r\n\t\tmax-width: 400px;\r\n\t\tposition: absolute;\r\n\t\ttop: 50%;\r\n\t\tleft: 50%;\r\n\t\ttransform: translate(-50%, -50%);\r\n\t\tpadding: 2em;\r\n\t\tbackground: white;\r\n\t}\r\n\theader {\r\n\t\tfont-weight: bold;\r\n\t}\r\n\th1 {\r\n\t\tfont-size: 150%;\r\n\t\tmargin: 0 0 15px;\r\n\t}\r\n}\r\n\r\n.modal-close {\r\n\tcolor: #aaa;\r\n\tline-height: 50px;\r\n\tfont-size: 80%;\r\n\tposition: absolute;\r\n\tright: 0;\r\n\ttext-align: center;\r\n\ttop: 0;\r\n\twidth: 70px;\r\n\ttext-decoration: none;\r\n\t&:hover {\r\n\t\tcolor: black;\r\n\t}\r\n}\r\n\r\n.modal-window {\r\n\t& > div {\r\n\t\tborder-radius: 1rem;\r\n\t}\r\n}\r\n\r\n.btn-play-again {\r\n\t@include main-gradient();\r\n\r\n\tborder: none;\r\n\toutline: none;\r\n\r\n\ttext-transform: uppercase;\r\n\tfont-family: \"Roboto\", sans-serif;\r\n\tfont-weight: 500;\r\n\tfont-size: 0.85rem;\r\n\tcolor: #fff;\r\n\r\n\tdisplay: flex;\r\n\tfloat: right;\r\n\tmargin-top: 25px;\r\n\r\n\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\tborder-radius: 10rem;\r\n\r\n\tcursor: pointer;\r\n\ttransition-duration: 0.3s;\r\n\r\n\t&:hover {\r\n\t\ttransition-duration: 0.3s;\r\n\t\ttransform: scale(1.1);\r\n\t}\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -568,7 +1183,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Game = void 0;
 var MoveType_1 = __webpack_require__(/*! ./consts/MoveType */ "./src/scripts/consts/MoveType.ts");
+var PlayerType_1 = __webpack_require__(/*! ./consts/PlayerType */ "./src/scripts/consts/PlayerType.ts");
 var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
+var Events_1 = __webpack_require__(/*! ./types/Events */ "./src/scripts/types/Events.ts");
 var Game = (function () {
     function Game(playerPlayground, computerPlayground, playerMoveStrategy, computerMoveStrategy) {
         var _this = this;
@@ -627,11 +1244,11 @@ var Game = (function () {
     Game.prototype.nextMove = function () {
         if (this.computerSunkFields === this.shipFieldsCount) {
             this.gameInProgress = false;
-            alert("player won");
+            Events_1.Events.dispatchEvent(Events_1.Events.GAME_END, { win: PlayerType_1.PlayerType.player });
         }
         if (this.playerSunkFields === this.shipFieldsCount) {
             this.gameInProgress = false;
-            alert("computer won");
+            Events_1.Events.dispatchEvent(Events_1.Events.GAME_END, { win: PlayerType_1.PlayerType.computer });
         }
         this.move = this.move === MoveType_1.MoveType.computerMove ? MoveType_1.MoveType.playerMove : MoveType_1.MoveType.computerMove;
     };
@@ -867,6 +1484,24 @@ var MoveType;
 
 /***/ }),
 
+/***/ "./src/scripts/consts/PlayerType.ts":
+/*!******************************************!*\
+  !*** ./src/scripts/consts/PlayerType.ts ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PlayerType = void 0;
+var PlayerType;
+(function (PlayerType) {
+    PlayerType["player"] = "Player";
+    PlayerType["computer"] = "Computer";
+})(PlayerType = exports.PlayerType || (exports.PlayerType = {}));
+
+
+/***/ }),
+
 /***/ "./src/scripts/consts/ShipDirection.ts":
 /*!*********************************************!*\
   !*** ./src/scripts/consts/ShipDirection.ts ***!
@@ -961,9 +1596,14 @@ exports.PlayerMoveStrategy = PlayerMoveStrategy;
 /*!******************************************************************!*\
   !*** ./src/scripts/moveStrategies/SimpleComputerMoveStrategy.ts ***!
   \******************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SimpleComputerMoveStrategy = void 0;
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
@@ -980,7 +1620,7 @@ var SimpleComputerMoveStrategy = (function () {
         this.availableShips = [];
         this.availableFields = [];
         this.fieldsToCheckAfterHit = [];
-        this.availableShips = GameOptions_1.GameOptions.availableShips.sort(function (shipA, shipB) { return shipA - shipB; });
+        this.availableShips = __spreadArray([], GameOptions_1.GameOptions.availableShips).sort(function (shipA, shipB) { return shipA - shipB; });
         for (var i = 0; i < GameOptions_1.GameOptions.playgroundFieldsCount; i++) {
             var row = [];
             for (var j = 0; j < GameOptions_1.GameOptions.playgroundFieldsCount; j++) {
@@ -1450,6 +2090,7 @@ var PlayerPlayground = (function (_super) {
     };
     PlayerPlayground.prototype.preparePlayerShips = function () {
         var _this = this;
+        console.log("siemaneczko => ", GameOptions_1.GameOptions.availableShips);
         GameOptions_1.GameOptions.availableShips.forEach(function (shipSize) {
             var ship = new Ship_1.Ship(shipSize);
             _this.playgroundShips.push(ship);
@@ -1976,6 +2617,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PlayGameScreen = void 0;
 var GameScreen_1 = __webpack_require__(/*! ../../interfaces/GameScreen */ "./src/interfaces/GameScreen.ts");
@@ -1984,10 +2628,58 @@ var PlayerMoveStrategy_1 = __webpack_require__(/*! ../moveStrategies/PlayerMoveS
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var ComputerPlayground_1 = __webpack_require__(/*! ../playground/ComputerPlayground */ "./src/scripts/playground/ComputerPlayground.ts");
 var SimpleComputerMoveStrategy_1 = __webpack_require__(/*! ../moveStrategies/SimpleComputerMoveStrategy */ "./src/scripts/moveStrategies/SimpleComputerMoveStrategy.ts");
+var canvas_confetti_1 = __importDefault(__webpack_require__(/*! canvas-confetti */ "./node_modules/canvas-confetti/dist/confetti.module.mjs"));
+var Events_1 = __webpack_require__(/*! ../types/Events */ "./src/scripts/types/Events.ts");
+var PlayerType_1 = __webpack_require__(/*! ../consts/PlayerType */ "./src/scripts/consts/PlayerType.ts");
+var PlaygroundScreen_1 = __webpack_require__(/*! ./PlaygroundScreen */ "./src/scripts/screens/PlaygroundScreen.ts");
+var StartScreen_1 = __webpack_require__(/*! ./StartScreen */ "./src/scripts/screens/StartScreen.ts");
 var PlayGameScreen = (function (_super) {
     __extends(PlayGameScreen, _super);
     function PlayGameScreen() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.onGameEnd = function (e) {
+            var _a;
+            var event = e;
+            var whoWin = (_a = event === null || event === void 0 ? void 0 : event.detail) === null || _a === void 0 ? void 0 : _a.win;
+            var modalTitle = document.querySelector(".modal-title");
+            if (modalTitle)
+                modalTitle.innerText = whoWin === PlayerType_1.PlayerType.player ? "Congratulation you win 👏" : "Ups, you lose.. 😪";
+            var message = document.createElement("div");
+            var buttonPlayAgain = document.createElement("button");
+            buttonPlayAgain.setAttribute("class", "btn-play-again");
+            buttonPlayAgain.addEventListener("click", _this.playAgain);
+            buttonPlayAgain.innerText = "Play once more!";
+            var text = document.createElement("strong");
+            text.innerText = whoWin === PlayerType_1.PlayerType.player ? "🎉🎉🎉🎉🎉🎉🎉🎉" : "😥😥😥😥😥😥😥😥";
+            message.appendChild(text);
+            message.appendChild(buttonPlayAgain);
+            var modalMessage = document.querySelector(".modal-message");
+            if (modalMessage) {
+                modalMessage.innerHTML = "";
+                modalMessage.appendChild(message);
+            }
+            window.location.hash = "open-modal";
+            var confettiCanvas = document.createElement("canvas");
+            confettiCanvas.classList.add("confettiCanvas");
+            document.body.appendChild(confettiCanvas);
+            var myConfetti = canvas_confetti_1.default.create(confettiCanvas, {
+                resize: true,
+                useWorker: true,
+            });
+            myConfetti({
+                particleCount: 150,
+                spread: 160,
+            });
+        };
+        _this.playAgain = function () {
+            var playGameScreen = new PlayGameScreen(null);
+            var playgroundScreen = new PlaygroundScreen_1.PlaygroundScreen(playGameScreen);
+            var startScreen = new StartScreen_1.StartScreen(playgroundScreen);
+            _this.unregisterScreenEvents();
+            window.location.hash = "";
+            GameOptions_1.GameOptions.changeScreen(startScreen);
+        };
+        return _this;
     }
     PlayGameScreen.prototype.prepareScreen = function () {
         var section = document.createElement("section");
@@ -2012,8 +2704,18 @@ var PlayGameScreen = (function (_super) {
         GameOptions_1.GameOptions.changeScreenContent(section);
         game.startGame();
     };
-    PlayGameScreen.prototype.prepareScreenEvents = function () { };
-    PlayGameScreen.prototype.unregisterScreenEvents = function () { };
+    PlayGameScreen.prototype.prepareScreenEvents = function () {
+        document.body.addEventListener(Events_1.Events.GAME_END, this.onGameEnd);
+    };
+    PlayGameScreen.prototype.unregisterScreenEvents = function () {
+        document.body.removeEventListener(Events_1.Events.GAME_END, this.onGameEnd);
+        var confettiCanvas = document.querySelector(".confettiCanvas");
+        if (confettiCanvas)
+            confettiCanvas.remove();
+        var buttonPlayAgain = document.querySelector(".btn-play-again");
+        if (buttonPlayAgain)
+            buttonPlayAgain.removeEventListener("click", this.playAgain);
+    };
     return PlayGameScreen;
 }(GameScreen_1.GameScreen));
 exports.PlayGameScreen = PlayGameScreen;
@@ -2122,7 +2824,7 @@ var PlaygroundScreen = (function (_super) {
     };
     PlaygroundScreen.prototype.unregisterScreenEvents = function () {
         GameOptions_1.GameOptions.playerPlayground.removeEventsFromPlayerPlayground();
-        document.body.removeEventListener(Events_1.Events.ALL_SHIPS_WAS_SETTED, this.shipsWasSetted);
+        document.body.removeEventListener(Events_1.Events.SHIP_WAS_SETTED, this.shipsWasSetted);
         var playButton = document.querySelector(".btn-play");
         playButton === null || playButton === void 0 ? void 0 : playButton.removeEventListener("click", this.startGame);
         var buttonRandomize = document.querySelector(".btn-randomize");
@@ -2219,11 +2921,11 @@ exports.Events = void 0;
 var Events = (function () {
     function Events() {
     }
-    Events.ALL_SHIPS_WAS_SETTED = "allShipsWasSetted";
     Events.SHIP_WAS_SETTED = "shipWasSetted";
     Events.ROTATE_SHIP = "rotateShip";
-    Events.dispatchEvent = function (event) {
-        document.body.dispatchEvent(new CustomEvent(event));
+    Events.GAME_END = "gameEnd";
+    Events.dispatchEvent = function (event, data) {
+        document.body.dispatchEvent(new CustomEvent(event, { detail: data }));
     };
     return Events;
 }());

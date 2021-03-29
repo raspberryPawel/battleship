@@ -1,5 +1,13 @@
 @import "./variables.scss";
 
+.confettiCanvas {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
 #playGameScreen {
 	display: flex;
 	flex-wrap: wrap;
