@@ -1,16 +1,13 @@
+import { MoveType } from "./consts/MoveType";
 import { GameOptions } from "./GameOptions";
 import { PlayerMoveStrategy } from "./moveStrategies/PlayerMoveStrategy";
 import { SimpleComputerMoveStrategy } from "./moveStrategies/SimpleComputerMoveStrategy";
+import { PlaygroundType } from "./types/PlaygroundType";
 import { ResolveMove } from "./types/ResolveMove";
 
-enum MoveType {
-	computerMove,
-	playerMove,
-}
-
 export class Game {
-	private playerPlayground: number[][];
-	private computerPlayground: number[][];
+	private playerPlayground: PlaygroundType;
+	private computerPlayground: PlaygroundType;
 
 	private playerMoveStrategy: PlayerMoveStrategy;
 	private computerMoveStrategy: SimpleComputerMoveStrategy;
@@ -26,8 +23,8 @@ export class Game {
 	private resolveMove: ResolveMove = () => {};
 
 	constructor(
-		playerPlayground: number[][],
-		computerPlayground: number[][],
+		playerPlayground: PlaygroundType,
+		computerPlayground: PlaygroundType,
 		playerMoveStrategy: PlayerMoveStrategy,
 		computerMoveStrategy: SimpleComputerMoveStrategy
 	) {

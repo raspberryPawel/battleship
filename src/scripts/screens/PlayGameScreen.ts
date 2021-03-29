@@ -44,17 +44,6 @@ export class PlayGameScreen extends GameScreen {
 		game.startGame();
 	}
 
-	public prepareScreenEvents(): void {
-		// const playButton = document.querySelector(".btn-play");
-		// playButton?.addEventListener("click", this.startGame);
-	}
-
-	public startGame(): void {
-		// Game.changeScreen(this.nextScreen);
-	}
-
-	public unregisterScreenEvents(): void {
-		// const playButton = document.querySelector(".btn-play");
-		// playButton?.removeEventListener("click", this.startGame);
-	}
+	public prepareScreenEvents(): void {}
+	public unregisterScreenEvents(): void {}
 }

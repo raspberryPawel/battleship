@@ -1,12 +1,13 @@
 import { GameOptions } from "../GameOptions";
 import { Ship } from "../Ship";
 import { Events } from "../types/Events";
-import { ShipDirection } from "../types/ShipDirection";
+import { ShipDirection } from "../consts/ShipDirection";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
+import { PlaygroundType } from "../types/PlaygroundType";
 
 export abstract class Playground {
 	public playgroundDOM: HTMLElement = document.createElement("div");
-	public playground: number[][] = [];
+	public playground: PlaygroundType = [];
 	public playgroundShips: Ship[] = [];
 
 	protected playgroundSizeInPx: number;
@@ -208,7 +209,7 @@ export abstract class Playground {
 			ship.addField(`${currentRow}_${i}`);
 
 			if (this.showShipsOnPlayground) {
-				const field: HTMLElement | null = this.playgroundDOM.querySelector(
+				const field: HTMLElement = this.playgroundDOM.querySelector(
 					this.getPlaygroundFieldClassName(currentRow, i)
 				);
 
@@ -232,7 +233,7 @@ export abstract class Playground {
 			ship.addField(`${i}_${currentColumn}`);
 
 			if (this.showShipsOnPlayground) {
-				const field: HTMLElement | null = this.playgroundDOM.querySelector(
+				const field: HTMLElement = this.playgroundDOM.querySelector(
 					this.getPlaygroundFieldClassName(i, currentColumn)
 				);
 
@@ -250,7 +251,7 @@ export abstract class Playground {
 			row.forEach((field, fieldIndex) => {
 				field = 0;
 				this.playground[rowIndex][fieldIndex] = 0;
-				const div: HTMLElement | null = this.playgroundDOM.querySelector(
+				const div: HTMLElement = this.playgroundDOM.querySelector(
 					this.getPlaygroundFieldClassName(rowIndex, fieldIndex)
 				);
 				if (div) {

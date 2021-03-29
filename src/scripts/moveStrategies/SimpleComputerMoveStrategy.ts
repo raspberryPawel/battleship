@@ -4,23 +4,20 @@ import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
 import { MoveStrategy } from "../types/MoveStrategy";
 import { ResolveMove } from "../types/ResolveMove";
 import { MoveDirection } from "./MoveDirection";
-import { ShipDirection } from "../types/ShipDirection";
+import { ShipDirection } from "../consts/ShipDirection";
 
 export class SimpleComputerMoveStrategy implements MoveStrategy {
+	private hitFields: string[] = [];
+	private hitsInARow: number = 0;
+	private shipDirection: ShipDirection = ShipDirection.horizontal;
+	private moveDirection: MoveDirection = MoveDirection.Right;
+	private firstHitField: RowAndColumnIndex = null;
 	private availableShips: number[] = [];
 	private availableFields: string[][] = [];
-
-	private hitFields: string[] = [];
 	private fieldsToCheckAfterHit: string[] = [];
 
-	private hitsInARow: number = 0;
-	private firstHitField: RowAndColumnIndex | null = null;
-	private moveDirection: MoveDirection = MoveDirection.Right;
-
-	private shipDirection: ShipDirection = ShipDirection.horizontal;
-
-	private checkIfFieldHasShip: (row: number, column: number) => boolean = (row: number, column: number) => false;
-	private resolveMove: ResolveMove = () => {};
+	private resolveMove: ResolveMove;
+	private checkIfFieldHasShip: (row: number, column: number) => boolean;
 
 	constructor() {
 		this.availableShips = GameOptions.availableShips.sort((shipA, shipB) => shipA - shipB);

@@ -567,27 +567,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Game = void 0;
+var MoveType_1 = __webpack_require__(/*! ./consts/MoveType */ "./src/scripts/consts/MoveType.ts");
 var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
-var MoveType;
-(function (MoveType) {
-    MoveType[MoveType["computerMove"] = 0] = "computerMove";
-    MoveType[MoveType["playerMove"] = 1] = "playerMove";
-})(MoveType || (MoveType = {}));
 var Game = (function () {
     function Game(playerPlayground, computerPlayground, playerMoveStrategy, computerMoveStrategy) {
         var _this = this;
-        this.move = MoveType.playerMove;
+        this.move = MoveType_1.MoveType.playerMove;
         this.playerSunkFields = 0;
         this.computerSunkFields = 0;
         this.resolveMove = function () { };
         this.checkIfFieldHasShip = function (row, column) {
-            if (_this.move === MoveType.computerMove && _this.playerPlayground[row][column] === 1) {
+            if (_this.move === MoveType_1.MoveType.computerMove && _this.playerPlayground[row][column] === 1) {
                 _this.playerSunkFields++;
             }
-            if (_this.move === MoveType.playerMove && _this.computerPlayground[row][column] === 1) {
+            if (_this.move === MoveType_1.MoveType.playerMove && _this.computerPlayground[row][column] === 1) {
                 _this.computerSunkFields++;
             }
-            return _this.move === MoveType.computerMove
+            return _this.move === MoveType_1.MoveType.computerMove
                 ? _this.playerPlayground[row][column] === 1
                 : _this.computerPlayground[row][column] === 1;
         };
@@ -601,7 +597,7 @@ var Game = (function () {
     Game.prototype.startGame = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                this.move = MoveType.playerMove;
+                this.move = MoveType_1.MoveType.playerMove;
                 this.game();
                 return [2];
             });
@@ -637,10 +633,10 @@ var Game = (function () {
             this.gameInProgress = false;
             alert("computer won");
         }
-        this.move = this.move === MoveType.computerMove ? MoveType.playerMove : MoveType.computerMove;
+        this.move = this.move === MoveType_1.MoveType.computerMove ? MoveType_1.MoveType.playerMove : MoveType_1.MoveType.computerMove;
     };
     Game.prototype.performMove = function () {
-        this.move === MoveType.computerMove
+        this.move === MoveType_1.MoveType.computerMove
             ? this.computerMoveStrategy.performMove(this.checkIfFieldHasShip, this.resolveMove)
             : this.playerMoveStrategy.performMove(this.checkIfFieldHasShip, this.resolveMove);
     };
@@ -681,7 +677,6 @@ var GameOptions = (function () {
     GameOptions.playgroundSize = window.innerWidth > 1200 ? 400 : Math.min(window.innerWidth - 100, 400);
     GameOptions.fieldSize = GameOptions.playgroundSize / GameOptions.playgroundFieldsCount - 4;
     GameOptions.availableShips = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
-    GameOptions.currentScreen = null;
     GameOptions.currentlySelectedField = null;
     GameOptions.changeScreen = function (nextScreen) {
         var _a;
@@ -690,11 +685,6 @@ var GameOptions = (function () {
             GameOptions.prepareScreen(nextScreen);
             GameOptions.currentScreen = nextScreen;
         }
-    };
-    GameOptions.dispatchEvent = function (event, data) {
-        document.body.dispatchEvent(new CustomEvent(event, {
-            detail: data,
-        }));
     };
     return GameOptions;
 }());
@@ -715,13 +705,22 @@ exports.Ship = void 0;
 var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
 var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var Events_1 = __webpack_require__(/*! ./types/Events */ "./src/scripts/types/Events.ts");
-var ShipDirection_1 = __webpack_require__(/*! ./types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
+var ShipDirection_1 = __webpack_require__(/*! ./consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
 var Ship = (function () {
     function Ship(shipSize) {
         var _this = this;
-        this._direction = ShipDirection_1.ShipDirection.horizontal;
+        this.shipDirection = ShipDirection_1.ShipDirection.horizontal;
         this.fieldsOnPlayground = [];
         this.shipElement = document.createElement("div");
+        this.clickOnShip = function (e) {
+            var _a;
+            e.stopPropagation();
+            document.body.addEventListener("click", _this.unselectShip);
+            (_a = GameOptions_1.GameOptions.currentSelectedShipAfterClick) === null || _a === void 0 ? void 0 : _a.shipElement.classList.remove("selected_ship");
+            GameOptions_1.GameOptions.currentSelectedShip = _this;
+            GameOptions_1.GameOptions.currentSelectedShipAfterClick = _this;
+            _this.shipElement.classList.add("selected_ship");
+        };
         this.unselectShip = function (e) {
             if (GameOptions_1.GameOptions.currentSelectedShipAfterClick) {
                 GameOptions_1.GameOptions.currentSelectedShipAfterClick.shipElement.style.opacity = "1";
@@ -738,7 +737,9 @@ var Ship = (function () {
         };
         this.pressKey = function (e) {
             if (e.key === "r") {
-                _this.rotateShip();
+                _this.shipDirection =
+                    _this.shipDirection === ShipDirection_1.ShipDirection.vertical ? ShipDirection_1.ShipDirection.horizontal : ShipDirection_1.ShipDirection.vertical;
+                Events_1.Events.dispatchEvent(Events_1.Events.ROTATE_SHIP);
             }
         };
         this.changeShipPosition = function (x, y) {
@@ -760,9 +761,10 @@ var Ship = (function () {
                 document.body.removeEventListener("keydown", _this.pressKey);
                 if (GameOptions_1.GameOptions.currentlySelectedField && _this.shipOnPlayground.length > 0) {
                     _this.hideShip();
-                    GameOptions_1.GameOptions.dispatchEvent(Events_1.Events.SHIP_WAS_SETTED, { shipSize: _this.size, shipDirection: _this._direction });
+                    Events_1.Events.dispatchEvent(Events_1.Events.SHIP_WAS_SETTED);
                 }
-                _this.shipElement.style.opacity = "1";
+                else
+                    _this.showShip();
                 GameOptions_1.GameOptions.currentlySelectedField = null;
                 GameOptions_1.GameOptions.currentSelectedShip = null;
             }
@@ -779,10 +781,10 @@ var Ship = (function () {
     });
     Object.defineProperty(Ship.prototype, "direction", {
         get: function () {
-            return this._direction;
+            return this.shipDirection;
         },
-        set: function (_direction) {
-            this._direction = _direction;
+        set: function (shipDirection) {
+            this.shipDirection = shipDirection;
         },
         enumerable: false,
         configurable: true
@@ -819,15 +821,7 @@ var Ship = (function () {
             document.body.addEventListener("keydown", _this.pressKey);
         });
         if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
-            this.shipElement.addEventListener("click", function (e) {
-                var _a;
-                e.stopPropagation();
-                document.body.addEventListener("click", _this.unselectShip);
-                (_a = GameOptions_1.GameOptions.currentSelectedShipAfterClick) === null || _a === void 0 ? void 0 : _a.shipElement.classList.remove("selected_ship");
-                GameOptions_1.GameOptions.currentSelectedShip = _this;
-                GameOptions_1.GameOptions.currentSelectedShipAfterClick = _this;
-                _this.shipElement.classList.add("selected_ship");
-            });
+            this.shipElement.addEventListener("click", this.clickOnShip);
         }
     };
     Ship.rotateCurrentlySelectedShip = function (e) {
@@ -837,22 +831,56 @@ var Ship = (function () {
                 ? ShipDirection_1.ShipDirection.horizontal
                 : ShipDirection_1.ShipDirection.vertical;
             GameOptions_1.GameOptions.currentSelectedShip.direction = direction;
-            GameOptions_1.GameOptions.dispatchEvent(Events_1.Events.ROTATE_SHIP, {
-                shipSize: GameOptions_1.GameOptions.currentSelectedShip.size,
-                shipDirection: direction,
-            });
+            Events_1.Events.dispatchEvent(Events_1.Events.ROTATE_SHIP);
         }
-    };
-    Ship.prototype.rotateShip = function () {
-        this._direction = this._direction === ShipDirection_1.ShipDirection.vertical ? ShipDirection_1.ShipDirection.horizontal : ShipDirection_1.ShipDirection.vertical;
-        GameOptions_1.GameOptions.dispatchEvent(Events_1.Events.ROTATE_SHIP, { shipSize: this.size, shipDirection: this._direction });
     };
     Ship.prototype.hideShip = function () {
         this.shipElement.style.display = "none";
     };
+    Ship.prototype.showShip = function () {
+        this.shipElement.style.display = "flex";
+        this.shipElement.style.opacity = "1";
+        this.shipElement.style.zIndex = "1";
+    };
     return Ship;
 }());
 exports.Ship = Ship;
+
+
+/***/ }),
+
+/***/ "./src/scripts/consts/MoveType.ts":
+/*!****************************************!*\
+  !*** ./src/scripts/consts/MoveType.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MoveType = void 0;
+var MoveType;
+(function (MoveType) {
+    MoveType[MoveType["computerMove"] = 0] = "computerMove";
+    MoveType[MoveType["playerMove"] = 1] = "playerMove";
+})(MoveType = exports.MoveType || (exports.MoveType = {}));
+
+
+/***/ }),
+
+/***/ "./src/scripts/consts/ShipDirection.ts":
+/*!*********************************************!*\
+  !*** ./src/scripts/consts/ShipDirection.ts ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ShipDirection = void 0;
+var ShipDirection;
+(function (ShipDirection) {
+    ShipDirection["vertical"] = "vertical";
+    ShipDirection["horizontal"] = "horizontal";
+})(ShipDirection = exports.ShipDirection || (exports.ShipDirection = {}));
 
 
 /***/ }),
@@ -941,19 +969,17 @@ exports.SimpleComputerMoveStrategy = void 0;
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var MoveDirection_1 = __webpack_require__(/*! ./MoveDirection */ "./src/scripts/moveStrategies/MoveDirection.ts");
-var ShipDirection_1 = __webpack_require__(/*! ../types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
+var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
 var SimpleComputerMoveStrategy = (function () {
     function SimpleComputerMoveStrategy() {
+        this.hitFields = [];
+        this.hitsInARow = 0;
+        this.shipDirection = ShipDirection_1.ShipDirection.horizontal;
+        this.moveDirection = MoveDirection_1.MoveDirection.Right;
+        this.firstHitField = null;
         this.availableShips = [];
         this.availableFields = [];
-        this.hitFields = [];
         this.fieldsToCheckAfterHit = [];
-        this.hitsInARow = 0;
-        this.firstHitField = null;
-        this.moveDirection = MoveDirection_1.MoveDirection.Right;
-        this.shipDirection = ShipDirection_1.ShipDirection.horizontal;
-        this.checkIfFieldHasShip = function (row, column) { return false; };
-        this.resolveMove = function () { };
         this.availableShips = GameOptions_1.GameOptions.availableShips.sort(function (shipA, shipB) { return shipA - shipB; });
         for (var i = 0; i < GameOptions_1.GameOptions.playgroundFieldsCount; i++) {
             var row = [];
@@ -1301,7 +1327,7 @@ var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/Gam
 var Playground_1 = __webpack_require__(/*! ./Playground */ "./src/scripts/playground/Playground.ts");
 var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var Ship_1 = __webpack_require__(/*! ../Ship */ "./src/scripts/Ship.ts");
-var ShipDirection_1 = __webpack_require__(/*! ../types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
+var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
 var Events_1 = __webpack_require__(/*! ../types/Events */ "./src/scripts/types/Events.ts");
 var FieldClassNames;
 (function (FieldClassNames) {
@@ -1334,19 +1360,19 @@ var PlayerPlayground = (function (_super) {
         };
         _this.playgroundMouseOver = function () {
             if (GameOptions_1.GameOptions.currentSelectedShip) {
-                GameOptions_1.GameOptions.currentSelectedShip.shipElement.style.opacity = "0";
+                GameOptions_1.GameOptions.currentSelectedShip.hideShip();
             }
         };
         _this.playgroundMouseLeave = function () {
             if (GameOptions_1.GameOptions.currentSelectedShip) {
-                GameOptions_1.GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+                GameOptions_1.GameOptions.currentSelectedShip.showShip();
                 GameOptions_1.GameOptions.currentlySelectedField = null;
                 _this.clearShipFields();
             }
         };
         _this.playgroundTouchEnd = function () {
             if (GameOptions_1.GameOptions.currentSelectedShip) {
-                GameOptions_1.GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+                GameOptions_1.GameOptions.currentSelectedShip.showShip();
                 GameOptions_1.GameOptions.currentSelectedShip.dropShip();
                 _this.clearShipFields();
             }
@@ -1368,9 +1394,9 @@ var PlayerPlayground = (function (_super) {
                 var wasSetted = _this.setShipOnPlaygroundIfPossible(GameOptions_1.GameOptions.currentSelectedShip, row, column, GameOptions_1.GameOptions.currentSelectedShip.direction);
                 if (GameOptions_1.GameOptions.currentSelectedShip) {
                     if (wasSetted)
-                        GameOptions_1.GameOptions.currentSelectedShip.shipElement.style.display = "none";
+                        GameOptions_1.GameOptions.currentSelectedShip.hideShip();
                     else
-                        GameOptions_1.GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+                        GameOptions_1.GameOptions.currentSelectedShip.showShip();
                 }
                 _this.clearShipFields();
                 GameOptions_1.GameOptions.currentSelectedShip = null;
@@ -1721,7 +1747,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Playground = void 0;
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var Events_1 = __webpack_require__(/*! ../types/Events */ "./src/scripts/types/Events.ts");
-var ShipDirection_1 = __webpack_require__(/*! ../types/ShipDirection */ "./src/scripts/types/ShipDirection.ts");
+var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
 var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var Playground = (function () {
     function Playground(playgroundSize) {
@@ -1986,12 +2012,8 @@ var PlayGameScreen = (function (_super) {
         GameOptions_1.GameOptions.changeScreenContent(section);
         game.startGame();
     };
-    PlayGameScreen.prototype.prepareScreenEvents = function () {
-    };
-    PlayGameScreen.prototype.startGame = function () {
-    };
-    PlayGameScreen.prototype.unregisterScreenEvents = function () {
-    };
+    PlayGameScreen.prototype.prepareScreenEvents = function () { };
+    PlayGameScreen.prototype.unregisterScreenEvents = function () { };
     return PlayGameScreen;
 }(GameScreen_1.GameScreen));
 exports.PlayGameScreen = PlayGameScreen;
@@ -2200,27 +2222,12 @@ var Events = (function () {
     Events.ALL_SHIPS_WAS_SETTED = "allShipsWasSetted";
     Events.SHIP_WAS_SETTED = "shipWasSetted";
     Events.ROTATE_SHIP = "rotateShip";
+    Events.dispatchEvent = function (event) {
+        document.body.dispatchEvent(new CustomEvent(event));
+    };
     return Events;
 }());
 exports.Events = Events;
-
-
-/***/ }),
-
-/***/ "./src/scripts/types/ShipDirection.ts":
-/*!********************************************!*\
-  !*** ./src/scripts/types/ShipDirection.ts ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ShipDirection = void 0;
-var ShipDirection;
-(function (ShipDirection) {
-    ShipDirection["vertical"] = "vertical";
-    ShipDirection["horizontal"] = "horizontal";
-})(ShipDirection = exports.ShipDirection || (exports.ShipDirection = {}));
 
 
 /***/ }),

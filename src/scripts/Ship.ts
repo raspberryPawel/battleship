@@ -1,20 +1,18 @@
 import { GameOptions } from "./GameOptions";
 import { PlayerPlaygroundUtils } from "./playground/PlayerPlaygroundUtils";
 import { Events } from "./types/Events";
-import { ShipDirection } from "./types/ShipDirection";
+import { ShipDirection } from "./consts/ShipDirection";
 
 export class Ship {
 	private shipSize: number;
-	private _direction: ShipDirection = ShipDirection.horizontal;
+	private shipDirection: ShipDirection = ShipDirection.horizontal;
 
 	private fieldsOnPlayground: string[] = [];
 	public readonly shipElement: HTMLElement = document.createElement("div");
-	// protected onShipRotate: () => void = () => {};
 
 	constructor(shipSize: number) {
 		this.shipSize = shipSize;
 		this.createShipDOMElement();
-		// if (onShipRotate) this.onShipRotate = onShipRotate;
 	}
 
 	public get size(): number {
@@ -22,11 +20,11 @@ export class Ship {
 	}
 
 	public get direction(): ShipDirection {
-		return this._direction;
+		return this.shipDirection;
 	}
 
-	public set direction(_direction: ShipDirection) {
-		this._direction = _direction;
+	public set direction(shipDirection: ShipDirection) {
+		this.shipDirection = shipDirection;
 	}
 
 	public get shipOnPlayground(): string[] {
@@ -63,20 +61,21 @@ export class Ship {
 			document.body.addEventListener("keydown", this.pressKey);
 		});
 
-		//dodać removeEventLisenrer
 		if (PlayerPlaygroundUtils.isMobile()) {
-			this.shipElement.addEventListener("click", (e: Event) => {
-				e.stopPropagation();
-				document.body.addEventListener("click", this.unselectShip);
-
-				GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
-				GameOptions.currentSelectedShip = this;
-				GameOptions.currentSelectedShipAfterClick = this;
-
-				this.shipElement.classList.add("selected_ship");
-			});
+			this.shipElement.addEventListener("click", this.clickOnShip);
 		}
 	}
+
+	protected clickOnShip = (e: Event) => {
+		e.stopPropagation();
+		document.body.addEventListener("click", this.unselectShip);
+
+		GameOptions.currentSelectedShipAfterClick?.shipElement.classList.remove("selected_ship");
+		GameOptions.currentSelectedShip = this;
+		GameOptions.currentSelectedShipAfterClick = this;
+
+		this.shipElement.classList.add("selected_ship");
+	};
 
 	public unselectShip = (e: Event) => {
 		if (GameOptions.currentSelectedShipAfterClick) {
@@ -98,13 +97,15 @@ export class Ship {
 
 	private pressKey = (e: KeyboardEvent): void => {
 		if (e.key === "r") {
-			this.rotateShip();
+			this.shipDirection =
+				this.shipDirection === ShipDirection.vertical ? ShipDirection.horizontal : ShipDirection.vertical;
+			Events.dispatchEvent(Events.ROTATE_SHIP);
 		}
 	};
 
 	public static rotateCurrentlySelectedShip(e: Event) {
 		e.stopPropagation();
-		
+
 		if (GameOptions.currentSelectedShip) {
 			const direction =
 				GameOptions.currentSelectedShip.direction === ShipDirection.vertical
@@ -112,16 +113,8 @@ export class Ship {
 					: ShipDirection.vertical;
 
 			GameOptions.currentSelectedShip.direction = direction;
-			GameOptions.dispatchEvent(Events.ROTATE_SHIP, {
-				shipSize: GameOptions.currentSelectedShip.size,
-				shipDirection: direction,
-			});
+			Events.dispatchEvent(Events.ROTATE_SHIP);
 		}
-	}
-
-	public rotateShip() {
-		this._direction = this._direction === ShipDirection.vertical ? ShipDirection.horizontal : ShipDirection.vertical;
-		GameOptions.dispatchEvent(Events.ROTATE_SHIP, { shipSize: this.size, shipDirection: this._direction });
 	}
 
 	private changeShipPosition = (x: number, y: number): void => {
@@ -147,10 +140,8 @@ export class Ship {
 
 			if (GameOptions.currentlySelectedField && this.shipOnPlayground.length > 0) {
 				this.hideShip();
-				GameOptions.dispatchEvent(Events.SHIP_WAS_SETTED, { shipSize: this.size, shipDirection: this._direction });
-			}
-
-			this.shipElement.style.opacity = "1";
+				Events.dispatchEvent(Events.SHIP_WAS_SETTED);
+			} else this.showShip();
 
 			GameOptions.currentlySelectedField = null;
 			GameOptions.currentSelectedShip = null;
@@ -159,5 +150,11 @@ export class Ship {
 
 	public hideShip() {
 		this.shipElement.style.display = "none";
+	}
+
+	public showShip() {
+		this.shipElement.style.display = "flex";
+		this.shipElement.style.opacity = "1";
+		this.shipElement.style.zIndex = "1";
 	}
 }

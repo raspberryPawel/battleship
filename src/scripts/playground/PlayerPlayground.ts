@@ -2,7 +2,7 @@ import { GameOptions } from "../GameOptions";
 import { Playground } from "./Playground";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 import { Ship } from "../Ship";
-import { ShipDirection } from "../types/ShipDirection";
+import { ShipDirection } from "../consts/ShipDirection";
 import { Events } from "../types/Events";
 
 enum FieldClassNames {
@@ -93,13 +93,13 @@ export class PlayerPlayground extends Playground {
 
 	protected playgroundMouseOver = () => {
 		if (GameOptions.currentSelectedShip) {
-			GameOptions.currentSelectedShip.shipElement.style.opacity = "0";
+			GameOptions.currentSelectedShip.hideShip();
 		}
 	};
 
 	protected playgroundMouseLeave = () => {
 		if (GameOptions.currentSelectedShip) {
-			GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+			GameOptions.currentSelectedShip.showShip();
 			GameOptions.currentlySelectedField = null;
 			this.clearShipFields();
 		}
@@ -107,7 +107,7 @@ export class PlayerPlayground extends Playground {
 
 	protected playgroundTouchEnd = () => {
 		if (GameOptions.currentSelectedShip) {
-			GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+			GameOptions.currentSelectedShip.showShip();
 			GameOptions.currentSelectedShip.dropShip();
 
 			this.clearShipFields();
@@ -140,8 +140,8 @@ export class PlayerPlayground extends Playground {
 			);
 
 			if (GameOptions.currentSelectedShip) {
-				if (wasSetted) GameOptions.currentSelectedShip.shipElement.style.display = "none";
-				else GameOptions.currentSelectedShip.shipElement.style.opacity = "1";
+				if (wasSetted) GameOptions.currentSelectedShip.hideShip();
+				else GameOptions.currentSelectedShip.showShip();
 			}
 			this.clearShipFields();
 			GameOptions.currentSelectedShip = null;
@@ -309,7 +309,7 @@ export class PlayerPlayground extends Playground {
 
 	protected highlightField(row: number, column: number, className: FieldClassNames): boolean {
 		const elementClass = this.getPlaygroundFieldClassName(row, column);
-		const element: HTMLElement | null = document.querySelector(elementClass);
+		const element: HTMLElement = document.querySelector(elementClass);
 
 		if (element) {
 			element.classList.add(className);
@@ -323,14 +323,14 @@ export class PlayerPlayground extends Playground {
 		this.clearPlaygroundFields();
 
 		GameOptions.currentSelectedShip?.shipOnPlayground.forEach((className: string) => {
-			const element: HTMLElement | null = document.querySelector(className);
+			const element: HTMLElement = document.querySelector(className);
 			if (element) {
 				element.classList.remove("field-with-gradient");
 			}
 		});
 
 		this.tempHighlightedFields.forEach((className) => {
-			const element: HTMLElement | null = document.querySelector(`.${this.playgroundClassPrefix}-${className}`);
+			const element: HTMLElement = document.querySelector(`.${this.playgroundClassPrefix}-${className}`);
 			if (element) {
 				element.classList.remove("field-with-error-gradient");
 			}

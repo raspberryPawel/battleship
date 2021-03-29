@@ -1,5 +1,7 @@
+import { PlaygroundType } from "./PlaygroundType";
+
 export interface DoesSelectedFieldsEmptyData {
-	playground: number[][];
+	playground: PlaygroundType;
 	currentCheckedRow: number;
 	firstColumn: number;
 	lastColumn: number;

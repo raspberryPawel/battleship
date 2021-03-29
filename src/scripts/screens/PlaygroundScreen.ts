@@ -75,10 +75,10 @@ export class PlaygroundScreen extends GameScreen {
 		this.shipsOnPlaygroundCount++;
 
 		if (this.shipsOnPlaygroundCount === GameOptions.availableShips.length) {
-			const playButton: HTMLElement | null = document.querySelector(".btn-play");
+			const playButton: HTMLElement = document.querySelector(".btn-play");
 			if (playButton) playButton.style.display = "block";
 
-			const shipsSections: HTMLElement | null = document.querySelector(".playground-ships");
+			const shipsSections: HTMLElement = document.querySelector(".playground-ships");
 			shipsSections?.classList.add("all-ships-setted");
 		}
 	};

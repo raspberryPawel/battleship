@@ -1,6 +1,7 @@
 import { GameOptions } from "../GameOptions";
 import { DoesSelectedFieldsEmptyData } from "../types/DoesSelectedFieldsEmptyData";
 import { DoesVerticalSelectedFieldsEmptyData } from "../types/DoesVerticalSelectedFieldsEmptyData";
+import { PlaygroundType } from "../types/PlaygroundType";
 import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
 
 export class PlayerPlaygroundUtils {
@@ -101,7 +102,7 @@ export class PlayerPlaygroundUtils {
 		return true;
 	};
 
-	protected static doesFieldEmpty = (playground: number[][], row: number, column: number) => {
+	protected static doesFieldEmpty = (playground: PlaygroundType, row: number, column: number) => {
 		const areRowCorrect = row >= 0 && row < GameOptions.playgroundFieldsCount;
 		const areColumnCorrect = column >= 0 && column < GameOptions.playgroundFieldsCount;
 
