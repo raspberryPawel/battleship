@@ -1,9 +1,9 @@
 import { GameOptions } from "../GameOptions";
 import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
 import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
-import { MoveStrategy } from "../types/MoveStrategy";
+import { MoveStrategy } from "./MoveStrategy";
 import { ResolveMove } from "../types/ResolveMove";
-import { MoveDirection } from "./MoveDirection";
+import { MoveDirection } from "../consts/MoveDirection";
 import { ShipDirection } from "../consts/ShipDirection";
 
 export class SimpleComputerMoveStrategy implements MoveStrategy {

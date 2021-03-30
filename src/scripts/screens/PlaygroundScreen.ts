@@ -1,9 +1,9 @@
 import { GameScreen } from "../../interfaces/GameScreen";
+import { EventType } from "../consts/EventType";
 import { GameOptions } from "../GameOptions";
 import { PlayerPlayground } from "../playground/PlayerPlayground";
 import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
 import { Ship } from "../Ship";
-import { Events } from "../types/Events";
 
 export class PlaygroundScreen extends GameScreen {
 	protected shipsOnPlaygroundCount = 0;
@@ -63,7 +63,7 @@ export class PlaygroundScreen extends GameScreen {
 			buttonRotate?.addEventListener("click", Ship.rotateCurrentlySelectedShip);
 		}
 
-		document.body.addEventListener(Events.SHIP_WAS_SETTED, this.shipsWasSetted);
+		document.body.addEventListener(EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
 	}
 
 	protected randomizeShips = () => {
@@ -92,7 +92,7 @@ export class PlaygroundScreen extends GameScreen {
 	public unregisterScreenEvents(): void {
 		GameOptions.playerPlayground.removeEventsFromPlayerPlayground();
 
-		document.body.removeEventListener(Events.SHIP_WAS_SETTED, this.shipsWasSetted);
+		document.body.removeEventListener(EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
 
 		const playButton = document.querySelector(".btn-play");
 		playButton?.removeEventListener("click", this.startGame);

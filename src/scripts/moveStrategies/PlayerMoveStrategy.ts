@@ -1,6 +1,6 @@
 import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
 import { ResolveMove } from "../types/ResolveMove";
-import { MoveStrategy } from "../types/MoveStrategy";
+import { MoveStrategy } from "./MoveStrategy";
 
 export class PlayerMoveStrategy implements MoveStrategy {
 	private checkIfFieldHasShip: (row: number, column: number) => boolean = (row: number, column: number) => false;

@@ -1,6 +1,5 @@
 import { GameOptions } from "../GameOptions";
 import { DoesSelectedFieldsEmptyData } from "../types/DoesSelectedFieldsEmptyData";
-import { DoesVerticalSelectedFieldsEmptyData } from "../types/DoesVerticalSelectedFieldsEmptyData";
 import { PlaygroundType } from "../types/PlaygroundType";
 import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
 
@@ -31,26 +30,24 @@ export class PlayerPlaygroundUtils {
 	};
 
 	public static doesSelectedFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
-		const { playground, currentCheckedRow, firstColumn, lastColumn } = data;
+		const { playground, currentChecked, first, last } = data;
 		const { doesFieldEmpty, getCurrentlySelectedShipFields } = PlayerPlaygroundUtils;
 
 		const fields = getCurrentlySelectedShipFields();
-		for (let i = firstColumn; i <= lastColumn; i++) {
-			if (!doesFieldEmpty(playground, currentCheckedRow, i) && !fields?.includes(`${currentCheckedRow}_${i}`))
-				return false;
+		for (let i = first; i <= last; i++) {
+			if (!doesFieldEmpty(playground, currentChecked, i) && !fields?.includes(`${currentChecked}_${i}`)) return false;
 		}
 
 		return true;
 	};
 
-	public static doesVerticalSelectedFieldsEmpty = (data: DoesVerticalSelectedFieldsEmptyData): boolean => {
-		const { playground, currentCheckedColumn, firstRow, lastRow } = data;
+	public static doesVerticalSelectedFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
+		const { playground, currentChecked, first, last } = data;
 		const { doesFieldEmpty, getCurrentlySelectedShipFields } = PlayerPlaygroundUtils;
 
 		const fields = getCurrentlySelectedShipFields();
-		for (let i = firstRow; i <= lastRow; i++) {
-			if (!doesFieldEmpty(playground, i, currentCheckedColumn) && !fields?.includes(`${i}_${currentCheckedColumn}`))
-				return false;
+		for (let i = first; i <= last; i++) {
+			if (!doesFieldEmpty(playground, i, currentChecked) && !fields?.includes(`${i}_${currentChecked}`)) return false;
 		}
 
 		return true;
@@ -64,40 +61,40 @@ export class PlayerPlaygroundUtils {
 	}
 
 	public static doesSelectedNearbyFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
-		const { playground, currentCheckedRow, firstColumn, lastColumn } = data;
+		const { playground, currentChecked, first, last } = data;
 		const { doesFieldEmpty } = PlayerPlaygroundUtils;
 
-		for (let i = firstColumn; i <= lastColumn; i++) {
-			if (!doesFieldEmpty(playground, currentCheckedRow - 1, i)) return false;
+		for (let i = first; i <= last; i++) {
+			if (!doesFieldEmpty(playground, currentChecked - 1, i)) return false;
 		}
 
-		for (let i = firstColumn; i <= lastColumn; i++) {
-			if (!doesFieldEmpty(playground, currentCheckedRow + 1, i)) return false;
+		for (let i = first; i <= last; i++) {
+			if (!doesFieldEmpty(playground, currentChecked + 1, i)) return false;
 		}
 
-		if (!doesFieldEmpty(playground, currentCheckedRow, firstColumn - 1)) return false;
-		if (!doesFieldEmpty(playground, currentCheckedRow + 1, firstColumn - 1)) return false;
-		if (!doesFieldEmpty(playground, currentCheckedRow - 1, firstColumn - 1)) return false;
+		if (!doesFieldEmpty(playground, currentChecked, first - 1)) return false;
+		if (!doesFieldEmpty(playground, currentChecked + 1, first - 1)) return false;
+		if (!doesFieldEmpty(playground, currentChecked - 1, first - 1)) return false;
 
 		return true;
 	};
 
-	public static doesVerticalSelectedNearbyFieldsEmpty = (data: DoesVerticalSelectedFieldsEmptyData): boolean => {
-		const { playground, currentCheckedColumn, firstRow, lastRow } = data;
+	public static doesVerticalSelectedNearbyFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
+		const { playground, currentChecked, first, last } = data;
 		const { doesFieldEmpty } = PlayerPlaygroundUtils;
 
-		for (let i = firstRow; i <= lastRow; i++) {
-			if (!doesFieldEmpty(playground, i, currentCheckedColumn - 1)) return false;
+		for (let i = first; i <= last; i++) {
+			if (!doesFieldEmpty(playground, i, currentChecked - 1)) return false;
 		}
 
-		for (let i = firstRow; i <= lastRow; i++) {
-			if (!doesFieldEmpty(playground, i, currentCheckedColumn + 1)) return false;
+		for (let i = first; i <= last; i++) {
+			if (!doesFieldEmpty(playground, i, currentChecked + 1)) return false;
 		}
 
-		if (!doesFieldEmpty(playground, firstRow - 1, currentCheckedColumn)) return false;
-		if (!doesFieldEmpty(playground, lastRow - 1, currentCheckedColumn)) return false;
-		if (!doesFieldEmpty(playground, firstRow - 1, currentCheckedColumn - 1)) return false;
-		if (!doesFieldEmpty(playground, firstRow - 1, currentCheckedColumn + 1)) return false;
+		if (!doesFieldEmpty(playground, first - 1, currentChecked)) return false;
+		if (!doesFieldEmpty(playground, last - 1, currentChecked)) return false;
+		if (!doesFieldEmpty(playground, first - 1, currentChecked - 1)) return false;
+		if (!doesFieldEmpty(playground, first - 1, currentChecked + 1)) return false;
 
 		return true;
 	};

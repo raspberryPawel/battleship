@@ -5,10 +5,10 @@ import { GameOptions } from "../GameOptions";
 import { ComputerPlayground } from "../playground/ComputerPlayground";
 import { SimpleComputerMoveStrategy } from "../moveStrategies/SimpleComputerMoveStrategy";
 import confetti from "canvas-confetti";
-import { Events } from "../types/Events";
 import { PlayerType } from "../consts/PlayerType";
 import { PlaygroundScreen } from "./PlaygroundScreen";
 import { StartScreen } from "./StartScreen";
+import { EventType } from "../consts/EventType";
 
 export class PlayGameScreen extends GameScreen {
 	public prepareScreen(): void {
@@ -106,10 +106,10 @@ export class PlayGameScreen extends GameScreen {
 	};
 
 	public prepareScreenEvents(): void {
-		document.body.addEventListener(Events.GAME_END, this.onGameEnd);
+		document.body.addEventListener(EventType.GAME_END, this.onGameEnd);
 	}
 	public unregisterScreenEvents(): void {
-		document.body.removeEventListener(Events.GAME_END, this.onGameEnd);
+		document.body.removeEventListener(EventType.GAME_END, this.onGameEnd);
 
 		const confettiCanvas = document.querySelector(".confettiCanvas");
 		if (confettiCanvas) confettiCanvas.remove();

@@ -1,9 +1,9 @@
 import { GameOptions } from "../GameOptions";
 import { Ship } from "../Ship";
-import { Events } from "../types/Events";
 import { ShipDirection } from "../consts/ShipDirection";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 import { PlaygroundType } from "../types/PlaygroundType";
+import { EventType } from "../consts/EventType";
 
 export abstract class Playground {
 	public playgroundDOM: HTMLElement = document.createElement("div");
@@ -23,8 +23,8 @@ export abstract class Playground {
 			: GameOptions.fieldSize;
 
 		this.preparePlayground();
-		//dodać removeEventListener
-		document.body.addEventListener(Events.SHIP_WAS_SETTED, this.shipsWasSetted);
+
+		document.body.addEventListener(EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
 	}
 
 	protected shipsWasSetted = () => {
@@ -65,7 +65,7 @@ export abstract class Playground {
 	};
 
 	public removeEventsFromPlayerPlayground() {
-		document.body.removeEventListener(Events.SHIP_WAS_SETTED, this.shipsWasSetted);
+		document.body.removeEventListener(EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
 	}
 
 	protected preparePlayground() {
@@ -140,9 +140,9 @@ export abstract class Playground {
 			if (ship.size + row <= GameOptions.playgroundFieldsCount) {
 				const data = {
 					playground: this.playground,
-					currentCheckedColumn: column,
-					firstRow: row - 1,
-					lastRow: ship.size + row,
+					currentChecked: column,
+					first: row,
+					last: ship.size + row,
 				};
 
 				if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
@@ -152,9 +152,9 @@ export abstract class Playground {
 			} else {
 				const data = {
 					playground: this.playground,
-					currentCheckedColumn: column,
-					firstRow: GameOptions.playgroundFieldsCount - ship.size,
-					lastRow: GameOptions.playgroundFieldsCount,
+					currentChecked: column,
+					first: GameOptions.playgroundFieldsCount - ship.size,
+					last: GameOptions.playgroundFieldsCount,
 				};
 
 				if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
@@ -171,9 +171,9 @@ export abstract class Playground {
 			if (ship.size + column <= GameOptions.playgroundFieldsCount) {
 				const data = {
 					playground: this.playground,
-					currentCheckedRow: row,
-					firstColumn: column,
-					lastColumn: ship.size + column,
+					currentChecked: row,
+					first: column,
+					last: ship.size + column,
 				};
 
 				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
@@ -183,9 +183,9 @@ export abstract class Playground {
 			} else {
 				const data = {
 					playground: this.playground,
-					currentCheckedRow: row,
-					firstColumn: GameOptions.playgroundFieldsCount - ship.size,
-					lastColumn: GameOptions.playgroundFieldsCount,
+					currentChecked: row,
+					first: GameOptions.playgroundFieldsCount - ship.size,
+					last: GameOptions.playgroundFieldsCount,
 				};
 
 				if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
@@ -199,8 +199,6 @@ export abstract class Playground {
 				} else return false;
 			}
 		}
-
-		return false;
 	};
 
 	protected setShipOnPlayground(firstIndex: number, lastIndex: number, currentRow: number, ship: Ship): void {
@@ -209,9 +207,7 @@ export abstract class Playground {
 			ship.addField(`${currentRow}_${i}`);
 
 			if (this.showShipsOnPlayground) {
-				const field: HTMLElement = this.playgroundDOM.querySelector(
-					this.getPlaygroundFieldClassName(currentRow, i)
-				);
+				const field: HTMLElement = this.playgroundDOM.querySelector(this.getPlaygroundFieldClassName(currentRow, i));
 
 				if (field) {
 					field.classList.add("field-with-gradient");
@@ -233,9 +229,7 @@ export abstract class Playground {
 			ship.addField(`${i}_${currentColumn}`);
 
 			if (this.showShipsOnPlayground) {
-				const field: HTMLElement = this.playgroundDOM.querySelector(
-					this.getPlaygroundFieldClassName(i, currentColumn)
-				);
+				const field: HTMLElement = this.playgroundDOM.querySelector(this.getPlaygroundFieldClassName(i, currentColumn));
 
 				if (field) {
 					field.classList.add("field-with-gradient");

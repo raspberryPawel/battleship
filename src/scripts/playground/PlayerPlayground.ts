@@ -3,7 +3,7 @@ import { Playground } from "./Playground";
 import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
 import { Ship } from "../Ship";
 import { ShipDirection } from "../consts/ShipDirection";
-import { Events } from "../types/Events";
+import { EventType } from "../consts/EventType";
 
 enum FieldClassNames {
 	hit = "field-with-gradient",
@@ -74,7 +74,7 @@ export class PlayerPlayground extends Playground {
 			this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
 		}
 
-		document.body.addEventListener(Events.ROTATE_SHIP, this.onShipRotate);
+		document.body.addEventListener(EventType.ROTATE_SHIP, this.onShipRotate);
 	}
 
 	public removeEventsFromPlayerPlayground() {
@@ -89,7 +89,7 @@ export class PlayerPlayground extends Playground {
 			this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
 		}
 
-		document.body.removeEventListener(Events.ROTATE_SHIP, this.onShipRotate);
+		document.body.removeEventListener(EventType.ROTATE_SHIP, this.onShipRotate);
 	}
 
 	protected playgroundMouseOver = () => {
@@ -199,9 +199,9 @@ export class PlayerPlayground extends Playground {
 		if (shipSize + row <= GameOptions.playgroundFieldsCount - 1) {
 			const data = {
 				playground: this.playground,
-				currentCheckedColumn: column,
-				firstRow: row,
-				lastRow: shipSize + row,
+				currentChecked: column,
+				first: row,
+				last: shipSize + row,
 			};
 
 			if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
@@ -210,9 +210,9 @@ export class PlayerPlayground extends Playground {
 		} else {
 			const data = {
 				playground: this.playground,
-				currentCheckedColumn: column,
-				firstRow: GameOptions.playgroundFieldsCount - shipSize,
-				lastRow: GameOptions.playgroundFieldsCount,
+				currentChecked: column,
+				first: GameOptions.playgroundFieldsCount - shipSize,
+				last: GameOptions.playgroundFieldsCount,
 			};
 
 			if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
@@ -235,9 +235,9 @@ export class PlayerPlayground extends Playground {
 		if (shipSize + column <= GameOptions.playgroundFieldsCount) {
 			const data = {
 				playground: this.playground,
-				currentCheckedRow: row,
-				firstColumn: column,
-				lastColumn: shipSize + column,
+				currentChecked: row,
+				first: column,
+				last: shipSize + column,
 			};
 
 			if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
@@ -246,9 +246,9 @@ export class PlayerPlayground extends Playground {
 		} else {
 			const data = {
 				playground: this.playground,
-				currentCheckedRow: row,
-				firstColumn: GameOptions.playgroundFieldsCount - shipSize,
-				lastColumn: GameOptions.playgroundFieldsCount,
+				currentChecked: row,
+				first: GameOptions.playgroundFieldsCount - shipSize,
+				last: GameOptions.playgroundFieldsCount,
 			};
 
 			if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))

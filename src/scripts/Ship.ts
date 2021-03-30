@@ -1,7 +1,8 @@
 import { GameOptions } from "./GameOptions";
 import { PlayerPlaygroundUtils } from "./playground/PlayerPlaygroundUtils";
-import { Events } from "./types/Events";
+import { EventDispatcher } from "./EventDispatcher";
 import { ShipDirection } from "./consts/ShipDirection";
+import { EventType } from "./consts/EventType";
 
 export class Ship {
 	private shipSize: number;
@@ -99,7 +100,7 @@ export class Ship {
 		if (e.key === "r") {
 			this.shipDirection =
 				this.shipDirection === ShipDirection.vertical ? ShipDirection.horizontal : ShipDirection.vertical;
-			Events.dispatchEvent(Events.ROTATE_SHIP);
+			EventDispatcher.dispatch(EventType.ROTATE_SHIP);
 		}
 	};
 
@@ -113,7 +114,7 @@ export class Ship {
 					: ShipDirection.vertical;
 
 			GameOptions.currentSelectedShip.direction = direction;
-			Events.dispatchEvent(Events.ROTATE_SHIP);
+			EventDispatcher.dispatch(EventType.ROTATE_SHIP);
 		}
 	}
 
@@ -140,7 +141,7 @@ export class Ship {
 
 			if (GameOptions.currentlySelectedField && this.shipOnPlayground.length > 0) {
 				this.hideShip();
-				Events.dispatchEvent(Events.SHIP_WAS_SETTED);
+				EventDispatcher.dispatch(EventType.SHIP_WAS_SETTED);
 			} else this.showShip();
 
 			GameOptions.currentlySelectedField = null;
