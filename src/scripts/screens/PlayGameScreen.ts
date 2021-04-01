@@ -1,14 +1,14 @@
-import { GameScreen } from "../../interfaces/GameScreen";
-import { Game } from "../Game";
-import { PlayerMoveStrategy } from "../moveStrategies/PlayerMoveStrategy";
-import { GameOptions } from "../GameOptions";
-import { ComputerPlayground } from "../playground/ComputerPlayground";
-import { SimpleComputerMoveStrategy } from "../moveStrategies/SimpleComputerMoveStrategy";
 import confetti from "canvas-confetti";
+import { GameScreen } from "../../interfaces/GameScreen";
+import { EventType } from "../consts/EventType";
 import { PlayerType } from "../consts/PlayerType";
+import { Game } from "../Game";
+import { GameOptions } from "../GameOptions";
+import { PlayerMoveStrategy } from "../moveStrategies/PlayerMoveStrategy";
+import { SimpleComputerMoveStrategy } from "../moveStrategies/SimpleComputerMoveStrategy";
+import { ComputerPlayground } from "../playground/ComputerPlayground";
 import { PlaygroundScreen } from "./PlaygroundScreen";
 import { StartScreen } from "./StartScreen";
-import { EventType } from "../consts/EventType";
 
 export class PlayGameScreen extends GameScreen {
 	public prepareScreen(): void {
@@ -42,11 +42,36 @@ export class PlayGameScreen extends GameScreen {
 			GameOptions.playerPlayground.playground,
 			GameOptions.computerPlayground.playground,
 			new PlayerMoveStrategy(),
-			new SimpleComputerMoveStrategy()
+			new SimpleComputerMoveStrategy(),
 		);
 
 		GameOptions.changeScreenContent(section);
 		game.startGame();
+	}
+
+	public playAgain = () => {
+		const playGameScreen = new PlayGameScreen(null);
+		const playgroundScreen = new PlaygroundScreen(playGameScreen);
+		const startScreen = new StartScreen(playgroundScreen);
+
+		this.unregisterScreenEvents();
+
+		window.location.hash = "";
+		GameOptions.changeScreen(startScreen);
+	};
+
+	public prepareScreenEvents(): void {
+		document.body.addEventListener(EventType.GAME_END, this.onGameEnd);
+	}
+
+	public unregisterScreenEvents(): void {
+		document.body.removeEventListener(EventType.GAME_END, this.onGameEnd);
+
+		const confettiCanvas = document.querySelector(".confettiCanvas");
+		if (confettiCanvas) confettiCanvas.remove();
+
+		const buttonPlayAgain = document.querySelector(".btn-play-again");
+		if (buttonPlayAgain) buttonPlayAgain.removeEventListener("click", this.playAgain);
 	}
 
 	protected onGameEnd = (e: Event) => {
@@ -83,7 +108,7 @@ export class PlayGameScreen extends GameScreen {
 
 		document.body.appendChild(confettiCanvas);
 
-		var myConfetti = confetti.create(confettiCanvas, {
+		const myConfetti = confetti.create(confettiCanvas, {
 			resize: true,
 			useWorker: true,
 		});
@@ -93,28 +118,4 @@ export class PlayGameScreen extends GameScreen {
 			spread: 160,
 		});
 	};
-
-	public playAgain = () => {
-		const playGameScreen = new PlayGameScreen(null);
-		const playgroundScreen = new PlaygroundScreen(playGameScreen);
-		const startScreen = new StartScreen(playgroundScreen);
-
-		this.unregisterScreenEvents();
-
-		window.location.hash = "";
-		GameOptions.changeScreen(startScreen);
-	};
-
-	public prepareScreenEvents(): void {
-		document.body.addEventListener(EventType.GAME_END, this.onGameEnd);
-	}
-	public unregisterScreenEvents(): void {
-		document.body.removeEventListener(EventType.GAME_END, this.onGameEnd);
-
-		const confettiCanvas = document.querySelector(".confettiCanvas");
-		if (confettiCanvas) confettiCanvas.remove();
-
-		const buttonPlayAgain = document.querySelector(".btn-play-again");
-		if (buttonPlayAgain) buttonPlayAgain.removeEventListener("click", this.playAgain);
-	}
 }

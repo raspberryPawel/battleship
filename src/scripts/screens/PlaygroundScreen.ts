@@ -63,25 +63,8 @@ export class PlaygroundScreen extends GameScreen {
 			buttonRotate?.addEventListener("click", Ship.rotateCurrentlySelectedShip);
 		}
 
-		document.body.addEventListener(EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
+		document.body.addEventListener(EventType.SHIP_WAS_SET, this.shipsWasSet);
 	}
-
-	protected randomizeShips = () => {
-		this.shipsOnPlaygroundCount = 0;
-		GameOptions.playerPlayground.randomizeShipsPosition();
-	};
-
-	protected shipsWasSetted = () => {
-		this.shipsOnPlaygroundCount++;
-
-		if (this.shipsOnPlaygroundCount === GameOptions.availableShips.length) {
-			const playButton: HTMLElement = document.querySelector(".btn-play");
-			if (playButton) playButton.style.display = "block";
-
-			const shipsSections: HTMLElement = document.querySelector(".playground-ships");
-			shipsSections?.classList.add("all-ships-setted");
-		}
-	};
 
 	public startGame = (): void => {
 		if (this.shipsOnPlaygroundCount === GameOptions.availableShips.length) {
@@ -92,7 +75,7 @@ export class PlaygroundScreen extends GameScreen {
 	public unregisterScreenEvents(): void {
 		GameOptions.playerPlayground.removeEventsFromPlayerPlayground();
 
-		document.body.removeEventListener(EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
+		document.body.removeEventListener(EventType.SHIP_WAS_SET, this.shipsWasSet);
 
 		const playButton = document.querySelector(".btn-play");
 		playButton?.removeEventListener("click", this.startGame);
@@ -105,4 +88,21 @@ export class PlaygroundScreen extends GameScreen {
 			buttonRotate?.removeEventListener("click", Ship.rotateCurrentlySelectedShip);
 		}
 	}
+
+	protected randomizeShips = () => {
+		this.shipsOnPlaygroundCount = 0;
+		GameOptions.playerPlayground.randomizeShipsPosition();
+	};
+
+	protected shipsWasSet = () => {
+		this.shipsOnPlaygroundCount++;
+
+		if (this.shipsOnPlaygroundCount === GameOptions.availableShips.length) {
+			const playButton: HTMLElement = document.querySelector(".btn-play");
+			if (playButton) playButton.style.display = "block";
+
+			const shipsSections: HTMLElement = document.querySelector(".playground-ships");
+			shipsSections?.classList.add("all-ships-set");
+		}
+	};
 }

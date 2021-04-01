@@ -1,3 +1,4 @@
+import { ShipDirection } from "../consts/ShipDirection";
 import { PlaygroundType } from "./PlaygroundType";
 
 export interface DoesSelectedFieldsEmptyData {
@@ -5,4 +6,5 @@ export interface DoesSelectedFieldsEmptyData {
 	currentChecked: number;
 	first: number;
 	last: number;
+	shipDirection: ShipDirection
 }

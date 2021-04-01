@@ -1,6 +1,6 @@
 import { GameOptions } from "../GameOptions";
-import { Playground } from "./Playground";
 import { Ship } from "../Ship";
+import { Playground } from "./Playground";
 
 export class ComputerPlayground extends Playground {
 	public playgroundShips: Ship[] = [];
@@ -20,6 +20,7 @@ export class ComputerPlayground extends Playground {
 	};
 
 	protected addListenerOnPlaygroundField = (div: HTMLElement) => {};
+
 	private prepareComputerShips() {
 		GameOptions.availableShips.forEach((shipSize) => {
 			const ship = new Ship(shipSize);

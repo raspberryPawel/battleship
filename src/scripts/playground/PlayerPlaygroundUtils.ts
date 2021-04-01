@@ -1,3 +1,4 @@
+import { ShipDirection } from "../consts/ShipDirection";
 import { GameOptions } from "../GameOptions";
 import { DoesSelectedFieldsEmptyData } from "../types/DoesSelectedFieldsEmptyData";
 import { PlaygroundType } from "../types/PlaygroundType";
@@ -29,75 +30,47 @@ export class PlayerPlaygroundUtils {
 		}
 	};
 
-	public static doesSelectedFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
-		const { playground, currentChecked, first, last } = data;
-		const { doesFieldEmpty, getCurrentlySelectedShipFields } = PlayerPlaygroundUtils;
+	public static doesFieldsAvailable = (data: DoesSelectedFieldsEmptyData): boolean => {
+		const { playground, currentChecked, first, last, shipDirection } = data;
+		const isHorizontal = shipDirection === ShipDirection.horizontal;
+		const { doesFieldEmpty } = PlayerPlaygroundUtils;
 
-		const fields = getCurrentlySelectedShipFields();
-		for (let i = first; i <= last; i++) {
-			if (!doesFieldEmpty(playground, currentChecked, i) && !fields?.includes(`${currentChecked}_${i}`)) return false;
+		for (let i = first - 1; i < last + 1; i++) {
+			if ((i >= 0 && i < GameOptions.playgroundFieldsCount)) {
+				const doesFieldAvailable = isHorizontal
+					? doesFieldEmpty(playground, currentChecked, i)
+					: doesFieldEmpty(playground, i, currentChecked);
+
+				if (!doesFieldAvailable) return false;
+			}
+		}
+
+		for (let i = first - 1; i < last + 1; i++) {
+			if ((i >= 0 && i < GameOptions.playgroundFieldsCount)) {
+				const doesFieldAvailable = isHorizontal
+					? doesFieldEmpty(playground, currentChecked - 1, i)
+					: doesFieldEmpty(playground, i, currentChecked - 1);
+
+				if (!doesFieldAvailable) return false;
+			}
+		}
+
+		for (let i = first - 1; i < last + 1; i++) {
+			if ((i >= 0 && i < GameOptions.playgroundFieldsCount)) {
+				const doesFieldAvailable = isHorizontal
+					? doesFieldEmpty(playground, currentChecked + 1, i)
+					: doesFieldEmpty(playground, i, currentChecked + 1);
+
+				if (!doesFieldAvailable) return false;
+			}
 		}
 
 		return true;
 	};
 
-	public static doesVerticalSelectedFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
-		const { playground, currentChecked, first, last } = data;
-		const { doesFieldEmpty, getCurrentlySelectedShipFields } = PlayerPlaygroundUtils;
-
-		const fields = getCurrentlySelectedShipFields();
-		for (let i = first; i <= last; i++) {
-			if (!doesFieldEmpty(playground, i, currentChecked) && !fields?.includes(`${i}_${currentChecked}`)) return false;
-		}
-
-		return true;
-	};
-
-	protected static getCurrentlySelectedShipFields() {
-		return GameOptions.currentSelectedShip?.shipOnPlayground.map((className: string) => {
-			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className);
-			return `${row}_${column}`;
-		});
+	public static isMobile() {
+		return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 	}
-
-	public static doesSelectedNearbyFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
-		const { playground, currentChecked, first, last } = data;
-		const { doesFieldEmpty } = PlayerPlaygroundUtils;
-
-		for (let i = first; i <= last; i++) {
-			if (!doesFieldEmpty(playground, currentChecked - 1, i)) return false;
-		}
-
-		for (let i = first; i <= last; i++) {
-			if (!doesFieldEmpty(playground, currentChecked + 1, i)) return false;
-		}
-
-		if (!doesFieldEmpty(playground, currentChecked, first - 1)) return false;
-		if (!doesFieldEmpty(playground, currentChecked + 1, first - 1)) return false;
-		if (!doesFieldEmpty(playground, currentChecked - 1, first - 1)) return false;
-
-		return true;
-	};
-
-	public static doesVerticalSelectedNearbyFieldsEmpty = (data: DoesSelectedFieldsEmptyData): boolean => {
-		const { playground, currentChecked, first, last } = data;
-		const { doesFieldEmpty } = PlayerPlaygroundUtils;
-
-		for (let i = first; i <= last; i++) {
-			if (!doesFieldEmpty(playground, i, currentChecked - 1)) return false;
-		}
-
-		for (let i = first; i <= last; i++) {
-			if (!doesFieldEmpty(playground, i, currentChecked + 1)) return false;
-		}
-
-		if (!doesFieldEmpty(playground, first - 1, currentChecked)) return false;
-		if (!doesFieldEmpty(playground, last - 1, currentChecked)) return false;
-		if (!doesFieldEmpty(playground, first - 1, currentChecked - 1)) return false;
-		if (!doesFieldEmpty(playground, first - 1, currentChecked + 1)) return false;
-
-		return true;
-	};
 
 	protected static doesFieldEmpty = (playground: PlaygroundType, row: number, column: number) => {
 		const areRowCorrect = row >= 0 && row < GameOptions.playgroundFieldsCount;
@@ -110,8 +83,4 @@ export class PlayerPlaygroundUtils {
 
 		return true;
 	};
-
-	public static isMobile() {
-		return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-	}
 }

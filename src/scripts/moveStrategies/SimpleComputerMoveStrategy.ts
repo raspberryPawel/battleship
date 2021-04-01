@@ -1,18 +1,19 @@
-import { GameOptions } from "../GameOptions";
-import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
-import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
-import { MoveStrategy } from "./MoveStrategy";
-import { ResolveMove } from "../types/ResolveMove";
 import { MoveDirection } from "../consts/MoveDirection";
 import { ShipDirection } from "../consts/ShipDirection";
+import { GameOptions } from "../GameOptions";
+import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
+import { ResolveMove } from "../types/ResolveMove";
+import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
+import { MoveStrategy } from "./MoveStrategy";
 
 export class SimpleComputerMoveStrategy implements MoveStrategy {
+	private readonly availableShips: number[] = [];
+
 	private hitFields: string[] = [];
 	private hitsInARow: number = 0;
 	private shipDirection: ShipDirection = ShipDirection.horizontal;
 	private moveDirection: MoveDirection = MoveDirection.Right;
 	private firstHitField: RowAndColumnIndex = null;
-	private availableShips: number[] = [];
 	private availableFields: string[][] = [];
 	private fieldsToCheckAfterHit: string[] = [];
 

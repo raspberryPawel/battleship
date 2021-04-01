@@ -643,7 +643,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap);"]);
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(_images_ship_svg__WEBPACK_IMPORTED_MODULE_3__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n#startScreen {\n  width: 100vw;\n  height: 100vh;\n  max-height: 750px;\n  display: flex;\n  flex-direction: column;\n  padding: 20% 0;\n  justify-content: space-around;\n  align-items: center;\n}\n#startScreen .logoContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#startScreen .logoContainer strong {\n  width: 100%;\n  display: block;\n  text-transform: uppercase;\n  font-weight: 400;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n}\n#startScreen .logoContainer .logo {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  width: 200px;\n  height: 200px;\n  margin-top: 40px;\n  border-radius: 100px;\n  position: relative;\n}\n#startScreen .logoContainer .logo::before {\n  content: \"\";\n  position: absolute;\n  top: -15px;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n}\n#startScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: flex;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#startScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n#playgroundScreen .playground-section {\n  display: flex;\n  flex-direction: row;\n}\n@media (max-width: 600px) {\n  #playgroundScreen .playground-section {\n    flex-direction: column;\n    align-items: center;\n  }\n}\n@media (min-width: 601px) {\n  #playgroundScreen .playground-ships {\n    width: auto !important;\n    min-width: 160px;\n  }\n}\n@media (max-width: 600px) {\n  #playgroundScreen .playground-ships {\n    width: 90%;\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n    margin-bottom: 20px;\n  }\n}\n@media (min-width: 601px) {\n  #playgroundScreen .all-ships-setted {\n    min-width: unset !important;\n  }\n}\n#playgroundScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playgroundScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playgroundScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n@media (max-width: 600px) {\n  #playgroundScreen .ship_container {\n    margin-right: 10px;\n    margin-top: 10px;\n  }\n}\n#playgroundScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1px;\n  cursor: pointer;\n}\n#playgroundScreen .selected_ship .ship_field {\n  background: #52c234;\n  background: -webkit-linear-gradient(to top left, #061700, #52c234);\n  background: linear-gradient(to top left, #061700, #52c234);\n}\n#playgroundScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playgroundScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playgroundScreen .btn-play,\n#playgroundScreen .btn-randomize,\n#playgroundScreen .btn-rotate {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: flex;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playgroundScreen .btn-play:hover,\n#playgroundScreen .btn-randomize:hover,\n#playgroundScreen .btn-rotate:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n#playgroundScreen .btn-play {\n  display: none;\n}\n\n.confettiCanvas {\n  width: 100vw;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n#playGameScreen {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n@media (max-width: 600px) {\n  #playGameScreen {\n    flex-direction: column;\n  }\n}\n@media (min-width: 601px) {\n  #playGameScreen {\n    flex-direction: row;\n  }\n}\n#playGameScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playGameScreen .player-playground-container .playground,\n#playGameScreen .computer-playground-container .playground {\n  margin-top: 10px;\n}\n#playGameScreen .player-playground-container strong,\n#playGameScreen .computer-playground-container strong {\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 300;\n  font-size: 1rem;\n  color: #fff;\n}\n#playGameScreen .player-playground-container {\n  margin-top: 20px;\n}\n@media (min-width: 601px) {\n  #playGameScreen .computer-playground-container {\n    margin: 0 30px;\n  }\n}\n#playGameScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playGameScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n#playGameScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1.5px;\n  cursor: pointer;\n}\n#playGameScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playGameScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playGameScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: flex;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n  display: none;\n}\n#playGameScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n#playGameScreen .hit_field {\n  position: relative;\n}\n#playGameScreen .hit_field::after {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  content: \"✕\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  color: white;\n  font-family: \"Roboto\", sans-serif;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#playGameScreen .misplaced_field {\n  position: relative;\n}\n#playGameScreen .misplaced_field::after {\n  content: \"•\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  font-family: \"Roboto\", sans-serif;\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.modal-container .modal-window {\n  position: fixed;\n  background-color: rgba(255, 255, 255, 0.1);\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 999;\n  visibility: hidden;\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.3s;\n}\n.modal-container .modal-window:target {\n  visibility: visible;\n  opacity: 1;\n  pointer-events: auto;\n}\n.modal-container .modal-window > div {\n  width: 80%;\n  max-width: 400px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  padding: 2em;\n  background: white;\n}\n.modal-container .modal-window header {\n  font-weight: bold;\n}\n.modal-container .modal-window h1 {\n  font-size: 150%;\n  margin: 0 0 15px;\n}\n.modal-container .modal-close {\n  color: #aaa;\n  line-height: 50px;\n  font-size: 80%;\n  position: absolute;\n  right: 0;\n  text-align: center;\n  top: 0;\n  width: 70px;\n  text-decoration: none;\n}\n.modal-container .modal-close:hover {\n  color: black;\n}\n.modal-container .modal-window > div {\n  border-radius: 1rem;\n}\n.modal-container .btn-play-again {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: flex;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n  float: right;\n}\n.modal-container .btn-play-again:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  background-color: #14142d;\n  background: #0f0c29;\n  background: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  background: linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  user-select: none;\n  font-family: \"Roboto\", sans-serif;\n}\nbody main {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  height: 100vh;\n  overflow-x: hidden;\n  overflow-y: auto;\n}", "",{"version":3,"sources":["webpack://./src/styles/index.scss","webpack://./src/styles/StartScreen.scss","webpack://./src/styles/variables.scss","webpack://./src/styles/PlaygroundScreen.scss","webpack://./src/styles/PlayGameScreen.scss","webpack://./src/styles/Modal.scss"],"names":[],"mappings":"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","sourcesContent":["@import url(\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap\");\r\n@import \"./StartScreen.scss\";\r\n@import \"./PlaygroundScreen.scss\";\r\n@import \"./PlayGameScreen.scss\";\r\n@import \"./Modal.scss\";\r\n\r\nbody {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbackground-color: #14142d;\r\n\tbackground: #0f0c29;\r\n\tbackground: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tbackground: linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tuser-select: none;\r\n\r\n\tfont-family: \"Roboto\", sans-serif;\r\n\r\n\tmain {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t\twidth: 100%;\r\n\t\theight: 100vh;\r\n\t\toverflow-x: hidden;\r\n\t\toverflow-y: auto;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#startScreen {\r\n\twidth: 100vw;\r\n\theight: 100vh;\r\n\tmax-height: 750px;\r\n\r\n\tdisplay: flex;\r\n\tflex-direction: column;\r\n\tpadding: 20% 0;\r\n\tjustify-content: space-around;\r\n\talign-items: center;\r\n\r\n\t.logoContainer {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: column;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\r\n\t\tstrong {\r\n\t\t\twidth: 100%;\r\n\t\t\tdisplay: block;\r\n\t\t\ttext-transform: uppercase;\r\n\t\t\tfont-weight: 400;\r\n\r\n\t\t\tcolor: white;\r\n\t\t\tfont-size: 30px;\r\n\t\t\ttext-align: center;\r\n\t\t}\r\n\r\n\t\t.logo {\r\n\t\t\t@include main-gradient();\r\n\r\n\t\t\twidth: 200px;\r\n\t\t\theight: 200px;\r\n\t\t\tmargin-top: 40px;\r\n\t\t\tborder-radius: 100px;\r\n\t\t\tposition: relative;\r\n\r\n\t\t\t&::before {\r\n\t\t\t\tcontent: \"\";\r\n\t\t\t\tposition: absolute;\r\n\t\t\t\ttop: -15px;\r\n\t\t\t\tleft: 0;\r\n\r\n\t\t\t\twidth: 100%;\r\n\t\t\t\theight: 100%;\r\n\r\n\t\t\t\tbackground-image: url(\"../images/ship.svg\");\r\n\t\t\t\tbackground-size: cover;\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\t@include main-gradient();\r\n\t\t@include button-styles();\r\n\t}\r\n}\r\n","@mixin main-gradient() {\r\n\tbackground: #c31432;\r\n\tbackground: -webkit-linear-gradient(to top left, #240b36, #c31432);\r\n\tbackground: linear-gradient(to top left, #240b36, #c31432);\r\n}\r\n\r\n@mixin green-gradient() {\r\n\tbackground: #52c234;\r\n\tbackground: -webkit-linear-gradient(to top left, #061700, #52c234);\r\n\tbackground: linear-gradient(to top left, #061700, #52c234);\r\n}\r\n\r\n@mixin button-styles {\r\n\tborder: none;\r\n\toutline: none;\r\n\r\n\ttext-transform: uppercase;\r\n\tfont-family: \"Roboto\", sans-serif;\r\n\tfont-weight: 500;\r\n\tfont-size: 0.85rem;\r\n\tcolor: #fff;\r\n\r\n\tdisplay: flex;\r\n\tmargin-top: 25px;\r\n\r\n\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\tborder-radius: 10rem;\r\n\r\n\tcursor: pointer;\r\n\ttransition-duration: 0.3s;\r\n\r\n\t&:hover {\r\n\t\ttransition-duration: 0.3s;\r\n\t\ttransform: scale(1.1);\r\n\t}\r\n}\r\n\r\n$mobile-width: 600px;\r\n$desktop-width: 1024px;\r\n\r\n@mixin phone {\r\n\t@media (max-width: #{$mobile-width}) {\r\n\t\t@content;\r\n\t}\r\n}\r\n\r\n@mixin desktop {\r\n\t@media (min-width: #{$mobile-width + 1}) {\r\n\t\t@content;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#playgroundScreen {\r\n\t.playground-section {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\r\n\t\t@include phone {\r\n\t\t\tflex-direction: column;\r\n\t\t\talign-items: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-ships {\r\n\t\t@include desktop {\r\n\t\t\twidth: auto !important;\r\n\t\t\tmin-width: 160px;\r\n\t\t}\r\n\r\n\t\t@include phone {\r\n\t\t\twidth: 90%;\r\n\r\n\t\t\tdisplay: flex;\r\n\t\t\tflex-direction: row;\r\n\t\t\tflex-wrap: wrap;\r\n\t\t\tmargin-bottom: 20px;\r\n\t\t}\r\n\t}\r\n\r\n\t.all-ships-setted {\r\n\t\t@include desktop {\r\n\t\t\tmin-width: unset !important;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\r\n\t\t@include phone {\r\n\t\t\tmargin-right: 10px;\r\n\t\t\tmargin-top: 10px;\r\n\t\t}\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.selected_ship {\r\n\t\t.ship_field {\r\n\t\t\t@include green-gradient();\r\n\t\t}\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play,\r\n\t.btn-randomize,\r\n\t.btn-rotate {\r\n\t\t@include main-gradient();\r\n\t\t@include button-styles();\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\tdisplay: none;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n.confettiCanvas {\r\n\twidth: 100vw;\r\n\theight: 100vh;\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n}\r\n\r\n#playGameScreen {\r\n\tdisplay: flex;\r\n\tflex-wrap: wrap;\r\n\tjustify-content: center;\r\n\r\n\t@include phone {\r\n\t\tflex-direction: column;\r\n\t}\r\n\r\n\t@include desktop {\r\n\t\tflex-direction: row;\r\n\t}\r\n\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.player-playground-container,\r\n\t.computer-playground-container {\r\n\t\t.playground {\r\n\t\t\tmargin-top: 10px;\r\n\t\t}\r\n\r\n\t\tstrong {\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tfont-weight: 300;\r\n\t\t\tfont-size: 1rem;\r\n\t\t\tcolor: #fff;\r\n\t\t}\r\n\t}\r\n\r\n\t.player-playground-container {\r\n\t\tmargin-top: 20px;\r\n\t}\r\n\r\n\t.computer-playground-container {\r\n\t\t@include desktop {\r\n\t\t\tmargin: 0 30px;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1.5px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\t@include main-gradient();\r\n\t\t@include button-styles();\r\n\r\n\t\tdisplay: none;\r\n\t}\r\n\r\n\t.hit_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\t@include main-gradient();\r\n\t\t\tcontent: \"✕\";\r\n\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tcolor: white;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.misplaced_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\tcontent: \"•\";\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tcolor: white;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n}\r\n",".modal-container {\r\n\t.modal-window {\r\n\t\tposition: fixed;\r\n\t\tbackground-color: rgba(255, 255, 255, 0.1);\r\n\t\ttop: 0;\r\n\t\tright: 0;\r\n\t\tbottom: 0;\r\n\t\tleft: 0;\r\n\t\tz-index: 999;\r\n\t\tvisibility: hidden;\r\n\t\topacity: 0;\r\n\t\tpointer-events: none;\r\n\t\ttransition: all 0.3s;\r\n\r\n\t\t&:target {\r\n\t\t\tvisibility: visible;\r\n\t\t\topacity: 1;\r\n\t\t\tpointer-events: auto;\r\n\t\t}\r\n\t\t& > div {\r\n\t\t\twidth: 80%;\r\n\t\t\tmax-width: 400px;\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 50%;\r\n\t\t\tleft: 50%;\r\n\t\t\ttransform: translate(-50%, -50%);\r\n\t\t\tpadding: 2em;\r\n\t\t\tbackground: white;\r\n\t\t}\r\n\t\theader {\r\n\t\t\tfont-weight: bold;\r\n\t\t}\r\n\t\th1 {\r\n\t\t\tfont-size: 150%;\r\n\t\t\tmargin: 0 0 15px;\r\n\t\t}\r\n\t}\r\n\r\n\t.modal-close {\r\n\t\tcolor: #aaa;\r\n\t\tline-height: 50px;\r\n\t\tfont-size: 80%;\r\n\t\tposition: absolute;\r\n\t\tright: 0;\r\n\t\ttext-align: center;\r\n\t\ttop: 0;\r\n\t\twidth: 70px;\r\n\t\ttext-decoration: none;\r\n\t\t&:hover {\r\n\t\t\tcolor: black;\r\n\t\t}\r\n\t}\r\n\r\n\t.modal-window {\r\n\t\t& > div {\r\n\t\t\tborder-radius: 1rem;\r\n\t\t}\r\n\t}\r\n\r\n\t.btn-play-again {\r\n\t\t@include main-gradient();\r\n\t\t@include button-styles();\r\n\t\t\r\n\t\tfloat: right;\r\n\t}\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n#startScreen {\n  width: 100vw;\n  height: 100vh;\n  max-height: 750px;\n  display: flex;\n  flex-direction: column;\n  padding: 20% 0;\n  justify-content: space-around;\n  align-items: center;\n}\n#startScreen .logoContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n#startScreen .logoContainer strong {\n  width: 100%;\n  display: block;\n  text-transform: uppercase;\n  font-weight: 400;\n  color: white;\n  font-size: 30px;\n  text-align: center;\n}\n#startScreen .logoContainer .logo {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  width: 200px;\n  height: 200px;\n  margin-top: 40px;\n  border-radius: 100px;\n  position: relative;\n}\n#startScreen .logoContainer .logo::before {\n  content: \"\";\n  position: absolute;\n  top: -15px;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n}\n#startScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: flex;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#startScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\n#playgroundScreen .playground-section {\n  display: flex;\n  flex-direction: row;\n}\n@media (max-width: 600px) {\n  #playgroundScreen .playground-section {\n    flex-direction: column;\n    align-items: center;\n  }\n}\n@media (min-width: 601px) {\n  #playgroundScreen .playground-ships {\n    width: auto !important;\n    min-width: 160px;\n  }\n}\n@media (max-width: 600px) {\n  #playgroundScreen .playground-ships {\n    width: 90%;\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n    margin-bottom: 20px;\n  }\n}\n@media (min-width: 601px) {\n  #playgroundScreen .all-ships-set {\n    min-width: unset !important;\n  }\n}\n#playgroundScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playgroundScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playgroundScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n@media (max-width: 600px) {\n  #playgroundScreen .ship_container {\n    margin-right: 10px;\n    margin-top: 10px;\n  }\n}\n#playgroundScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1px;\n  cursor: pointer;\n}\n#playgroundScreen .selected_ship .ship_field {\n  background: #52c234;\n  background: -webkit-linear-gradient(to top left, #061700, #52c234);\n  background: linear-gradient(to top left, #061700, #52c234);\n}\n#playgroundScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playgroundScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playgroundScreen .btn-play,\n#playgroundScreen .btn-randomize,\n#playgroundScreen .btn-rotate {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: flex;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n}\n#playgroundScreen .btn-play:hover,\n#playgroundScreen .btn-randomize:hover,\n#playgroundScreen .btn-rotate:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n#playgroundScreen .btn-play {\n  display: none;\n}\n\n.confettiCanvas {\n  width: 100vw;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n#playGameScreen {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n@media (max-width: 600px) {\n  #playGameScreen {\n    flex-direction: column;\n  }\n}\n@media (min-width: 601px) {\n  #playGameScreen {\n    flex-direction: row;\n  }\n}\n#playGameScreen .playground-field {\n  margin: 0 0.5px;\n  border: 0.5px solid #fff;\n}\n#playGameScreen .player-playground-container .playground,\n#playGameScreen .computer-playground-container .playground {\n  margin-top: 10px;\n}\n#playGameScreen .player-playground-container strong,\n#playGameScreen .computer-playground-container strong {\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 300;\n  font-size: 1rem;\n  color: #fff;\n}\n#playGameScreen .player-playground-container {\n  margin-top: 20px;\n}\n@media (min-width: 601px) {\n  #playGameScreen .computer-playground-container {\n    margin: 0 30px;\n  }\n}\n#playGameScreen .playground-row {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n#playGameScreen .ship_container {\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n  margin: 3px;\n}\n#playGameScreen .ship_field {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  margin: 0 1.5px;\n  cursor: pointer;\n}\n#playGameScreen .field-with-gradient {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n}\n#playGameScreen .field-with-error-gradient {\n  background-color: pink;\n}\n#playGameScreen .btn-play {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: flex;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n  display: none;\n}\n#playGameScreen .btn-play:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n#playGameScreen .hit_field {\n  position: relative;\n}\n#playGameScreen .hit_field::after {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  content: \"✕\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  color: white;\n  font-family: \"Roboto\", sans-serif;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#playGameScreen .misplaced_field {\n  position: relative;\n}\n#playGameScreen .misplaced_field::after {\n  content: \"•\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  font-family: \"Roboto\", sans-serif;\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.modal-container .modal-window {\n  position: fixed;\n  background-color: rgba(255, 255, 255, 0.1);\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 999;\n  visibility: hidden;\n  opacity: 0;\n  pointer-events: none;\n  transition: all 0.3s;\n}\n.modal-container .modal-window:target {\n  visibility: visible;\n  opacity: 1;\n  pointer-events: auto;\n}\n.modal-container .modal-window > div {\n  width: 80%;\n  max-width: 400px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  padding: 2em;\n  background: white;\n}\n.modal-container .modal-window header {\n  font-weight: bold;\n}\n.modal-container .modal-window h1 {\n  font-size: 150%;\n  margin: 0 0 15px;\n}\n.modal-container .modal-close {\n  color: #aaa;\n  line-height: 50px;\n  font-size: 80%;\n  position: absolute;\n  right: 0;\n  text-align: center;\n  top: 0;\n  width: 70px;\n  text-decoration: none;\n}\n.modal-container .modal-close:hover {\n  color: black;\n}\n.modal-container .modal-window > div {\n  border-radius: 1rem;\n}\n.modal-container .btn-play-again {\n  background: #c31432;\n  background: -webkit-linear-gradient(to top left, #240b36, #c31432);\n  background: linear-gradient(to top left, #240b36, #c31432);\n  border: none;\n  outline: none;\n  text-transform: uppercase;\n  font-family: \"Roboto\", sans-serif;\n  font-weight: 500;\n  font-size: 0.85rem;\n  color: #fff;\n  display: flex;\n  margin-top: 25px;\n  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\n  padding: 0.7rem 1.5rem 0.5rem;\n  border-radius: 10rem;\n  cursor: pointer;\n  transition-duration: 0.3s;\n  float: right;\n}\n.modal-container .btn-play-again:hover {\n  transition-duration: 0.3s;\n  transform: scale(1.1);\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  background: #0f0c29;\n  background: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  background: linear-gradient(to right, #1f1f35, #262350, #0a081d);\n  user-select: none;\n  font-family: \"Roboto\", sans-serif;\n}\nbody main {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  height: 100vh;\n  overflow-x: hidden;\n  overflow-y: auto;\n}", "",{"version":3,"sources":["webpack://./src/styles/index.scss","webpack://./src/styles/StartScreen.scss","webpack://./src/styles/variables.scss","webpack://./src/styles/PlaygroundScreen.scss","webpack://./src/styles/PlayGameScreen.scss","webpack://./src/styles/Modal.scss"],"names":[],"mappings":"AAAA,gBAAgB;ACEhB;EACC,YAAA;EACA,aAAA;EACA,iBAAA;EAEA,aAAA;EACA,sBAAA;EACA,cAAA;EACA,6BAAA;EACA,mBAAA;ADAD;ACEC;EACC,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;ADAF;ACEE;EACC,WAAA;EACA,cAAA;EACA,yBAAA;EACA,gBAAA;EAEA,YAAA;EACA,eAAA;EACA,kBAAA;ADDH;ACIE;EC7BD,mBAAA;EACA,kEAAA;EACA,0DAAA;ED8BE,YAAA;EACA,aAAA;EACA,gBAAA;EACA,oBAAA;EACA,kBAAA;ADDH;ACGG;EACC,WAAA;EACA,kBAAA;EACA,UAAA;EACA,OAAA;EAEA,WAAA;EACA,YAAA;EAEA,yDAAA;EACA,sBAAA;ADHJ;ACQC;ECrDA,mBAAA;EACA,kEAAA;EACA,0DAAA;EAUA,YAAA;EACA,aAAA;EAEA,yBAAA;EACA,iCAAA;EACA,gBAAA;EACA,kBAAA;EACA,WAAA;EAEA,aAAA;EACA,gBAAA;EAEA,mFAAA;EACA,2EAAA;EACA,6BAAA;EAEA,oBAAA;EAEA,eAAA;EACA,yBAAA;AFkCD;AEhCC;EACC,yBAAA;EACA,qBAAA;AFkCF;;AGnEC;EACC,aAAA;EACA,mBAAA;AHsEF;AE/BC;ECzCA;IAKE,sBAAA;IACA,mBAAA;EHuED;AACF;AE/BC;ECrCA;IAEE,sBAAA;IACA,gBAAA;EHsED;AACF;AE3CC;EC/BA;IAOE,UAAA;IAEA,aAAA;IACA,mBAAA;IACA,eAAA;IACA,mBAAA;EHsED;AACF;AE9CC;ECrBA;IAEE,2BAAA;EHqED;AACF;AGlEC;EACC,eAAA;EACA,wBAAA;AHoEF;AGjEC;EACC,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,mBAAA;AHmEF;AGhEC;EACC,aAAA;EACA,mBAAA;EACA,sBAAA;EACA,mBAAA;EACA,WAAA;AHkEF;AE1EC;ECGA;IAQE,kBAAA;IACA,gBAAA;EHmED;AACF;AGhEC;ED3DA,mBAAA;EACA,kEAAA;EACA,0DAAA;EC4DC,aAAA;EACA,eAAA;AHmEF;AG/DE;ED7DD,mBAAA;EACA,kEAAA;EACA,0DAAA;AF+HD;AG/DC;EDxEA,mBAAA;EACA,kEAAA;EACA,0DAAA;AF0ID;AGhEC;EACC,sBAAA;AHkEF;AG/DC;;;EDhFA,mBAAA;EACA,kEAAA;EACA,0DAAA;EAUA,YAAA;EACA,aAAA;EAEA,yBAAA;EACA,iCAAA;EACA,gBAAA;EACA,kBAAA;EACA,WAAA;EAEA,aAAA;EACA,gBAAA;EAEA,mFAAA;EACA,2EAAA;EACA,6BAAA;EAEA,oBAAA;EAEA,eAAA;EACA,yBAAA;AFsID;AEpIC;;;EACC,yBAAA;EACA,qBAAA;AFwIF;AGpFC;EACC,aAAA;AHsFF;;AI7KA;EACC,YAAA;EACA,aAAA;EACA,kBAAA;EACA,MAAA;EACA,OAAA;AJgLD;;AI7KA;EACC,aAAA;EACA,eAAA;EACA,uBAAA;AJgLD;AEjJC;EElCD;IAME,sBAAA;EJiLA;AACF;AEhJC;EExCD;IAUE,mBAAA;EJkLA;AACF;AIhLC;EACC,eAAA;EACA,wBAAA;AJkLF;AI7KE;;EACC,gBAAA;AJgLH;AI7KE;;EACC,iCAAA;EACA,gBAAA;EACA,eAAA;EACA,WAAA;AJgLH;AI5KC;EACC,gBAAA;AJ8KF;AEvKC;EEJA;IAEE,cAAA;EJ6KD;AACF;AI1KC;EACC,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,mBAAA;AJ4KF;AIzKC;EACC,aAAA;EACA,mBAAA;EACA,sBAAA;EACA,mBAAA;EACA,WAAA;AJ2KF;AIxKC;EFlEA,mBAAA;EACA,kEAAA;EACA,0DAAA;EEmEC,eAAA;EACA,eAAA;AJ2KF;AIxKC;EFzEA,mBAAA;EACA,kEAAA;EACA,0DAAA;AFoPD;AIzKC;EACC,sBAAA;AJ2KF;AIxKC;EFjFA,mBAAA;EACA,kEAAA;EACA,0DAAA;EAUA,YAAA;EACA,aAAA;EAEA,yBAAA;EACA,iCAAA;EACA,gBAAA;EACA,kBAAA;EACA,WAAA;EAEA,aAAA;EACA,gBAAA;EAEA,mFAAA;EACA,2EAAA;EACA,6BAAA;EAEA,oBAAA;EAEA,eAAA;EACA,yBAAA;EEsDC,aAAA;AJyLF;AE7OC;EACC,yBAAA;EACA,qBAAA;AF+OF;AI1LC;EACC,kBAAA;AJ4LF;AI1LE;EF3FD,mBAAA;EACA,kEAAA;EACA,0DAAA;EE2FE,YAAA;EAEA,kBAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,UAAA;EACA,YAAA;EACA,iCAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;AJ6LH;AIzLC;EACC,kBAAA;AJ2LF;AIzLE;EACC,YAAA;EACA,kBAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,UAAA;EACA,iCAAA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;AJ2LH;;AKvTC;EACC,eAAA;EACA,0CAAA;EACA,MAAA;EACA,QAAA;EACA,SAAA;EACA,OAAA;EACA,YAAA;EACA,kBAAA;EACA,UAAA;EACA,oBAAA;EACA,oBAAA;AL0TF;AKxTE;EACC,mBAAA;EACA,UAAA;EACA,oBAAA;AL0TH;AKvTE;EACC,UAAA;EACA,gBAAA;EACA,kBAAA;EACA,QAAA;EACA,SAAA;EACA,gCAAA;EACA,YAAA;EACA,iBAAA;ALyTH;AKtTE;EACC,iBAAA;ALwTH;AKrTE;EACC,eAAA;EACA,gBAAA;ALuTH;AKnTC;EACC,WAAA;EACA,iBAAA;EACA,cAAA;EACA,kBAAA;EACA,QAAA;EACA,kBAAA;EACA,MAAA;EACA,WAAA;EACA,qBAAA;ALqTF;AKnTE;EACC,YAAA;ALqTH;AKhTE;EACC,mBAAA;ALkTH;AK9SC;EH9DA,mBAAA;EACA,kEAAA;EACA,0DAAA;EAUA,YAAA;EACA,aAAA;EAEA,yBAAA;EACA,iCAAA;EACA,gBAAA;EACA,kBAAA;EACA,WAAA;EAEA,aAAA;EACA,gBAAA;EAEA,mFAAA;EACA,2EAAA;EACA,6BAAA;EAEA,oBAAA;EAEA,eAAA;EACA,yBAAA;EGmCC,YAAA;AL+TF;AEhWC;EACC,yBAAA;EACA,qBAAA;AFkWF;;AAhYA;EACC,SAAA;EACA,UAAA;EACA,mBAAA;EACA,wEAAA;EACA,gEAAA;EACA,iBAAA;EAEA,iCAAA;AAkYD;AAhYC;EACC,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,mBAAA;EACA,WAAA;EACA,aAAA;EACA,kBAAA;EACA,gBAAA;AAkYF","sourcesContent":["@import url(\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap\");\r\n@import \"./StartScreen.scss\";\r\n@import \"./PlaygroundScreen.scss\";\r\n@import \"./PlayGameScreen.scss\";\r\n@import \"./Modal.scss\";\r\n\r\nbody {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbackground: #0f0c29;\r\n\tbackground: -webkit-linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tbackground: linear-gradient(to right, #1f1f35, #262350, #0a081d);\r\n\tuser-select: none;\r\n\r\n\tfont-family: \"Roboto\", sans-serif;\r\n\r\n\tmain {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t\twidth: 100%;\r\n\t\theight: 100vh;\r\n\t\toverflow-x: hidden;\r\n\t\toverflow-y: auto;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#startScreen {\r\n\twidth: 100vw;\r\n\theight: 100vh;\r\n\tmax-height: 750px;\r\n\r\n\tdisplay: flex;\r\n\tflex-direction: column;\r\n\tpadding: 20% 0;\r\n\tjustify-content: space-around;\r\n\talign-items: center;\r\n\r\n\t.logoContainer {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: column;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\r\n\t\tstrong {\r\n\t\t\twidth: 100%;\r\n\t\t\tdisplay: block;\r\n\t\t\ttext-transform: uppercase;\r\n\t\t\tfont-weight: 400;\r\n\r\n\t\t\tcolor: white;\r\n\t\t\tfont-size: 30px;\r\n\t\t\ttext-align: center;\r\n\t\t}\r\n\r\n\t\t.logo {\r\n\t\t\t@include main-gradient();\r\n\r\n\t\t\twidth: 200px;\r\n\t\t\theight: 200px;\r\n\t\t\tmargin-top: 40px;\r\n\t\t\tborder-radius: 100px;\r\n\t\t\tposition: relative;\r\n\r\n\t\t\t&::before {\r\n\t\t\t\tcontent: \"\";\r\n\t\t\t\tposition: absolute;\r\n\t\t\t\ttop: -15px;\r\n\t\t\t\tleft: 0;\r\n\r\n\t\t\t\twidth: 100%;\r\n\t\t\t\theight: 100%;\r\n\r\n\t\t\t\tbackground-image: url(\"../images/ship.svg\");\r\n\t\t\t\tbackground-size: cover;\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\t@include main-gradient();\r\n\t\t@include button-styles();\r\n\t}\r\n}\r\n","@mixin main-gradient() {\r\n\tbackground: #c31432;\r\n\tbackground: -webkit-linear-gradient(to top left, #240b36, #c31432);\r\n\tbackground: linear-gradient(to top left, #240b36, #c31432);\r\n}\r\n\r\n@mixin green-gradient() {\r\n\tbackground: #52c234;\r\n\tbackground: -webkit-linear-gradient(to top left, #061700, #52c234);\r\n\tbackground: linear-gradient(to top left, #061700, #52c234);\r\n}\r\n\r\n@mixin button-styles {\r\n\tborder: none;\r\n\toutline: none;\r\n\r\n\ttext-transform: uppercase;\r\n\tfont-family: \"Roboto\", sans-serif;\r\n\tfont-weight: 500;\r\n\tfont-size: 0.85rem;\r\n\tcolor: #fff;\r\n\r\n\tdisplay: flex;\r\n\tmargin-top: 25px;\r\n\r\n\t-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\tbox-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);\r\n\tpadding: 0.7rem 1.5rem 0.5rem;\r\n\r\n\tborder-radius: 10rem;\r\n\r\n\tcursor: pointer;\r\n\ttransition-duration: 0.3s;\r\n\r\n\t&:hover {\r\n\t\ttransition-duration: 0.3s;\r\n\t\ttransform: scale(1.1);\r\n\t}\r\n}\r\n\r\n$mobile-width: 600px;\r\n$desktop-width: 1024px;\r\n\r\n@mixin phone {\r\n\t@media (max-width: #{$mobile-width}) {\r\n\t\t@content;\r\n\t}\r\n}\r\n\r\n@mixin desktop {\r\n\t@media (min-width: #{$mobile-width + 1}) {\r\n\t\t@content;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n#playgroundScreen {\r\n\t.playground-section {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\r\n\t\t@include phone {\r\n\t\t\tflex-direction: column;\r\n\t\t\talign-items: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-ships {\r\n\t\t@include desktop {\r\n\t\t\twidth: auto !important;\r\n\t\t\tmin-width: 160px;\r\n\t\t}\r\n\r\n\t\t@include phone {\r\n\t\t\twidth: 90%;\r\n\r\n\t\t\tdisplay: flex;\r\n\t\t\tflex-direction: row;\r\n\t\t\tflex-wrap: wrap;\r\n\t\t\tmargin-bottom: 20px;\r\n\t\t}\r\n\t}\r\n\r\n\t.all-ships-set {\r\n\t\t@include desktop {\r\n\t\t\tmin-width: unset !important;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\r\n\t\t@include phone {\r\n\t\t\tmargin-right: 10px;\r\n\t\t\tmargin-top: 10px;\r\n\t\t}\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.selected_ship {\r\n\t\t.ship_field {\r\n\t\t\t@include green-gradient();\r\n\t\t}\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play,\r\n\t.btn-randomize,\r\n\t.btn-rotate {\r\n\t\t@include main-gradient();\r\n\t\t@include button-styles();\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\tdisplay: none;\r\n\t}\r\n}\r\n","@import \"./variables.scss\";\r\n\r\n.confettiCanvas {\r\n\twidth: 100vw;\r\n\theight: 100vh;\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n}\r\n\r\n#playGameScreen {\r\n\tdisplay: flex;\r\n\tflex-wrap: wrap;\r\n\tjustify-content: center;\r\n\r\n\t@include phone {\r\n\t\tflex-direction: column;\r\n\t}\r\n\r\n\t@include desktop {\r\n\t\tflex-direction: row;\r\n\t}\r\n\r\n\t.playground-field {\r\n\t\tmargin: 0 0.5px;\r\n\t\tborder: 0.5px solid #fff;\r\n\t}\r\n\r\n\t.player-playground-container,\r\n\t.computer-playground-container {\r\n\t\t.playground {\r\n\t\t\tmargin-top: 10px;\r\n\t\t}\r\n\r\n\t\tstrong {\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tfont-weight: 300;\r\n\t\t\tfont-size: 1rem;\r\n\t\t\tcolor: #fff;\r\n\t\t}\r\n\t}\r\n\r\n\t.player-playground-container {\r\n\t\tmargin-top: 20px;\r\n\t}\r\n\r\n\t.computer-playground-container {\r\n\t\t@include desktop {\r\n\t\t\tmargin: 0 30px;\r\n\t\t}\r\n\t}\r\n\r\n\t.playground-row {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: center;\r\n\t\talign-items: center;\r\n\t}\r\n\r\n\t.ship_container {\r\n\t\tdisplay: flex;\r\n\t\tflex-direction: row;\r\n\t\tjustify-content: start;\r\n\t\talign-items: center;\r\n\t\tmargin: 3px;\r\n\t}\r\n\r\n\t.ship_field {\r\n\t\t@include main-gradient();\r\n\r\n\t\tmargin: 0 1.5px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.field-with-gradient {\r\n\t\t@include main-gradient();\r\n\t}\r\n\r\n\t.field-with-error-gradient {\r\n\t\tbackground-color: pink;\r\n\t}\r\n\r\n\t.btn-play {\r\n\t\t@include main-gradient();\r\n\t\t@include button-styles();\r\n\r\n\t\tdisplay: none;\r\n\t}\r\n\r\n\t.hit_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\t@include main-gradient();\r\n\t\t\tcontent: \"✕\";\r\n\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tcolor: white;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n\r\n\t.misplaced_field {\r\n\t\tposition: relative;\r\n\r\n\t\t&::after {\r\n\t\t\tcontent: \"•\";\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 0;\r\n\t\t\tleft: 0;\r\n\t\t\twidth: 100%;\r\n\t\t\theight: 100%;\r\n\t\t\tz-index: 2;\r\n\t\t\tfont-family: \"Roboto\", sans-serif;\r\n\t\t\tcolor: white;\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t}\r\n\t}\r\n}\r\n",".modal-container {\r\n\t.modal-window {\r\n\t\tposition: fixed;\r\n\t\tbackground-color: rgba(255, 255, 255, 0.1);\r\n\t\ttop: 0;\r\n\t\tright: 0;\r\n\t\tbottom: 0;\r\n\t\tleft: 0;\r\n\t\tz-index: 999;\r\n\t\tvisibility: hidden;\r\n\t\topacity: 0;\r\n\t\tpointer-events: none;\r\n\t\ttransition: all 0.3s;\r\n\r\n\t\t&:target {\r\n\t\t\tvisibility: visible;\r\n\t\t\topacity: 1;\r\n\t\t\tpointer-events: auto;\r\n\t\t}\r\n\r\n\t\t& > div {\r\n\t\t\twidth: 80%;\r\n\t\t\tmax-width: 400px;\r\n\t\t\tposition: absolute;\r\n\t\t\ttop: 50%;\r\n\t\t\tleft: 50%;\r\n\t\t\ttransform: translate(-50%, -50%);\r\n\t\t\tpadding: 2em;\r\n\t\t\tbackground: white;\r\n\t\t}\r\n\r\n\t\theader {\r\n\t\t\tfont-weight: bold;\r\n\t\t}\r\n\r\n\t\th1 {\r\n\t\t\tfont-size: 150%;\r\n\t\t\tmargin: 0 0 15px;\r\n\t\t}\r\n\t}\r\n\r\n\t.modal-close {\r\n\t\tcolor: #aaa;\r\n\t\tline-height: 50px;\r\n\t\tfont-size: 80%;\r\n\t\tposition: absolute;\r\n\t\tright: 0;\r\n\t\ttext-align: center;\r\n\t\ttop: 0;\r\n\t\twidth: 70px;\r\n\t\ttext-decoration: none;\r\n\r\n\t\t&:hover {\r\n\t\t\tcolor: black;\r\n\t\t}\r\n\t}\r\n\r\n\t.modal-window {\r\n\t\t& > div {\r\n\t\t\tborder-radius: 1rem;\r\n\t\t}\r\n\t}\r\n\r\n\t.btn-play-again {\r\n\t\t@include main-gradient();\r\n\t\t@include button-styles();\r\n\r\n\t\tfloat: right;\r\n\t}\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1207,8 +1207,8 @@ exports.Game = void 0;
 var EventType_1 = __webpack_require__(/*! ./consts/EventType */ "./src/scripts/consts/EventType.ts");
 var MoveType_1 = __webpack_require__(/*! ./consts/MoveType */ "./src/scripts/consts/MoveType.ts");
 var PlayerType_1 = __webpack_require__(/*! ./consts/PlayerType */ "./src/scripts/consts/PlayerType.ts");
-var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
 var EventDispatcher_1 = __webpack_require__(/*! ./EventDispatcher */ "./src/scripts/EventDispatcher.ts");
+var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
 var Game = (function () {
     function Game(playerPlayground, computerPlayground, playerMoveStrategy, computerMoveStrategy) {
         var _this = this;
@@ -1237,9 +1237,14 @@ var Game = (function () {
     Game.prototype.startGame = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                this.move = MoveType_1.MoveType.playerMove;
-                this.game();
-                return [2];
+                switch (_a.label) {
+                    case 0:
+                        this.move = MoveType_1.MoveType.playerMove;
+                        return [4, this.game()];
+                    case 1:
+                        _a.sent();
+                        return [2];
+                }
             });
         });
     };
@@ -1249,7 +1254,7 @@ var Game = (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!this.gameInProgress) return [3, 2];
+                        if (!this.gameInProgress) return [3, 3];
                         return [4, new Promise(function (resolve) {
                                 _this.resolveMove = resolve;
                                 _this.performMove();
@@ -1257,9 +1262,11 @@ var Game = (function () {
                     case 1:
                         _a.sent();
                         this.nextMove();
-                        this.game();
-                        _a.label = 2;
-                    case 2: return [2];
+                        return [4, this.game()];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3: return [2];
                 }
             });
         });
@@ -1299,10 +1306,6 @@ exports.GameOptions = void 0;
 var GameOptions = (function () {
     function GameOptions() {
     }
-    GameOptions.prepareScreen = function (screen) {
-        screen === null || screen === void 0 ? void 0 : screen.prepareScreen();
-        screen === null || screen === void 0 ? void 0 : screen.prepareScreenEvents();
-    };
     GameOptions.getMainDOMElement = function () {
         return document.querySelector("main");
     };
@@ -1312,6 +1315,10 @@ var GameOptions = (function () {
     GameOptions.changeScreenContent = function (newContent) {
         this.clearMainDOMElement();
         this.getMainDOMElement().append(newContent);
+    };
+    GameOptions.prepareScreen = function (screen) {
+        screen === null || screen === void 0 ? void 0 : screen.prepareScreen();
+        screen === null || screen === void 0 ? void 0 : screen.prepareScreenEvents();
     };
     GameOptions.playgroundFieldsCount = 10;
     GameOptions.playgroundSize = window.innerWidth > 1200 ? 400 : Math.min(window.innerWidth - 100, 400);
@@ -1342,17 +1349,43 @@ exports.GameOptions = GameOptions;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Ship = void 0;
+var EventType_1 = __webpack_require__(/*! ./consts/EventType */ "./src/scripts/consts/EventType.ts");
+var ShipDirection_1 = __webpack_require__(/*! ./consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
+var EventDispatcher_1 = __webpack_require__(/*! ./EventDispatcher */ "./src/scripts/EventDispatcher.ts");
 var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
 var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
-var EventDispatcher_1 = __webpack_require__(/*! ./EventDispatcher */ "./src/scripts/EventDispatcher.ts");
-var ShipDirection_1 = __webpack_require__(/*! ./consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
-var EventType_1 = __webpack_require__(/*! ./consts/EventType */ "./src/scripts/consts/EventType.ts");
 var Ship = (function () {
     function Ship(shipSize) {
         var _this = this;
+        this.shipElement = document.createElement("div");
         this.shipDirection = ShipDirection_1.ShipDirection.horizontal;
         this.fieldsOnPlayground = [];
-        this.shipElement = document.createElement("div");
+        this.unselectShip = function () {
+            if (GameOptions_1.GameOptions.currentSelectedShipAfterClick) {
+                GameOptions_1.GameOptions.currentSelectedShipAfterClick.shipElement.style.opacity = "1";
+                GameOptions_1.GameOptions.currentSelectedShipAfterClick.shipElement.classList.remove("selected_ship");
+            }
+            GameOptions_1.GameOptions.currentSelectedShip = null;
+            GameOptions_1.GameOptions.currentSelectedShipAfterClick = null;
+            document.body.removeEventListener("click", _this.unselectShip);
+        };
+        this.dropShip = function () {
+            if (_this.shipElement) {
+                _this.shipElement.classList.remove("selected_ship");
+                _this.shipElement.style.position = "static";
+                document.body.removeEventListener("mousemove", _this.moveShip);
+                document.body.removeEventListener("mouseup", _this.dropShip);
+                document.body.removeEventListener("keydown", _this.pressKey);
+                if (GameOptions_1.GameOptions.currentlySelectedField && _this.shipOnPlayground.length > 0) {
+                    _this.hideShip();
+                    EventDispatcher_1.EventDispatcher.dispatch(EventType_1.EventType.SHIP_WAS_SET);
+                }
+                else
+                    _this.showShip();
+                GameOptions_1.GameOptions.currentlySelectedField = null;
+                GameOptions_1.GameOptions.currentSelectedShip = null;
+            }
+        };
         this.clickOnShip = function (e) {
             var _a;
             e.stopPropagation();
@@ -1361,15 +1394,6 @@ var Ship = (function () {
             GameOptions_1.GameOptions.currentSelectedShip = _this;
             GameOptions_1.GameOptions.currentSelectedShipAfterClick = _this;
             _this.shipElement.classList.add("selected_ship");
-        };
-        this.unselectShip = function (e) {
-            if (GameOptions_1.GameOptions.currentSelectedShipAfterClick) {
-                GameOptions_1.GameOptions.currentSelectedShipAfterClick.shipElement.style.opacity = "1";
-                GameOptions_1.GameOptions.currentSelectedShipAfterClick.shipElement.classList.remove("selected_ship");
-            }
-            GameOptions_1.GameOptions.currentSelectedShip = null;
-            GameOptions_1.GameOptions.currentSelectedShipAfterClick = null;
-            document.body.removeEventListener("click", _this.unselectShip);
         };
         this.moveShip = function (e) {
             if (_this.shipElement) {
@@ -1391,23 +1415,6 @@ var Ship = (function () {
                 _this.shipElement.style.zIndex = "-1";
                 _this.shipElement.style.left = x - slideX + "px";
                 _this.shipElement.style.top = y - slideY + "px";
-            }
-        };
-        this.dropShip = function () {
-            if (_this.shipElement) {
-                _this.shipElement.classList.remove("selected_ship");
-                _this.shipElement.style.position = "static";
-                document.body.removeEventListener("mousemove", _this.moveShip);
-                document.body.removeEventListener("mouseup", _this.dropShip);
-                document.body.removeEventListener("keydown", _this.pressKey);
-                if (GameOptions_1.GameOptions.currentlySelectedField && _this.shipOnPlayground.length > 0) {
-                    _this.hideShip();
-                    EventDispatcher_1.EventDispatcher.dispatch(EventType_1.EventType.SHIP_WAS_SETTED);
-                }
-                else
-                    _this.showShip();
-                GameOptions_1.GameOptions.currentlySelectedField = null;
-                GameOptions_1.GameOptions.currentSelectedShip = null;
             }
         };
         this.shipSize = shipSize;
@@ -1437,6 +1444,17 @@ var Ship = (function () {
         enumerable: false,
         configurable: true
     });
+    Ship.rotateCurrentlySelectedShip = function (e) {
+        e.stopPropagation();
+        if (GameOptions_1.GameOptions.currentSelectedShip) {
+            var direction = GameOptions_1.GameOptions.currentSelectedShip.direction;
+            GameOptions_1.GameOptions.currentSelectedShip.direction =
+                direction === ShipDirection_1.ShipDirection.vertical
+                    ? ShipDirection_1.ShipDirection.horizontal
+                    : ShipDirection_1.ShipDirection.vertical;
+            EventDispatcher_1.EventDispatcher.dispatch(EventType_1.EventType.ROTATE_SHIP);
+        }
+    };
     Ship.prototype.addField = function (field) {
         this.fieldsOnPlayground.push(field);
     };
@@ -1455,7 +1473,7 @@ var Ship = (function () {
             div.style.height = GameOptions_1.GameOptions.fieldSize + "px";
             this.shipElement.appendChild(div);
         }
-        this.shipElement.addEventListener("mousedown", function (e) {
+        this.shipElement.addEventListener("mousedown", function () {
             GameOptions_1.GameOptions.currentSelectedShip = _this;
             document.body.addEventListener("mousemove", _this.moveShip);
             document.body.addEventListener("mouseup", _this.dropShip);
@@ -1463,16 +1481,6 @@ var Ship = (function () {
         });
         if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
             this.shipElement.addEventListener("click", this.clickOnShip);
-        }
-    };
-    Ship.rotateCurrentlySelectedShip = function (e) {
-        e.stopPropagation();
-        if (GameOptions_1.GameOptions.currentSelectedShip) {
-            var direction = GameOptions_1.GameOptions.currentSelectedShip.direction === ShipDirection_1.ShipDirection.vertical
-                ? ShipDirection_1.ShipDirection.horizontal
-                : ShipDirection_1.ShipDirection.vertical;
-            GameOptions_1.GameOptions.currentSelectedShip.direction = direction;
-            EventDispatcher_1.EventDispatcher.dispatch(EventType_1.EventType.ROTATE_SHIP);
         }
     };
     Ship.prototype.hideShip = function () {
@@ -1502,12 +1510,30 @@ exports.EventType = void 0;
 var EventType = (function () {
     function EventType() {
     }
-    EventType.SHIP_WAS_SETTED = "shipWasSetted";
+    EventType.SHIP_WAS_SET = "shipWasSet";
     EventType.ROTATE_SHIP = "rotateShip";
     EventType.GAME_END = "gameEnd";
     return EventType;
 }());
 exports.EventType = EventType;
+
+
+/***/ }),
+
+/***/ "./src/scripts/consts/FieldClassNames.ts":
+/*!***********************************************!*\
+  !*** ./src/scripts/consts/FieldClassNames.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FieldClassNames = void 0;
+var FieldClassNames;
+(function (FieldClassNames) {
+    FieldClassNames["hit"] = "field-with-gradient";
+    FieldClassNames["misplaced"] = "field-with-error-gradient";
+})(FieldClassNames = exports.FieldClassNames || (exports.FieldClassNames = {}));
 
 
 /***/ }),
@@ -1564,6 +1590,24 @@ var PlayerType;
     PlayerType["player"] = "Player";
     PlayerType["computer"] = "Computer";
 })(PlayerType = exports.PlayerType || (exports.PlayerType = {}));
+
+
+/***/ }),
+
+/***/ "./src/scripts/consts/SetType.ts":
+/*!***************************************!*\
+  !*** ./src/scripts/consts/SetType.ts ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SetType = void 0;
+var SetType;
+(function (SetType) {
+    SetType["MANUALLY"] = "manually";
+    SetType["RANDOM"] = "random";
+})(SetType = exports.SetType || (exports.SetType = {}));
 
 
 /***/ }),
@@ -1652,18 +1696,18 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SimpleComputerMoveStrategy = void 0;
-var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
-var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var MoveDirection_1 = __webpack_require__(/*! ../consts/MoveDirection */ "./src/scripts/consts/MoveDirection.ts");
 var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
+var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
+var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var SimpleComputerMoveStrategy = (function () {
     function SimpleComputerMoveStrategy() {
+        this.availableShips = [];
         this.hitFields = [];
         this.hitsInARow = 0;
         this.shipDirection = ShipDirection_1.ShipDirection.horizontal;
         this.moveDirection = MoveDirection_1.MoveDirection.Right;
         this.firstHitField = null;
-        this.availableShips = [];
         this.availableFields = [];
         this.fieldsToCheckAfterHit = [];
         this.availableShips = __spreadArray([], GameOptions_1.GameOptions.availableShips).sort(function (shipA, shipB) { return shipA - shipB; });
@@ -1952,8 +1996,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ComputerPlayground = void 0;
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
-var Playground_1 = __webpack_require__(/*! ./Playground */ "./src/scripts/playground/Playground.ts");
 var Ship_1 = __webpack_require__(/*! ../Ship */ "./src/scripts/Ship.ts");
+var Playground_1 = __webpack_require__(/*! ./Playground */ "./src/scripts/playground/Playground.ts");
 var ComputerPlayground = (function (_super) {
     __extends(ComputerPlayground, _super);
     function ComputerPlayground() {
@@ -2009,25 +2053,19 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PlayerPlayground = void 0;
-var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
-var Playground_1 = __webpack_require__(/*! ./Playground */ "./src/scripts/playground/Playground.ts");
-var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
-var Ship_1 = __webpack_require__(/*! ../Ship */ "./src/scripts/Ship.ts");
-var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
 var EventType_1 = __webpack_require__(/*! ../consts/EventType */ "./src/scripts/consts/EventType.ts");
-var FieldClassNames;
-(function (FieldClassNames) {
-    FieldClassNames["hit"] = "field-with-gradient";
-    FieldClassNames["missplaced"] = "field-with-error-gradient";
-})(FieldClassNames || (FieldClassNames = {}));
+var SetType_1 = __webpack_require__(/*! ../consts/SetType */ "./src/scripts/consts/SetType.ts");
+var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
+var Ship_1 = __webpack_require__(/*! ../Ship */ "./src/scripts/Ship.ts");
+var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
+var Playground_1 = __webpack_require__(/*! ./Playground */ "./src/scripts/playground/Playground.ts");
 var PlayerPlayground = (function (_super) {
     __extends(PlayerPlayground, _super);
     function PlayerPlayground() {
         var _this = _super.call(this) || this;
-        _this.tempHighlightedFields = [];
+        _this.playgroundShips = [];
         _this.currentlySelectedField = "";
         _this.playgroundClassPrefix = "player-playground";
-        _this.playgroundShips = [];
         _this.randomizeShipsPosition = function () {
             _this.clearPlayground();
             _this.randomizeShipsPositions();
@@ -2043,6 +2081,9 @@ var PlayerPlayground = (function (_super) {
         };
         _this.onShipRotate = function () {
             _this.highlightFields(_this.currentlySelectedField);
+        };
+        _this.clickOnPlayground = function (e) {
+            e.stopPropagation();
         };
         _this.playgroundMouseOver = function () {
             if (GameOptions_1.GameOptions.currentSelectedShip) {
@@ -2077,9 +2118,9 @@ var PlayerPlayground = (function (_super) {
             if (GameOptions_1.GameOptions.currentSelectedShip) {
                 (_a = GameOptions_1.GameOptions.currentSelectedShipAfterClick) === null || _a === void 0 ? void 0 : _a.shipElement.classList.remove("selected_ship");
                 GameOptions_1.GameOptions.currentSelectedShipAfterClick = null;
-                var wasSetted = _this.setShipOnPlaygroundIfPossible(GameOptions_1.GameOptions.currentSelectedShip, row, column, GameOptions_1.GameOptions.currentSelectedShip.direction);
+                var wasSet = _this.setShipOnPlaygroundIfPossible(row, column, GameOptions_1.GameOptions.currentSelectedShip, GameOptions_1.GameOptions.currentSelectedShip.direction, SetType_1.SetType.RANDOM);
                 if (GameOptions_1.GameOptions.currentSelectedShip) {
-                    if (wasSetted)
+                    if (wasSet)
                         GameOptions_1.GameOptions.currentSelectedShip.hideShip();
                     else
                         GameOptions_1.GameOptions.currentSelectedShip.showShip();
@@ -2087,7 +2128,6 @@ var PlayerPlayground = (function (_super) {
                 _this.clearShipFields();
                 GameOptions_1.GameOptions.currentSelectedShip = null;
             }
-            GameOptions_1.GameOptions.currentSelectedShip;
         };
         _this.fieldTouchMove = function (e) {
             _this.playgroundDOM.removeEventListener("touchend", _this.playgroundTouchEnd, false);
@@ -2119,9 +2159,7 @@ var PlayerPlayground = (function (_super) {
             var row = rowAndColumnIndex.row, column = rowAndColumnIndex.column;
             GameOptions_1.GameOptions.currentlySelectedField = rowAndColumnIndex;
             _this.clearShipFields();
-            shipDirection === ShipDirection_1.ShipDirection.vertical
-                ? _this.setShipVerticallyOnPlayground(shipSize, row, column)
-                : _this.setShipHorizontalyOnPlayground(shipSize, row, column);
+            _this.setShipOnPlaygroundIfPossible(row, column, GameOptions_1.GameOptions.currentSelectedShip, shipDirection, SetType_1.SetType.MANUALLY);
         };
         _this.preparePlayerShips();
         _this.preparePlaygroundDOMStructure();
@@ -2130,30 +2168,6 @@ var PlayerPlayground = (function (_super) {
     }
     PlayerPlayground.prototype.getShipsDOMElements = function () {
         return this.playgroundShips.map(function (ship) { return ship.shipElement; });
-    };
-    PlayerPlayground.prototype.hideShips = function () {
-        this.playgroundShips.forEach(function (ship) { return ship.hideShip(); });
-    };
-    PlayerPlayground.prototype.preparePlayerShips = function () {
-        var _this = this;
-        console.log("siemaneczko => ", GameOptions_1.GameOptions.availableShips);
-        GameOptions_1.GameOptions.availableShips.forEach(function (shipSize) {
-            var ship = new Ship_1.Ship(shipSize);
-            _this.playgroundShips.push(ship);
-        });
-    };
-    PlayerPlayground.prototype.addEventsOnPlayerPlayground = function () {
-        this.playgroundDOM.addEventListener("click", function (e) {
-            e.stopPropagation();
-        });
-        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
-            this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
-        }
-        if (!PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
-            this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
-            this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
-        }
-        document.body.addEventListener(EventType_1.EventType.ROTATE_SHIP, this.onShipRotate);
     };
     PlayerPlayground.prototype.removeEventsFromPlayerPlayground = function () {
         _super.prototype.removeEventsFromPlayerPlayground.call(this);
@@ -2164,108 +2178,22 @@ var PlayerPlayground = (function (_super) {
             this.playgroundDOM.removeEventListener("mouseover", this.playgroundMouseOver);
             this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
         }
+        this.playgroundDOM.removeEventListener("click", this.clickOnPlayground);
         document.body.removeEventListener(EventType_1.EventType.ROTATE_SHIP, this.onShipRotate);
     };
-    PlayerPlayground.prototype.setShipVerticallyOnPlayground = function (shipSize, row, column) {
-        var doesVerticalSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedFieldsEmpty, doesVerticalSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedNearbyFieldsEmpty;
-        if (shipSize + row <= GameOptions_1.GameOptions.playgroundFieldsCount - 1) {
-            var data = {
-                playground: this.playground,
-                currentChecked: column,
-                first: row,
-                last: shipSize + row,
-            };
-            if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
-                this.highlightVerticalyCorrectShipFields(row, shipSize + row, column);
-            }
-            else
-                this.highlightVerticalIncorrectShipFields(row, shipSize + row, column);
-        }
-        else {
-            var data = {
-                playground: this.playground,
-                currentChecked: column,
-                first: GameOptions_1.GameOptions.playgroundFieldsCount - shipSize,
-                last: GameOptions_1.GameOptions.playgroundFieldsCount,
-            };
-            if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
-                this.highlightVerticalyCorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, column);
-            }
-            else
-                this.highlightVerticalIncorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, column);
-        }
+    PlayerPlayground.prototype.hideShips = function () {
+        this.playgroundShips.forEach(function (ship) { return ship.hideShip(); });
     };
-    PlayerPlayground.prototype.setShipHorizontalyOnPlayground = function (shipSize, row, column) {
-        var doesSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedNearbyFieldsEmpty;
-        if (shipSize + column <= GameOptions_1.GameOptions.playgroundFieldsCount) {
-            var data = {
-                playground: this.playground,
-                currentChecked: row,
-                first: column,
-                last: shipSize + column,
-            };
-            if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-                this.highlightCorrectShipFields(column, shipSize + column, row);
-            else
-                this.highlightIncorrectShipFields(column, shipSize + column, row);
+    PlayerPlayground.prototype.addEventsOnPlayerPlayground = function () {
+        this.playgroundDOM.addEventListener("click", this.clickOnPlayground);
+        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
         }
-        else {
-            var data = {
-                playground: this.playground,
-                currentChecked: row,
-                first: GameOptions_1.GameOptions.playgroundFieldsCount - shipSize,
-                last: GameOptions_1.GameOptions.playgroundFieldsCount,
-            };
-            if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data))
-                this.highlightCorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, row);
-            else
-                this.highlightIncorrectShipFields(GameOptions_1.GameOptions.playgroundFieldsCount - shipSize, GameOptions_1.GameOptions.playgroundFieldsCount, row);
+        if (!PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
+            this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
         }
-    };
-    PlayerPlayground.prototype.highlightCorrectShipFields = function (firstIndex, lastIndex, currentRow) {
-        var _a;
-        for (var i = firstIndex; i < lastIndex; i++) {
-            this.playground[currentRow][i] = 1;
-            if (this.highlightField(currentRow, i, FieldClassNames.hit)) {
-                var className = this.getPlaygroundFieldClassName(currentRow, i);
-                (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.addField(className);
-            }
-        }
-    };
-    PlayerPlayground.prototype.highlightVerticalyCorrectShipFields = function (firstIndex, lastIndex, currentColumn) {
-        var _a;
-        for (var i = firstIndex; i < lastIndex; i++) {
-            this.playground[i][currentColumn] = 1;
-            if (this.highlightField(i, currentColumn, FieldClassNames.hit)) {
-                var className = this.getPlaygroundFieldClassName(i, currentColumn);
-                (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.addField(className);
-            }
-        }
-    };
-    PlayerPlayground.prototype.highlightIncorrectShipFields = function (firstIndex, lastIndex, currentRow) {
-        GameOptions_1.GameOptions.currentlySelectedField = null;
-        for (var i = firstIndex; i < lastIndex; i++) {
-            if (this.highlightField(currentRow, i, FieldClassNames.missplaced)) {
-                this.tempHighlightedFields.push(currentRow + "_" + i);
-            }
-        }
-    };
-    PlayerPlayground.prototype.highlightVerticalIncorrectShipFields = function (firstIndex, lastIndex, currentColumn) {
-        GameOptions_1.GameOptions.currentlySelectedField = null;
-        for (var i = firstIndex; i < lastIndex; i++) {
-            if (this.highlightField(i, currentColumn, FieldClassNames.missplaced)) {
-                this.tempHighlightedFields.push(i + "_" + currentColumn);
-            }
-        }
-    };
-    PlayerPlayground.prototype.highlightField = function (row, column, className) {
-        var elementClass = this.getPlaygroundFieldClassName(row, column);
-        var element = document.querySelector(elementClass);
-        if (element) {
-            element.classList.add(className);
-            return true;
-        }
-        return false;
+        document.body.addEventListener(EventType_1.EventType.ROTATE_SHIP, this.onShipRotate);
     };
     PlayerPlayground.prototype.clearShipFields = function () {
         var _this = this;
@@ -2294,6 +2222,13 @@ var PlayerPlayground = (function (_super) {
             _this.playground[row][column] = 0;
         });
     };
+    PlayerPlayground.prototype.preparePlayerShips = function () {
+        var _this = this;
+        GameOptions_1.GameOptions.availableShips.forEach(function (shipSize) {
+            var ship = new Ship_1.Ship(shipSize);
+            _this.playgroundShips.push(ship);
+        });
+    };
     return PlayerPlayground;
 }(Playground_1.Playground));
 exports.PlayerPlayground = PlayerPlayground;
@@ -2310,17 +2245,11 @@ exports.PlayerPlayground = PlayerPlayground;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PlayerPlaygroundUtils = void 0;
+var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var PlayerPlaygroundUtils = (function () {
     function PlayerPlaygroundUtils() {
     }
-    PlayerPlaygroundUtils.getCurrentlySelectedShipFields = function () {
-        var _a;
-        return (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.shipOnPlayground.map(function (className) {
-            var _a = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className), row = _a.row, column = _a.column;
-            return row + "_" + column;
-        });
-    };
     PlayerPlaygroundUtils.isMobile = function () {
         return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     };
@@ -2345,64 +2274,37 @@ var PlayerPlaygroundUtils = (function () {
             return defaultRowAndColumn;
         }
     };
-    PlayerPlaygroundUtils.doesSelectedFieldsEmpty = function (data) {
-        var playground = data.playground, currentChecked = data.currentChecked, first = data.first, last = data.last;
-        var doesFieldEmpty = PlayerPlaygroundUtils.doesFieldEmpty, getCurrentlySelectedShipFields = PlayerPlaygroundUtils.getCurrentlySelectedShipFields;
-        var fields = getCurrentlySelectedShipFields();
-        for (var i = first; i <= last; i++) {
-            if (!doesFieldEmpty(playground, currentChecked, i) && !(fields === null || fields === void 0 ? void 0 : fields.includes(currentChecked + "_" + i)))
-                return false;
-        }
-        return true;
-    };
-    PlayerPlaygroundUtils.doesVerticalSelectedFieldsEmpty = function (data) {
-        var playground = data.playground, currentChecked = data.currentChecked, first = data.first, last = data.last;
-        var doesFieldEmpty = PlayerPlaygroundUtils.doesFieldEmpty, getCurrentlySelectedShipFields = PlayerPlaygroundUtils.getCurrentlySelectedShipFields;
-        var fields = getCurrentlySelectedShipFields();
-        for (var i = first; i <= last; i++) {
-            if (!doesFieldEmpty(playground, i, currentChecked) && !(fields === null || fields === void 0 ? void 0 : fields.includes(i + "_" + currentChecked)))
-                return false;
-        }
-        return true;
-    };
-    PlayerPlaygroundUtils.doesSelectedNearbyFieldsEmpty = function (data) {
-        var playground = data.playground, currentChecked = data.currentChecked, first = data.first, last = data.last;
+    PlayerPlaygroundUtils.doesFieldsAvailable = function (data) {
+        var playground = data.playground, currentChecked = data.currentChecked, first = data.first, last = data.last, shipDirection = data.shipDirection;
+        var isHorizontal = shipDirection === ShipDirection_1.ShipDirection.horizontal;
         var doesFieldEmpty = PlayerPlaygroundUtils.doesFieldEmpty;
-        for (var i = first; i <= last; i++) {
-            if (!doesFieldEmpty(playground, currentChecked - 1, i))
-                return false;
+        for (var i = first - 1; i < last + 1; i++) {
+            if ((i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount)) {
+                var doesFieldAvailable = isHorizontal
+                    ? doesFieldEmpty(playground, currentChecked, i)
+                    : doesFieldEmpty(playground, i, currentChecked);
+                if (!doesFieldAvailable)
+                    return false;
+            }
         }
-        for (var i = first; i <= last; i++) {
-            if (!doesFieldEmpty(playground, currentChecked + 1, i))
-                return false;
+        for (var i = first - 1; i < last + 1; i++) {
+            if ((i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount)) {
+                var doesFieldAvailable = isHorizontal
+                    ? doesFieldEmpty(playground, currentChecked - 1, i)
+                    : doesFieldEmpty(playground, i, currentChecked - 1);
+                if (!doesFieldAvailable)
+                    return false;
+            }
         }
-        if (!doesFieldEmpty(playground, currentChecked, first - 1))
-            return false;
-        if (!doesFieldEmpty(playground, currentChecked + 1, first - 1))
-            return false;
-        if (!doesFieldEmpty(playground, currentChecked - 1, first - 1))
-            return false;
-        return true;
-    };
-    PlayerPlaygroundUtils.doesVerticalSelectedNearbyFieldsEmpty = function (data) {
-        var playground = data.playground, currentChecked = data.currentChecked, first = data.first, last = data.last;
-        var doesFieldEmpty = PlayerPlaygroundUtils.doesFieldEmpty;
-        for (var i = first; i <= last; i++) {
-            if (!doesFieldEmpty(playground, i, currentChecked - 1))
-                return false;
+        for (var i = first - 1; i < last + 1; i++) {
+            if ((i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount)) {
+                var doesFieldAvailable = isHorizontal
+                    ? doesFieldEmpty(playground, currentChecked + 1, i)
+                    : doesFieldEmpty(playground, i, currentChecked + 1);
+                if (!doesFieldAvailable)
+                    return false;
+            }
         }
-        for (var i = first; i <= last; i++) {
-            if (!doesFieldEmpty(playground, i, currentChecked + 1))
-                return false;
-        }
-        if (!doesFieldEmpty(playground, first - 1, currentChecked))
-            return false;
-        if (!doesFieldEmpty(playground, last - 1, currentChecked))
-            return false;
-        if (!doesFieldEmpty(playground, first - 1, currentChecked - 1))
-            return false;
-        if (!doesFieldEmpty(playground, first - 1, currentChecked + 1))
-            return false;
         return true;
     };
     PlayerPlaygroundUtils.doesFieldEmpty = function (playground, row, column) {
@@ -2432,21 +2334,21 @@ exports.PlayerPlaygroundUtils = PlayerPlaygroundUtils;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Playground = void 0;
-var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
-var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
-var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var EventType_1 = __webpack_require__(/*! ../consts/EventType */ "./src/scripts/consts/EventType.ts");
+var FieldClassNames_1 = __webpack_require__(/*! ../consts/FieldClassNames */ "./src/scripts/consts/FieldClassNames.ts");
+var SetType_1 = __webpack_require__(/*! ../consts/SetType */ "./src/scripts/consts/SetType.ts");
+var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
+var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
+var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
 var Playground = (function () {
     function Playground(playgroundSize) {
         var _this = this;
         this.playgroundDOM = document.createElement("div");
         this.playground = [];
+        this.tempHighlightedFields = [];
         this.playgroundShips = [];
         this.showShipsOnPlayground = true;
-        this.shipsOnPlaygrundCount = 0;
-        this.shipsWasSetted = function () {
-            _this.shipsOnPlaygrundCount++;
-        };
+        this.shipsOnPlaygroundCount = 0;
         this.changePlaygroundSize = function (playgroundSizeInPx) {
             _this.playgroundSizeInPx = playgroundSizeInPx ? playgroundSizeInPx : GameOptions_1.GameOptions.playgroundSize;
             _this.fieldSizeInPx = playgroundSizeInPx
@@ -2474,80 +2376,19 @@ var Playground = (function () {
                 });
             });
         };
+        this.shipsWasSet = function () {
+            _this.shipsOnPlaygroundCount++;
+        };
         this.randomizeShipsPositions = function () {
             GameOptions_1.GameOptions.currentlySelectedField = null;
-            while (_this.shipsOnPlaygrundCount < _this.playgroundShips.length) {
-                var ship = _this.playgroundShips[_this.shipsOnPlaygrundCount];
+            while (_this.shipsOnPlaygroundCount < _this.playgroundShips.length) {
+                var ship = _this.playgroundShips[_this.shipsOnPlaygroundCount];
                 var row = Math.floor(Math.random() * 10);
                 var column = Math.floor(Math.random() * 10);
                 var shipDirections = [ShipDirection_1.ShipDirection.horizontal, ShipDirection_1.ShipDirection.vertical];
                 var randomIndex = Math.floor(Math.random() * shipDirections.length - 1) + 1;
                 var shipDirection = shipDirections[randomIndex];
-                _this.setShipOnPlaygroundIfPossible(ship, row, column, shipDirection);
-            }
-        };
-        this.setShipOnPlaygroundIfPossible = function (ship, row, column, shipDirection) {
-            var doesSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedFieldsEmpty, doesSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesSelectedNearbyFieldsEmpty, doesVerticalSelectedFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedFieldsEmpty, doesVerticalSelectedNearbyFieldsEmpty = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesVerticalSelectedNearbyFieldsEmpty;
-            GameOptions_1.GameOptions.currentlySelectedField = { row: row, column: column };
-            if (shipDirection === ShipDirection_1.ShipDirection.vertical) {
-                if (ship.size + row <= GameOptions_1.GameOptions.playgroundFieldsCount) {
-                    var data = {
-                        playground: _this.playground,
-                        currentChecked: column,
-                        first: row,
-                        last: ship.size + row,
-                    };
-                    if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
-                        _this.setVerticalyShipOnPlayground(row, ship.size + row, column, ship);
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-                else {
-                    var data = {
-                        playground: _this.playground,
-                        currentChecked: column,
-                        first: GameOptions_1.GameOptions.playgroundFieldsCount - ship.size,
-                        last: GameOptions_1.GameOptions.playgroundFieldsCount,
-                    };
-                    if (doesVerticalSelectedFieldsEmpty(data) && doesVerticalSelectedNearbyFieldsEmpty(data)) {
-                        _this.setVerticalyShipOnPlayground(GameOptions_1.GameOptions.playgroundFieldsCount - ship.size, GameOptions_1.GameOptions.playgroundFieldsCount, column, ship);
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-            }
-            else {
-                if (ship.size + column <= GameOptions_1.GameOptions.playgroundFieldsCount) {
-                    var data = {
-                        playground: _this.playground,
-                        currentChecked: row,
-                        first: column,
-                        last: ship.size + column,
-                    };
-                    if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
-                        _this.setShipOnPlayground(column, ship.size + column, row, ship);
-                        return true;
-                    }
-                    else
-                        return false;
-                }
-                else {
-                    var data = {
-                        playground: _this.playground,
-                        currentChecked: row,
-                        first: GameOptions_1.GameOptions.playgroundFieldsCount - ship.size,
-                        last: GameOptions_1.GameOptions.playgroundFieldsCount,
-                    };
-                    if (doesSelectedFieldsEmpty(data) && doesSelectedNearbyFieldsEmpty(data)) {
-                        _this.setShipOnPlayground(GameOptions_1.GameOptions.playgroundFieldsCount - ship.size, GameOptions_1.GameOptions.playgroundFieldsCount, row, ship);
-                        return true;
-                    }
-                    else
-                        return false;
-                }
+                _this.setShipOnPlaygroundIfPossible(row, column, ship, shipDirection, SetType_1.SetType.RANDOM);
             }
         };
         this.playgroundSizeInPx = playgroundSize ? playgroundSize : GameOptions_1.GameOptions.playgroundSize;
@@ -2555,10 +2396,10 @@ var Playground = (function () {
             ? playgroundSize / GameOptions_1.GameOptions.playgroundFieldsCount - 4
             : GameOptions_1.GameOptions.fieldSize;
         this.preparePlayground();
-        document.body.addEventListener(EventType_1.EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
+        document.body.addEventListener(EventType_1.EventType.SHIP_WAS_SET, this.shipsWasSet);
     }
     Playground.prototype.removeEventsFromPlayerPlayground = function () {
-        document.body.removeEventListener(EventType_1.EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
+        document.body.removeEventListener(EventType_1.EventType.SHIP_WAS_SET, this.shipsWasSet);
     };
     Playground.prototype.preparePlayground = function () {
         for (var i = 0; i < GameOptions_1.GameOptions.playgroundFieldsCount; i++) {
@@ -2590,29 +2431,84 @@ var Playground = (function () {
             _this.playgroundDOM.appendChild(rowDiv);
         });
     };
-    Playground.prototype.setShipOnPlayground = function (firstIndex, lastIndex, currentRow, ship) {
-        for (var i = firstIndex; i < lastIndex; i++) {
-            this.playground[currentRow][i] = 1;
-            ship.addField(currentRow + "_" + i);
-            if (this.showShipsOnPlayground) {
-                var field = this.playgroundDOM.querySelector(this.getPlaygroundFieldClassName(currentRow, i));
-                if (field) {
-                    field.classList.add("field-with-gradient");
-                }
+    Playground.prototype.setShipOnPlaygroundIfPossible = function (row, column, ship, shipDirection, setType) {
+        if (!ship)
+            return false;
+        if (setType === SetType_1.SetType.RANDOM)
+            GameOptions_1.GameOptions.currentlySelectedField = { row: row, column: column };
+        var shipSize = ship.size;
+        var doesShipOnPlaygroundEnd = shipDirection === ShipDirection_1.ShipDirection.horizontal
+            ? shipSize + column < GameOptions_1.GameOptions.playgroundFieldsCount
+            : shipSize + row < GameOptions_1.GameOptions.playgroundFieldsCount;
+        var data = doesShipOnPlaygroundEnd
+            ? {
+                playground: this.playground,
+                currentChecked: shipDirection === ShipDirection_1.ShipDirection.horizontal ? row : column,
+                first: shipDirection === ShipDirection_1.ShipDirection.horizontal ? column : row,
+                last: shipDirection === ShipDirection_1.ShipDirection.horizontal ? shipSize + column : shipSize + row,
+                shipDirection: shipDirection,
             }
+            : {
+                playground: this.playground,
+                currentChecked: shipDirection === ShipDirection_1.ShipDirection.horizontal ? row : column,
+                first: GameOptions_1.GameOptions.playgroundFieldsCount - shipSize,
+                last: GameOptions_1.GameOptions.playgroundFieldsCount,
+                shipDirection: shipDirection,
+            };
+        var first = data.first, last = data.last, currentChecked = data.currentChecked;
+        var doesFieldsAvailable = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesFieldsAvailable(data);
+        if (setType === SetType_1.SetType.RANDOM && doesFieldsAvailable)
+            this.setShipOnPlayground(first, last, currentChecked, ship, shipDirection);
+        if (setType === SetType_1.SetType.MANUALLY) {
+            doesFieldsAvailable
+                ? this.highlightShipOnPlayground(first, last, currentChecked, shipDirection, FieldClassNames_1.FieldClassNames.hit)
+                : this.highlightShipOnPlayground(first, last, currentChecked, shipDirection, FieldClassNames_1.FieldClassNames.misplaced);
         }
-        ship.dropShip();
+        return doesFieldsAvailable ? true : false;
     };
-    Playground.prototype.setVerticalyShipOnPlayground = function (firstIndex, lastIndex, currentColumn, ship) {
-        for (var i = firstIndex; i < lastIndex; i++) {
-            this.playground[i][currentColumn] = 1;
-            ship.addField(i + "_" + currentColumn);
-            if (this.showShipsOnPlayground) {
-                var field = this.playgroundDOM.querySelector(this.getPlaygroundFieldClassName(i, currentColumn));
-                if (field) {
-                    field.classList.add("field-with-gradient");
+    Playground.prototype.highlightShipOnPlayground = function (firstIndex, lastIndex, currentRowOrColumn, direction, fieldClassName) {
+        var _this = this;
+        var getDOMField = function (row, column) {
+            var elementClass = _this.getPlaygroundFieldClassName(row, column);
+            var element = document.querySelector(elementClass);
+            return element ? element : null;
+        };
+        var highlightShip = function (row, column) {
+            var _a;
+            var element = getDOMField(row, column);
+            if (element) {
+                element.classList.add(fieldClassName);
+                if (fieldClassName === FieldClassNames_1.FieldClassNames.misplaced) {
+                    GameOptions_1.GameOptions.currentlySelectedField = null;
+                    _this.tempHighlightedFields.push(row + "_" + column);
+                }
+                else {
+                    _this.playground[row][column] = 1;
+                    var className = _this.getPlaygroundFieldClassName(row, column);
+                    (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.addField(className);
                 }
             }
+        };
+        for (var i = firstIndex; i < lastIndex; i++) {
+            var row = direction === ShipDirection_1.ShipDirection.horizontal ? currentRowOrColumn : i;
+            var column = direction === ShipDirection_1.ShipDirection.horizontal ? i : currentRowOrColumn;
+            highlightShip(row, column);
+        }
+    };
+    Playground.prototype.setShipOnPlayground = function (firstIndex, lastIndex, currentRowOrColumn, ship, direction) {
+        for (var i = firstIndex; i < lastIndex; i++) {
+            direction === ShipDirection_1.ShipDirection.horizontal
+                ? this.setAndHighlightShip(currentRowOrColumn, i, ship)
+                : this.setAndHighlightShip(i, currentRowOrColumn, ship);
+        }
+    };
+    Playground.prototype.setAndHighlightShip = function (row, column, ship) {
+        this.playground[row][column] = 1;
+        ship.addField(row + "_" + column);
+        if (this.showShipsOnPlayground) {
+            var field = this.playgroundDOM.querySelector(this.getPlaygroundFieldClassName(row, column));
+            if (field)
+                field.classList.add(FieldClassNames_1.FieldClassNames.hit);
         }
         ship.dropShip();
     };
@@ -2624,14 +2520,15 @@ var Playground = (function () {
                 _this.playground[rowIndex][fieldIndex] = 0;
                 var div = _this.playgroundDOM.querySelector(_this.getPlaygroundFieldClassName(rowIndex, fieldIndex));
                 if (div) {
-                    div.classList.remove("field-with-gradient");
+                    div.classList.remove(FieldClassNames_1.FieldClassNames.hit);
+                    div.classList.remove(FieldClassNames_1.FieldClassNames.misplaced);
                 }
             });
         });
         this.playgroundShips.forEach(function (ship) {
             ship.clearFields();
         });
-        this.shipsOnPlaygrundCount = 0;
+        this.shipsOnPlaygroundCount = 0;
     };
     return Playground;
 }());
@@ -2667,21 +2564,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PlayGameScreen = void 0;
-var GameScreen_1 = __webpack_require__(/*! ../../interfaces/GameScreen */ "./src/interfaces/GameScreen.ts");
-var Game_1 = __webpack_require__(/*! ../Game */ "./src/scripts/Game.ts");
-var PlayerMoveStrategy_1 = __webpack_require__(/*! ../moveStrategies/PlayerMoveStrategy */ "./src/scripts/moveStrategies/PlayerMoveStrategy.ts");
-var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
-var ComputerPlayground_1 = __webpack_require__(/*! ../playground/ComputerPlayground */ "./src/scripts/playground/ComputerPlayground.ts");
-var SimpleComputerMoveStrategy_1 = __webpack_require__(/*! ../moveStrategies/SimpleComputerMoveStrategy */ "./src/scripts/moveStrategies/SimpleComputerMoveStrategy.ts");
 var canvas_confetti_1 = __importDefault(__webpack_require__(/*! canvas-confetti */ "./node_modules/canvas-confetti/dist/confetti.module.mjs"));
+var GameScreen_1 = __webpack_require__(/*! ../../interfaces/GameScreen */ "./src/interfaces/GameScreen.ts");
+var EventType_1 = __webpack_require__(/*! ../consts/EventType */ "./src/scripts/consts/EventType.ts");
 var PlayerType_1 = __webpack_require__(/*! ../consts/PlayerType */ "./src/scripts/consts/PlayerType.ts");
+var Game_1 = __webpack_require__(/*! ../Game */ "./src/scripts/Game.ts");
+var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
+var PlayerMoveStrategy_1 = __webpack_require__(/*! ../moveStrategies/PlayerMoveStrategy */ "./src/scripts/moveStrategies/PlayerMoveStrategy.ts");
+var SimpleComputerMoveStrategy_1 = __webpack_require__(/*! ../moveStrategies/SimpleComputerMoveStrategy */ "./src/scripts/moveStrategies/SimpleComputerMoveStrategy.ts");
+var ComputerPlayground_1 = __webpack_require__(/*! ../playground/ComputerPlayground */ "./src/scripts/playground/ComputerPlayground.ts");
 var PlaygroundScreen_1 = __webpack_require__(/*! ./PlaygroundScreen */ "./src/scripts/screens/PlaygroundScreen.ts");
 var StartScreen_1 = __webpack_require__(/*! ./StartScreen */ "./src/scripts/screens/StartScreen.ts");
-var EventType_1 = __webpack_require__(/*! ../consts/EventType */ "./src/scripts/consts/EventType.ts");
 var PlayGameScreen = (function (_super) {
     __extends(PlayGameScreen, _super);
     function PlayGameScreen() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.playAgain = function () {
+            var playGameScreen = new PlayGameScreen(null);
+            var playgroundScreen = new PlaygroundScreen_1.PlaygroundScreen(playGameScreen);
+            var startScreen = new StartScreen_1.StartScreen(playgroundScreen);
+            _this.unregisterScreenEvents();
+            window.location.hash = "";
+            GameOptions_1.GameOptions.changeScreen(startScreen);
+        };
         _this.onGameEnd = function (e) {
             var _a;
             var event = e;
@@ -2715,14 +2620,6 @@ var PlayGameScreen = (function (_super) {
                 particleCount: 150,
                 spread: 160,
             });
-        };
-        _this.playAgain = function () {
-            var playGameScreen = new PlayGameScreen(null);
-            var playgroundScreen = new PlaygroundScreen_1.PlaygroundScreen(playGameScreen);
-            var startScreen = new StartScreen_1.StartScreen(playgroundScreen);
-            _this.unregisterScreenEvents();
-            window.location.hash = "";
-            GameOptions_1.GameOptions.changeScreen(startScreen);
         };
         return _this;
     }
@@ -2803,23 +2700,23 @@ var PlaygroundScreen = (function (_super) {
     function PlaygroundScreen() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.shipsOnPlaygroundCount = 0;
+        _this.startGame = function () {
+            if (_this.shipsOnPlaygroundCount === GameOptions_1.GameOptions.availableShips.length) {
+                GameOptions_1.GameOptions.changeScreen(_this.nextScreen);
+            }
+        };
         _this.randomizeShips = function () {
             _this.shipsOnPlaygroundCount = 0;
             GameOptions_1.GameOptions.playerPlayground.randomizeShipsPosition();
         };
-        _this.shipsWasSetted = function () {
+        _this.shipsWasSet = function () {
             _this.shipsOnPlaygroundCount++;
             if (_this.shipsOnPlaygroundCount === GameOptions_1.GameOptions.availableShips.length) {
                 var playButton = document.querySelector(".btn-play");
                 if (playButton)
                     playButton.style.display = "block";
                 var shipsSections = document.querySelector(".playground-ships");
-                shipsSections === null || shipsSections === void 0 ? void 0 : shipsSections.classList.add("all-ships-setted");
-            }
-        };
-        _this.startGame = function () {
-            if (_this.shipsOnPlaygroundCount === GameOptions_1.GameOptions.availableShips.length) {
-                GameOptions_1.GameOptions.changeScreen(_this.nextScreen);
+                shipsSections === null || shipsSections === void 0 ? void 0 : shipsSections.classList.add("all-ships-set");
             }
         };
         return _this;
@@ -2865,11 +2762,11 @@ var PlaygroundScreen = (function (_super) {
             var buttonRotate = document.querySelector(".btn-rotate");
             buttonRotate === null || buttonRotate === void 0 ? void 0 : buttonRotate.addEventListener("click", Ship_1.Ship.rotateCurrentlySelectedShip);
         }
-        document.body.addEventListener(EventType_1.EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
+        document.body.addEventListener(EventType_1.EventType.SHIP_WAS_SET, this.shipsWasSet);
     };
     PlaygroundScreen.prototype.unregisterScreenEvents = function () {
         GameOptions_1.GameOptions.playerPlayground.removeEventsFromPlayerPlayground();
-        document.body.removeEventListener(EventType_1.EventType.SHIP_WAS_SETTED, this.shipsWasSetted);
+        document.body.removeEventListener(EventType_1.EventType.SHIP_WAS_SET, this.shipsWasSet);
         var playButton = document.querySelector(".btn-play");
         playButton === null || playButton === void 0 ? void 0 : playButton.removeEventListener("click", this.startGame);
         var buttonRandomize = document.querySelector(".btn-randomize");
@@ -2964,7 +2861,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIi8+CjxwYXRoIGQ9Ik0yMzIuNSAwLjkwMDAyM0MyMzEuNCAxLjQwMDAyIDIyOS42IDIuODAwMDIgMjI4LjUgNC4wMDAwMkMyMjYuNiA2LjEwMDAyIDIyNi41IDcuODAwMDIgMjI2LjIgNDMuMUwyMjUuOSA4MEgyMDAuOUMxNzQuMSA4MCAxNzEuNSA4MC40IDE2OC44IDg1LjNDMTY4IDg2LjcgMTY3LjQgOTMuMiAxNjcuMiAxMDMuN0wxNjYuOCAxMTkuOUwxNDkuNCAxMjAuMkwxMzIgMTIwLjVMMTI5LjMgMTIzLjNMMTI2LjUgMTI2TDEyNi4yIDE0Mi45TDEyNS45IDE1OS44TDExNCAxNjAuMkMxMDIuNSAxNjAuNSAxMDEuOSAxNjAuNiA5OS4zIDE2My4zTDk2LjUgMTY2TDk2LjIgMjEwLjhMOTUuOSAyNTUuNUw3Mi4yIDI2OS44QzU5LjIgMjc3LjcgNDcuOCAyODQuNiA0Ni45IDI4NS4zQzQ0LjkgMjg2LjkgNDMgMjkwLjQgNDMgMjkyLjdDNDMgMjk0IDgzLjkgNDMzLjIgOTQuNiA0NjguM0M5NS4xIDQ2OS45IDk0LjkgNDcwIDkzLjMgNDY5LjFDOTIuMiA0NjguNiA4Ni45IDQ2Ny4zIDgxLjQgNDY2LjRDNTcuNiA0NjIuNCAzNy44IDQ2Ny45IDE1LjIgNDg1QzQuOTAwMDEgNDkyLjggMS4zMDAwMSA0OTYuNSAwLjUwMDAwNyA1MDAuMUMtMC40OTk5OTMgNTA0LjQgMS42MDAwMSA1MDguNiA1LjUwMDAxIDUxMC40QzExLjQgNTEzLjIgMTEuNCA1MTMuMyAyNi40IDUwMS45QzQ1LjYgNDg3LjQgNjMuMSA0ODIuMyA3OS4yIDQ4Ni41QzgyLjMgNDg3LjMgODkuMyA0ODkuOSA5NC43IDQ5Mi40QzExMSA0OTkuNyAxMTkuOCA1MDIgMTMzLjUgNTAyLjdDMTQ4LjggNTAzLjQgMTU3IDUwMS41IDE3NC43IDQ5Mi45QzIwOC4zIDQ3Ni44IDIxOC4xIDQ3Ni40IDI0Ny4zIDQ5MC4xQzI3NC40IDUwMi44IDI4Ni42IDUwNS44IDMwMy40IDUwNEMzMTQuMiA1MDIuNyAzMjEuOCA1MDAuMSAzMzcuOSA0OTIuMUMzNTMuNCA0ODQuMyAzNjEuMSA0ODEuNSAzNjkuMiA0ODAuNUMzNzkuMyA0NzkuMiAzOTMuNSA0ODIuNyA0MTAuMSA0OTAuM0M0MzYuMyA1MDIuNCA0NjEuNCA1MDEuOCA0ODMuNSA0ODguNkM0ODkuNCA0ODUuMSA1MDMuMiA0NzQuNSA1MDcuNyA0NzAuMUM1MTMuNSA0NjQuMyA1MTIuOSA0NTYuNiA1MDYuNSA0NTMuNkM1MDAuNCA0NTAuNyA1MDAuMyA0NTAuNyA0ODQuOSA0NjMuMkM0NzUuMyA0NzEgNDY3LjYgNDc1LjQgNDU5LjUgNDc3LjVDNDUyLjggNDc5LjIgNDQyLjYgNDc5LjQgNDM2IDQ3OEM0MjkuMSA0NzYuNCA0MTcgNDcxLjcgNDE3IDQ3MC41QzQxNyA0NjkuOSA0MjguNyA0MzAuMSA0NDMgMzgyQzQ1Ny4zIDMzMy45IDQ2OSAyOTMuNyA0NjkgMjkyLjdDNDY5IDI5MC40IDQ2Ny4xIDI4Ni45IDQ2NS4xIDI4NS4zQzQ2NC4yIDI4NC42IDQ1Mi44IDI3Ny43IDQzOS44IDI2OS44TDQxNi4xIDI1NS41TDQxNS44IDIxMC44TDQxNS41IDE2Nkw0MTIuNyAxNjMuM0M0MTAuMSAxNjAuNiA0MDkuNSAxNjAuNSAzOTggMTYwLjJMMzg2LjEgMTU5LjhMMzg1LjggMTQyLjlMMzg1LjUgMTI2TDM4Mi43IDEyMy4zTDM4MCAxMjAuNUwzNjIuNiAxMjAuMkwzNDUuMiAxMTkuOUwzNDQuOCAxMDMuN0MzNDQuNiA5My4yIDM0NCA4Ni43IDM0My4yIDg1LjNDMzQwLjUgODAuNCAzMzcuOSA4MCAzMTEuMSA4MEgyODYuMUwyODUuOCA0M0wyODUuNSA2LjAwMDAyTDI4Mi43IDMuMzAwMDJMMjgwIDAuNTAwMDIzTDI1Ny4yIDAuMzAwMDIzQzI0NC43IDAuMjAwMDIzIDIzMy42IDAuNTAwMDIzIDIzMi41IDAuOTAwMDIzWk0yNjYgNTBWODBIMjU2SDI0NlY1MFYyMEgyNTZIMjY2VjUwWk0zMjQgMTEwVjEyMEgyNTZIMTg4VjExMFYxMDBIMjU2SDMyNFYxMTBaTTM2NiAxNTBWMTYwSDI1NkgxNDZWMTUwVjE0MEgyNTZIMzY2VjE1MFpNMjE4LjUgMTgwLjlDMjE3LjggMTgxLjUgMTM5LjkgMjI4LjggMTE2LjggMjQyLjdDMTE2LjMgMjQyLjkgMTE2IDIyOC45IDExNiAyMTEuNlYxODBIMTY3LjdDMTk3LjYgMTgwIDIxOSAxODAuNCAyMTguNSAxODAuOVpNMzk2IDIxMS42QzM5NiAyMjguOSAzOTUuNyAyNDIuOSAzOTUuMyAyNDIuN0MzNzIuMSAyMjguOCAyOTQuMiAxODEuNSAyOTMuNiAxODAuOUMyOTMgMTgwLjQgMzE0LjQgMTgwIDM0NC4zIDE4MEgzOTZWMjExLjZaTTI0NiAzMjcuNFY0NjYuOEwyNDEuMiA0NjVDMjI1LjYgNDU5LjEgMjA1LjYgNDU4LjUgMTkwLjIgNDYzLjZDMTg3LjYgNDY0LjUgMTc4LjMgNDY4LjcgMTY5LjUgNDczLjFDMTQ5LjggNDgyLjggMTQxLjQgNDg0LjkgMTI4LjggNDgzLjNDMTI0LjQgNDgyLjcgMTIwLjQgNDgxLjggMTIwIDQ4MS40QzExOSA0ODAuMyA2NC43IDI5OCA2NS4yIDI5Ny40QzY1LjcgMjk3IDI0NS40IDE4OCAyNDUuOCAxODhDMjQ1LjkgMTg4IDI0NiAyNTAuNyAyNDYgMzI3LjRaTTM1OS41IDI0NC40QzQwNy4zIDI3My40IDQ0Ni42IDI5Ny4yIDQ0Ni44IDI5Ny40QzQ0NyAyOTcuNiA0MzYuMSAzMzQuOSA0MjIuNiAzODAuMkM0MDUgNDM5LjUgMzk3LjggNDYyLjQgMzk2LjggNDYyLjFDMzkyIDQ2MC44IDM3OS4xIDQ1OS45IDM3MS41IDQ2MC4zQzM2MC4xIDQ2MC44IDM0OS41IDQ2NC4zIDMyOS43IDQ3NEMzMTIuNSA0ODIuNCAzMDcuMyA0ODQgMjk2LjUgNDg0QzI4Ny4zIDQ4My45IDI4Mi4zIDQ4MyAyNzIuOCA0NzkuNEwyNjYgNDc2LjhWMzMyLjNWMTg3LjhMMjY5LjMgMTg5LjhDMjcxIDE5MC45IDMxMS42IDIxNS41IDM1OS41IDI0NC40WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTIxNS41IDIzMy40QzIwOC45IDIzNi4zIDIwOC4zIDI0NS4zIDIxNC40IDI1MC4yQzIxOSAyNTQgMjI3LjkgMjUwLjYgMjI5LjQgMjQ0LjVDMjMwLjMgMjQwLjkgMjI3LjcgMjM1LjQgMjI0LjEgMjMzLjZDMjIwLjUgMjMxLjcgMjE5LjQgMjMxLjcgMjE1LjUgMjMzLjRaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTc1LjUgMjU4LjNDMTQyLjYgMjc4LjYgMTE2LjEgMjk1LjYgMTE0LjMgMjk3LjdDMTExLjggMzAwLjMgMTExLjIgMzA1LjcgMTEzIDMwOS4xQzExNC42IDMxMS45IDExOS44IDMxNC4zIDEyMy4yIDMxMy42QzEyNC43IDMxMy4zIDE0MS4xIDMwMy41IDE1OS42IDI5MS45QzE4Ni45IDI3NC43IDE5My41IDI3MC4xIDE5NC43IDI2Ny41QzE5Ni42IDI2My41IDE5NS44IDI1OS44IDE5Mi41IDI1Ni40QzE4OC43IDI1Mi42IDE4My44IDI1My4xIDE3NS41IDI1OC4zWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTI5Mi44IDIzNC43QzI4Ny4xIDIzOC4zIDI4Ni41IDI0NC43IDI5MS40IDI0OS42QzI5NS44IDI1NCAyOTkuNyAyNTQuMSAzMDQuMiAyNTAuMUMzMDYuOSAyNDcuNyAzMDcuNSAyNDYuNSAzMDcuNSAyNDNDMzA3LjUgMjM5LjUgMzA2LjkgMjM4LjMgMzA0LjIgMjM1LjlDMzAwLjUgMjMyLjYgMjk2LjggMjMyLjIgMjkyLjggMjM0LjdaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMzI3LjEgMjU1LjRDMzIxLjMgMjU4LjYgMzIwLjUgMjY1LjQgMzI1LjMgMjcwLjRDMzI4LjcgMjc0IDM4OC43IDMxMS4zIDM5My45IDMxMy4xQzQwMy4yIDMxNi40IDQxMC4yIDMwNC40IDQwMy4zIDI5Ny4xQzQwMS4xIDI5NC44IDM0NSAyNTkuNyAzMzYuMyAyNTUuMUMzMzMuNSAyNTMuNyAzMzAuMSAyNTMuNyAzMjcuMSAyNTUuNFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQoJPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiLz4NCgk8cGF0aA0KCQlkPSJNMjMyLjUgMC45MDAwMjNDMjMxLjQgMS40MDAwMiAyMjkuNiAyLjgwMDAyIDIyOC41IDQuMDAwMDJDMjI2LjYgNi4xMDAwMiAyMjYuNSA3LjgwMDAyIDIyNi4yIDQzLjFMMjI1LjkgODBIMjAwLjlDMTc0LjEgODAgMTcxLjUgODAuNCAxNjguOCA4NS4zQzE2OCA4Ni43IDE2Ny40IDkzLjIgMTY3LjIgMTAzLjdMMTY2LjggMTE5LjlMMTQ5LjQgMTIwLjJMMTMyIDEyMC41TDEyOS4zIDEyMy4zTDEyNi41IDEyNkwxMjYuMiAxNDIuOUwxMjUuOSAxNTkuOEwxMTQgMTYwLjJDMTAyLjUgMTYwLjUgMTAxLjkgMTYwLjYgOTkuMyAxNjMuM0w5Ni41IDE2Nkw5Ni4yIDIxMC44TDk1LjkgMjU1LjVMNzIuMiAyNjkuOEM1OS4yIDI3Ny43IDQ3LjggMjg0LjYgNDYuOSAyODUuM0M0NC45IDI4Ni45IDQzIDI5MC40IDQzIDI5Mi43QzQzIDI5NCA4My45IDQzMy4yIDk0LjYgNDY4LjNDOTUuMSA0NjkuOSA5NC45IDQ3MCA5My4zIDQ2OS4xQzkyLjIgNDY4LjYgODYuOSA0NjcuMyA4MS40IDQ2Ni40QzU3LjYgNDYyLjQgMzcuOCA0NjcuOSAxNS4yIDQ4NUM0LjkwMDAxIDQ5Mi44IDEuMzAwMDEgNDk2LjUgMC41MDAwMDcgNTAwLjFDLTAuNDk5OTkzIDUwNC40IDEuNjAwMDEgNTA4LjYgNS41MDAwMSA1MTAuNEMxMS40IDUxMy4yIDExLjQgNTEzLjMgMjYuNCA1MDEuOUM0NS42IDQ4Ny40IDYzLjEgNDgyLjMgNzkuMiA0ODYuNUM4Mi4zIDQ4Ny4zIDg5LjMgNDg5LjkgOTQuNyA0OTIuNEMxMTEgNDk5LjcgMTE5LjggNTAyIDEzMy41IDUwMi43QzE0OC44IDUwMy40IDE1NyA1MDEuNSAxNzQuNyA0OTIuOUMyMDguMyA0NzYuOCAyMTguMSA0NzYuNCAyNDcuMyA0OTAuMUMyNzQuNCA1MDIuOCAyODYuNiA1MDUuOCAzMDMuNCA1MDRDMzE0LjIgNTAyLjcgMzIxLjggNTAwLjEgMzM3LjkgNDkyLjFDMzUzLjQgNDg0LjMgMzYxLjEgNDgxLjUgMzY5LjIgNDgwLjVDMzc5LjMgNDc5LjIgMzkzLjUgNDgyLjcgNDEwLjEgNDkwLjNDNDM2LjMgNTAyLjQgNDYxLjQgNTAxLjggNDgzLjUgNDg4LjZDNDg5LjQgNDg1LjEgNTAzLjIgNDc0LjUgNTA3LjcgNDcwLjFDNTEzLjUgNDY0LjMgNTEyLjkgNDU2LjYgNTA2LjUgNDUzLjZDNTAwLjQgNDUwLjcgNTAwLjMgNDUwLjcgNDg0LjkgNDYzLjJDNDc1LjMgNDcxIDQ2Ny42IDQ3NS40IDQ1OS41IDQ3Ny41QzQ1Mi44IDQ3OS4yIDQ0Mi42IDQ3OS40IDQzNiA0NzhDNDI5LjEgNDc2LjQgNDE3IDQ3MS43IDQxNyA0NzAuNUM0MTcgNDY5LjkgNDI4LjcgNDMwLjEgNDQzIDM4MkM0NTcuMyAzMzMuOSA0NjkgMjkzLjcgNDY5IDI5Mi43QzQ2OSAyOTAuNCA0NjcuMSAyODYuOSA0NjUuMSAyODUuM0M0NjQuMiAyODQuNiA0NTIuOCAyNzcuNyA0MzkuOCAyNjkuOEw0MTYuMSAyNTUuNUw0MTUuOCAyMTAuOEw0MTUuNSAxNjZMNDEyLjcgMTYzLjNDNDEwLjEgMTYwLjYgNDA5LjUgMTYwLjUgMzk4IDE2MC4yTDM4Ni4xIDE1OS44TDM4NS44IDE0Mi45TDM4NS41IDEyNkwzODIuNyAxMjMuM0wzODAgMTIwLjVMMzYyLjYgMTIwLjJMMzQ1LjIgMTE5LjlMMzQ0LjggMTAzLjdDMzQ0LjYgOTMuMiAzNDQgODYuNyAzNDMuMiA4NS4zQzM0MC41IDgwLjQgMzM3LjkgODAgMzExLjEgODBIMjg2LjFMMjg1LjggNDNMMjg1LjUgNi4wMDAwMkwyODIuNyAzLjMwMDAyTDI4MCAwLjUwMDAyM0wyNTcuMiAwLjMwMDAyM0MyNDQuNyAwLjIwMDAyMyAyMzMuNiAwLjUwMDAyMyAyMzIuNSAwLjkwMDAyM1pNMjY2IDUwVjgwSDI1NkgyNDZWNTBWMjBIMjU2SDI2NlY1MFpNMzI0IDExMFYxMjBIMjU2SDE4OFYxMTBWMTAwSDI1NkgzMjRWMTEwWk0zNjYgMTUwVjE2MEgyNTZIMTQ2VjE1MFYxNDBIMjU2SDM2NlYxNTBaTTIxOC41IDE4MC45QzIxNy44IDE4MS41IDEzOS45IDIyOC44IDExNi44IDI0Mi43QzExNi4zIDI0Mi45IDExNiAyMjguOSAxMTYgMjExLjZWMTgwSDE2Ny43QzE5Ny42IDE4MCAyMTkgMTgwLjQgMjE4LjUgMTgwLjlaTTM5NiAyMTEuNkMzOTYgMjI4LjkgMzk1LjcgMjQyLjkgMzk1LjMgMjQyLjdDMzcyLjEgMjI4LjggMjk0LjIgMTgxLjUgMjkzLjYgMTgwLjlDMjkzIDE4MC40IDMxNC40IDE4MCAzNDQuMyAxODBIMzk2VjIxMS42Wk0yNDYgMzI3LjRWNDY2LjhMMjQxLjIgNDY1QzIyNS42IDQ1OS4xIDIwNS42IDQ1OC41IDE5MC4yIDQ2My42QzE4Ny42IDQ2NC41IDE3OC4zIDQ2OC43IDE2OS41IDQ3My4xQzE0OS44IDQ4Mi44IDE0MS40IDQ4NC45IDEyOC44IDQ4My4zQzEyNC40IDQ4Mi43IDEyMC40IDQ4MS44IDEyMCA0ODEuNEMxMTkgNDgwLjMgNjQuNyAyOTggNjUuMiAyOTcuNEM2NS43IDI5NyAyNDUuNCAxODggMjQ1LjggMTg4QzI0NS45IDE4OCAyNDYgMjUwLjcgMjQ2IDMyNy40Wk0zNTkuNSAyNDQuNEM0MDcuMyAyNzMuNCA0NDYuNiAyOTcuMiA0NDYuOCAyOTcuNEM0NDcgMjk3LjYgNDM2LjEgMzM0LjkgNDIyLjYgMzgwLjJDNDA1IDQzOS41IDM5Ny44IDQ2Mi40IDM5Ni44IDQ2Mi4xQzM5MiA0NjAuOCAzNzkuMSA0NTkuOSAzNzEuNSA0NjAuM0MzNjAuMSA0NjAuOCAzNDkuNSA0NjQuMyAzMjkuNyA0NzRDMzEyLjUgNDgyLjQgMzA3LjMgNDg0IDI5Ni41IDQ4NEMyODcuMyA0ODMuOSAyODIuMyA0ODMgMjcyLjggNDc5LjRMMjY2IDQ3Ni44VjMzMi4zVjE4Ny44TDI2OS4zIDE4OS44QzI3MSAxOTAuOSAzMTEuNiAyMTUuNSAzNTkuNSAyNDQuNFoiDQoJCWZpbGw9IndoaXRlIi8+DQoJPHBhdGgNCgkJZD0iTTIxNS41IDIzMy40QzIwOC45IDIzNi4zIDIwOC4zIDI0NS4zIDIxNC40IDI1MC4yQzIxOSAyNTQgMjI3LjkgMjUwLjYgMjI5LjQgMjQ0LjVDMjMwLjMgMjQwLjkgMjI3LjcgMjM1LjQgMjI0LjEgMjMzLjZDMjIwLjUgMjMxLjcgMjE5LjQgMjMxLjcgMjE1LjUgMjMzLjRaIg0KCQlmaWxsPSJ3aGl0ZSIvPg0KCTxwYXRoDQoJCWQ9Ik0xNzUuNSAyNTguM0MxNDIuNiAyNzguNiAxMTYuMSAyOTUuNiAxMTQuMyAyOTcuN0MxMTEuOCAzMDAuMyAxMTEuMiAzMDUuNyAxMTMgMzA5LjFDMTE0LjYgMzExLjkgMTE5LjggMzE0LjMgMTIzLjIgMzEzLjZDMTI0LjcgMzEzLjMgMTQxLjEgMzAzLjUgMTU5LjYgMjkxLjlDMTg2LjkgMjc0LjcgMTkzLjUgMjcwLjEgMTk0LjcgMjY3LjVDMTk2LjYgMjYzLjUgMTk1LjggMjU5LjggMTkyLjUgMjU2LjRDMTg4LjcgMjUyLjYgMTgzLjggMjUzLjEgMTc1LjUgMjU4LjNaIg0KCQlmaWxsPSJ3aGl0ZSIvPg0KCTxwYXRoDQoJCWQ9Ik0yOTIuOCAyMzQuN0MyODcuMSAyMzguMyAyODYuNSAyNDQuNyAyOTEuNCAyNDkuNkMyOTUuOCAyNTQgMjk5LjcgMjU0LjEgMzA0LjIgMjUwLjFDMzA2LjkgMjQ3LjcgMzA3LjUgMjQ2LjUgMzA3LjUgMjQzQzMwNy41IDIzOS41IDMwNi45IDIzOC4zIDMwNC4yIDIzNS45QzMwMC41IDIzMi42IDI5Ni44IDIzMi4yIDI5Mi44IDIzNC43WiINCgkJZmlsbD0id2hpdGUiLz4NCgk8cGF0aA0KCQlkPSJNMzI3LjEgMjU1LjRDMzIxLjMgMjU4LjYgMzIwLjUgMjY1LjQgMzI1LjMgMjcwLjRDMzI4LjcgMjc0IDM4OC43IDMxMS4zIDM5My45IDMxMy4xQzQwMy4yIDMxNi40IDQxMC4yIDMwNC40IDQwMy4zIDI5Ny4xQzQwMS4xIDI5NC44IDM0NSAyNTkuNyAzMzYuMyAyNTUuMUMzMzMuNSAyNTMuNyAzMzAuMSAyNTMuNyAzMjcuMSAyNTUuNFoiDQoJCWZpbGw9IndoaXRlIi8+DQo8L3N2Zz4NCg==");
 
 /***/ })
 
@@ -3046,10 +2943,10 @@ var exports = __webpack_exports__;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 __webpack_require__(/*! ../styles/index.scss */ "./src/styles/index.scss");
 var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
-var PlaygroundScreen_1 = __webpack_require__(/*! ./screens/PlaygroundScreen */ "./src/scripts/screens/PlaygroundScreen.ts");
 var PlayGameScreen_1 = __webpack_require__(/*! ./screens/PlayGameScreen */ "./src/scripts/screens/PlayGameScreen.ts");
+var PlaygroundScreen_1 = __webpack_require__(/*! ./screens/PlaygroundScreen */ "./src/scripts/screens/PlaygroundScreen.ts");
 var StartScreen_1 = __webpack_require__(/*! ./screens/StartScreen */ "./src/scripts/screens/StartScreen.ts");
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function () {
     var playGameScreen = new PlayGameScreen_1.PlayGameScreen(null);
     var playgroundScreen = new PlaygroundScreen_1.PlaygroundScreen(playGameScreen);
     var startScreen = new StartScreen_1.StartScreen(playgroundScreen);

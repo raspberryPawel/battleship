@@ -1,16 +1,17 @@
 import { EventType } from "./consts/EventType";
 import { MoveType } from "./consts/MoveType";
 import { PlayerType } from "./consts/PlayerType";
+import { EventDispatcher } from "./EventDispatcher";
 import { GameOptions } from "./GameOptions";
 import { PlayerMoveStrategy } from "./moveStrategies/PlayerMoveStrategy";
 import { SimpleComputerMoveStrategy } from "./moveStrategies/SimpleComputerMoveStrategy";
-import { EventDispatcher } from "./EventDispatcher";
 import { PlaygroundType } from "./types/PlaygroundType";
 import { ResolveMove } from "./types/ResolveMove";
 
 export class Game {
-	private playerPlayground: PlaygroundType;
-	private computerPlayground: PlaygroundType;
+	private readonly playerPlayground: PlaygroundType;
+	private readonly computerPlayground: PlaygroundType;
+	private readonly shipFieldsCount: number;
 
 	private playerMoveStrategy: PlayerMoveStrategy;
 	private computerMoveStrategy: SimpleComputerMoveStrategy;
@@ -21,15 +22,12 @@ export class Game {
 	private computerSunkFields: number = 0;
 
 	private gameInProgress: boolean;
-	private shipFieldsCount: number;
-
-	private resolveMove: ResolveMove = () => {};
 
 	constructor(
 		playerPlayground: PlaygroundType,
 		computerPlayground: PlaygroundType,
 		playerMoveStrategy: PlayerMoveStrategy,
-		computerMoveStrategy: SimpleComputerMoveStrategy
+		computerMoveStrategy: SimpleComputerMoveStrategy,
 	) {
 		this.playerPlayground = playerPlayground;
 		this.computerPlayground = computerPlayground;
@@ -42,8 +40,10 @@ export class Game {
 
 	public async startGame() {
 		this.move = MoveType.playerMove;
-		this.game();
+		await this.game();
 	}
+
+	private resolveMove: ResolveMove = () => {};
 
 	private async game() {
 		if (this.gameInProgress) {
@@ -53,7 +53,7 @@ export class Game {
 			});
 
 			this.nextMove();
-			this.game();
+			await this.game();
 		}
 	}
 

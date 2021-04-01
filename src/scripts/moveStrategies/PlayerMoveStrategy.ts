@@ -3,9 +3,6 @@ import { ResolveMove } from "../types/ResolveMove";
 import { MoveStrategy } from "./MoveStrategy";
 
 export class PlayerMoveStrategy implements MoveStrategy {
-	private checkIfFieldHasShip: (row: number, column: number) => boolean = (row: number, column: number) => false;
-	private resolveMove: ResolveMove = () => {};
-
 	public performMove(checkIfFieldHasShip: (row: number, column: number) => boolean, resolveMove: ResolveMove) {
 		this.checkIfFieldHasShip = checkIfFieldHasShip;
 		this.resolveMove = resolveMove;
@@ -20,6 +17,10 @@ export class PlayerMoveStrategy implements MoveStrategy {
 			}
 		}
 	}
+
+	private checkIfFieldHasShip: (row: number, column: number) => boolean = (row: number, column: number) => false;
+
+	private resolveMove: ResolveMove = () => {};
 
 	private playerMove = (e: Event) => {
 		const field = e.target as HTMLElement;

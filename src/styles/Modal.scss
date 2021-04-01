@@ -17,6 +17,7 @@
 			opacity: 1;
 			pointer-events: auto;
 		}
+
 		& > div {
 			width: 80%;
 			max-width: 400px;
@@ -27,9 +28,11 @@
 			padding: 2em;
 			background: white;
 		}
+
 		header {
 			font-weight: bold;
 		}
+
 		h1 {
 			font-size: 150%;
 			margin: 0 0 15px;
@@ -46,6 +49,7 @@
 		top: 0;
 		width: 70px;
 		text-decoration: none;
+
 		&:hover {
 			color: black;
 		}
@@ -60,7 +64,7 @@
 	.btn-play-again {
 		@include main-gradient();
 		@include button-styles();
-		
+
 		float: right;
 	}
 }
