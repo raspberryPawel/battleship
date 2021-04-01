@@ -1,4 +1,4 @@
-import { GameScreen } from "../interfaces/GameScreen";
+import { GameScreen } from "./types/GameScreen";
 import { ComputerPlayground } from "./playground/ComputerPlayground";
 import { PlayerPlayground } from "./playground/PlayerPlayground";
 import { Ship } from "./Ship";

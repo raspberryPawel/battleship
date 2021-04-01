@@ -1,4 +1,4 @@
-import { GameScreen } from "../../interfaces/GameScreen";
+import { GameScreen } from "../types/GameScreen";
 import { GameOptions } from "../GameOptions";
 
 export class StartScreen extends GameScreen {

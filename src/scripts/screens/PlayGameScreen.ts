@@ -1,5 +1,5 @@
 import confetti from "canvas-confetti";
-import { GameScreen } from "../../interfaces/GameScreen";
+import { GameScreen } from "../types/GameScreen";
 import { EventType } from "../consts/EventType";
 import { PlayerType } from "../consts/PlayerType";
 import { Game } from "../Game";

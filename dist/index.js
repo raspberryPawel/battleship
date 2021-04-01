@@ -1116,27 +1116,6 @@ module.exports = function (list, options) {
 
 /***/ }),
 
-/***/ "./src/interfaces/GameScreen.ts":
-/*!**************************************!*\
-  !*** ./src/interfaces/GameScreen.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.GameScreen = void 0;
-var GameScreen = (function () {
-    function GameScreen(nextScreen) {
-        this.nextScreen = null;
-        this.nextScreen = nextScreen;
-    }
-    return GameScreen;
-}());
-exports.GameScreen = GameScreen;
-
-
-/***/ }),
-
 /***/ "./src/scripts/EventDispatcher.ts":
 /*!****************************************!*\
   !*** ./src/scripts/EventDispatcher.ts ***!
@@ -2565,7 +2544,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PlayGameScreen = void 0;
 var canvas_confetti_1 = __importDefault(__webpack_require__(/*! canvas-confetti */ "./node_modules/canvas-confetti/dist/confetti.module.mjs"));
-var GameScreen_1 = __webpack_require__(/*! ../../interfaces/GameScreen */ "./src/interfaces/GameScreen.ts");
+var GameScreen_1 = __webpack_require__(/*! ../types/GameScreen */ "./src/scripts/types/GameScreen.ts");
 var EventType_1 = __webpack_require__(/*! ../consts/EventType */ "./src/scripts/consts/EventType.ts");
 var PlayerType_1 = __webpack_require__(/*! ../consts/PlayerType */ "./src/scripts/consts/PlayerType.ts");
 var Game_1 = __webpack_require__(/*! ../Game */ "./src/scripts/Game.ts");
@@ -2689,7 +2668,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PlaygroundScreen = void 0;
-var GameScreen_1 = __webpack_require__(/*! ../../interfaces/GameScreen */ "./src/interfaces/GameScreen.ts");
+var GameScreen_1 = __webpack_require__(/*! ../types/GameScreen */ "./src/scripts/types/GameScreen.ts");
 var EventType_1 = __webpack_require__(/*! ../consts/EventType */ "./src/scripts/consts/EventType.ts");
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var PlayerPlayground_1 = __webpack_require__(/*! ../playground/PlayerPlayground */ "./src/scripts/playground/PlayerPlayground.ts");
@@ -2807,7 +2786,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.StartScreen = void 0;
-var GameScreen_1 = __webpack_require__(/*! ../../interfaces/GameScreen */ "./src/interfaces/GameScreen.ts");
+var GameScreen_1 = __webpack_require__(/*! ../types/GameScreen */ "./src/scripts/types/GameScreen.ts");
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var StartScreen = (function (_super) {
     __extends(StartScreen, _super);
@@ -2847,6 +2826,27 @@ var StartScreen = (function (_super) {
     return StartScreen;
 }(GameScreen_1.GameScreen));
 exports.StartScreen = StartScreen;
+
+
+/***/ }),
+
+/***/ "./src/scripts/types/GameScreen.ts":
+/*!*****************************************!*\
+  !*** ./src/scripts/types/GameScreen.ts ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GameScreen = void 0;
+var GameScreen = (function () {
+    function GameScreen(nextScreen) {
+        this.nextScreen = null;
+        this.nextScreen = nextScreen;
+    }
+    return GameScreen;
+}());
+exports.GameScreen = GameScreen;
 
 
 /***/ }),

@@ -1,4 +1,4 @@
-import { GameScreen } from "../../interfaces/GameScreen";
+import { GameScreen } from "../types/GameScreen";
 import { EventType } from "../consts/EventType";
 import { GameOptions } from "../GameOptions";
 import { PlayerPlayground } from "../playground/PlayerPlayground";
