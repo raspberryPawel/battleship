@@ -2,7 +2,7 @@ import { GameScreen } from "../types/GameScreen";
 import { EventType } from "../consts/EventType";
 import { GameOptions } from "../GameOptions";
 import { PlayerPlayground } from "../playground/PlayerPlayground";
-import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
+import { PlaygroundUtils } from "../playground/PlaygroundUtils";
 import { Ship } from "../Ship";
 
 export class PlaygroundScreen extends GameScreen {
@@ -41,7 +41,7 @@ export class PlaygroundScreen extends GameScreen {
 		section.appendChild(buttonPlay);
 		section.appendChild(buttonRandomize);
 
-		if (PlayerPlaygroundUtils.isMobile()) {
+		if (PlaygroundUtils.isMobile()) {
 			const buttonRotate = document.createElement("button");
 			buttonRotate.setAttribute("class", "btn-rotate");
 			buttonRotate.innerText = "Rotate ship!";
@@ -58,7 +58,7 @@ export class PlaygroundScreen extends GameScreen {
 		const buttonRandomize = document.querySelector(".btn-randomize");
 		buttonRandomize?.addEventListener("click", this.randomizeShips);
 
-		if (PlayerPlaygroundUtils.isMobile()) {
+		if (PlaygroundUtils.isMobile()) {
 			const buttonRotate = document.querySelector(".btn-rotate");
 			buttonRotate?.addEventListener("click", Ship.rotateCurrentlySelectedShip);
 		}
@@ -83,7 +83,7 @@ export class PlaygroundScreen extends GameScreen {
 		const buttonRandomize = document.querySelector(".btn-randomize");
 		buttonRandomize?.removeEventListener("click", this.randomizeShips);
 
-		if (PlayerPlaygroundUtils.isMobile()) {
+		if (PlaygroundUtils.isMobile()) {
 			const buttonRotate = document.querySelector(".btn-rotate");
 			buttonRotate?.removeEventListener("click", Ship.rotateCurrentlySelectedShip);
 		}

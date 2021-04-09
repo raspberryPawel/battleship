@@ -1,4 +1,4 @@
-import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
+import { PlaygroundUtils } from "../playground/PlaygroundUtils";
 import { ResolveMove } from "../types/ResolveMove";
 import { MoveStrategy } from "./MoveStrategy";
 
@@ -24,7 +24,7 @@ export class PlayerMoveStrategy implements MoveStrategy {
 
 	private playerMove = (e: Event) => {
 		const field = e.target as HTMLElement;
-		const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field.classList[1]);
+		const { row, column } = PlaygroundUtils.getRowAndColumnNumberFromClassName(field.classList[1]);
 
 		this.checkIfFieldHasShip(row, column) ? field.classList.add("hit_field") : field.classList.add("misplaced_field");
 		this.unregisterPlayerMove();

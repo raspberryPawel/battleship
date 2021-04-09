@@ -2,12 +2,13 @@ import { EventType } from "./consts/EventType";
 import { ShipDirection } from "./consts/ShipDirection";
 import { EventDispatcher } from "./EventDispatcher";
 import { GameOptions } from "./GameOptions";
-import { PlayerPlaygroundUtils } from "./playground/PlayerPlaygroundUtils";
+import { PlaygroundUtils } from "./playground/PlaygroundUtils";
 
 export class Ship {
 	public readonly shipElement: HTMLElement = document.createElement("div");
 	private readonly shipSize: number;
 
+	private wasShipSet: boolean = false;
 	private shipDirection: ShipDirection = ShipDirection.horizontal;
 	private fieldsOnPlayground: string[] = [];
 
@@ -36,7 +37,7 @@ export class Ship {
 		e.stopPropagation();
 
 		if (GameOptions.currentSelectedShip) {
-			const {direction} = GameOptions.currentSelectedShip;
+			const { direction } = GameOptions.currentSelectedShip;
 			GameOptions.currentSelectedShip.direction =
 				direction === ShipDirection.vertical
 					? ShipDirection.horizontal
@@ -76,7 +77,7 @@ export class Ship {
 			document.body.addEventListener("keydown", this.pressKey);
 		});
 
-		if (PlayerPlaygroundUtils.isMobile()) {
+		if (PlaygroundUtils.isMobile()) {
 			this.shipElement.addEventListener("click", this.clickOnShip);
 		}
 	}
@@ -103,6 +104,7 @@ export class Ship {
 			document.body.removeEventListener("keydown", this.pressKey);
 
 			if (GameOptions.currentlySelectedField && this.shipOnPlayground.length > 0) {
+				this.wasShipSet = true;
 				this.hideShip();
 				EventDispatcher.dispatch(EventType.SHIP_WAS_SET);
 			} else this.showShip();
@@ -117,9 +119,12 @@ export class Ship {
 	}
 
 	public showShip() {
-		this.shipElement.style.display = "flex";
-		this.shipElement.style.opacity = "1";
-		this.shipElement.style.zIndex = "1";
+		if (!this.wasShipSet) {
+			this.shipElement.style.display = "flex";
+			this.shipElement.style.opacity = "1";
+			this.shipElement.style.zIndex = "1";
+		}
+
 	}
 
 	protected clickOnShip = (e: Event) => {

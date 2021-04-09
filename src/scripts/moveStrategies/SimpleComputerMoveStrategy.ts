@@ -1,7 +1,7 @@
 import { MoveDirection } from "../consts/MoveDirection";
 import { ShipDirection } from "../consts/ShipDirection";
 import { GameOptions } from "../GameOptions";
-import { PlayerPlaygroundUtils } from "../playground/PlayerPlaygroundUtils";
+import { PlaygroundUtils } from "../playground/PlaygroundUtils";
 import { ResolveMove } from "../types/ResolveMove";
 import { RowAndColumnIndex } from "../types/RowAndColumnIndex";
 import { MoveStrategy } from "./MoveStrategy";
@@ -125,8 +125,8 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 
 	private excludeFieldsWhereThereIsNoShips(): void {
 		this.hitFields.sort((a: string, b: string) => {
-			const rowAndColumnA = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(a);
-			const rowAndColumnB = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(b);
+			const rowAndColumnA = PlaygroundUtils.getRowAndColumnNumberFromClassName(a);
+			const rowAndColumnB = PlaygroundUtils.getRowAndColumnNumberFromClassName(b);
 
 			return this.shipDirection === ShipDirection.vertical
 				? rowAndColumnA.row - rowAndColumnB.row
@@ -135,15 +135,15 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 
 		const firstHitField = this.hitFields[0];
 		const lastHitField = this.hitFields[this.hitFields.length - 1];
-		const firstRowAndColumn = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(firstHitField);
-		const lastRowAndColumn = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(lastHitField);
+		const firstRowAndColumn = PlaygroundUtils.getRowAndColumnNumberFromClassName(firstHitField);
+		const lastRowAndColumn = PlaygroundUtils.getRowAndColumnNumberFromClassName(lastHitField);
 
 		if (this.shipDirection === ShipDirection.vertical) {
 			this.removeFieldFromAvailable(firstRowAndColumn.row - 1, firstRowAndColumn.column);
 			this.removeFieldFromAvailable(lastRowAndColumn.row + 1, lastRowAndColumn.column);
 
 			this.hitFields.forEach((field) => {
-				const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field);
+				const { row, column } = PlaygroundUtils.getRowAndColumnNumberFromClassName(field);
 				const columnLeft = column - 1;
 				const columnRight = column + 1;
 
@@ -167,7 +167,7 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 			this.removeFieldFromAvailable(rowBelow, columnBefore);
 
 			this.hitFields.forEach((field) => {
-				const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field);
+				const { row, column } = PlaygroundUtils.getRowAndColumnNumberFromClassName(field);
 				const rowAbove = row + 1;
 				const rowBelow = row - 1;
 
@@ -208,7 +208,7 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 
 	private removeFieldsOnLeft(currentRow: number, currentColumn: number) {
 		const fieldsToRemove = this.fieldsToCheckAfterHit.filter((field: string) => {
-			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field);
+			const { row, column } = PlaygroundUtils.getRowAndColumnNumberFromClassName(field);
 			return row === currentRow && column <= currentColumn;
 		});
 
@@ -218,7 +218,7 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 
 	private removeFieldsOnRight(currentRow: number, currentColumn: number) {
 		const fieldsToRemove = this.fieldsToCheckAfterHit.filter((field: string) => {
-			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field);
+			const { row, column } = PlaygroundUtils.getRowAndColumnNumberFromClassName(field);
 			return row === currentRow && column >= currentColumn;
 		});
 
@@ -228,7 +228,7 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 
 	private removeFieldsOnBottom(currentRow: number, currentColumn: number) {
 		const fieldsToRemove = this.fieldsToCheckAfterHit.filter((field: string) => {
-			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field);
+			const { row, column } = PlaygroundUtils.getRowAndColumnNumberFromClassName(field);
 			return column === currentColumn && row >= currentRow;
 		});
 		const index = this.fieldsToCheckAfterHit.indexOf(fieldsToRemove[0]);
@@ -239,7 +239,7 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 
 	private removeFieldsOnTop(currentRow: number, currentColumn: number) {
 		const fieldsToRemove = this.fieldsToCheckAfterHit.filter((field: string) => {
-			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field);
+			const { row, column } = PlaygroundUtils.getRowAndColumnNumberFromClassName(field);
 			return column === currentColumn && row <= currentRow;
 		});
 
@@ -250,7 +250,7 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 	}
 
 	private setMoveDirectionBasedOnNextFieldToHit(currentRow: number, currentColumn: number): void {
-		const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]);
+		const { row, column } = PlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]);
 
 		if (row === -1 && column === -1) {
 			this.fieldsToCheckAfterHit.length = 0;
@@ -304,14 +304,14 @@ export class SimpleComputerMoveStrategy implements MoveStrategy {
 		const row = this.availableFields[availableRowsIndexes[selectedIndex]];
 		const column = row[Math.floor(Math.random() * row.length)];
 
-		return PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(column);
+		return PlaygroundUtils.getRowAndColumnNumberFromClassName(column);
 	}
 
 	private selectFieldToHit(): RowAndColumnIndex {
 		const longestShip = Math.max(...this.availableShips);
 
 		if (this.fieldsToCheckAfterHit.length && this.hitsInARow !== longestShip) {
-			return PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]);
+			return PlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]);
 		} else if (this.fieldsToCheckAfterHit.length && this.hitsInARow > 0 && this.hitsInARow === longestShip) {
 			this.availableShips.splice(0, 1);
 			this.fieldsToCheckAfterHit.length = 0;

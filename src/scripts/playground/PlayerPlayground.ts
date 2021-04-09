@@ -2,7 +2,7 @@ import { EventType } from "../consts/EventType";
 import { SetType } from "../consts/SetType";
 import { GameOptions } from "../GameOptions";
 import { Ship } from "../Ship";
-import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
+import { PlaygroundUtils } from "./PlaygroundUtils";
 import { Playground } from "./Playground";
 
 export class PlayerPlayground extends Playground {
@@ -31,11 +31,11 @@ export class PlayerPlayground extends Playground {
 	public removeEventsFromPlayerPlayground() {
 		super.removeEventsFromPlayerPlayground();
 
-		if (PlayerPlaygroundUtils.isMobile()) {
+		if (PlaygroundUtils.isMobile()) {
 			this.playgroundDOM.removeEventListener("touchmove", this.fieldTouchMove, false);
 		}
 
-		if (!PlayerPlaygroundUtils.isMobile()) {
+		if (!PlaygroundUtils.isMobile()) {
 			this.playgroundDOM.removeEventListener("mouseover", this.playgroundMouseOver);
 			this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
 		}
@@ -45,7 +45,7 @@ export class PlayerPlayground extends Playground {
 	}
 
 	protected addListenerOnPlaygroundField = (div: HTMLElement) => {
-		if (PlayerPlaygroundUtils.isMobile()) {
+		if (PlaygroundUtils.isMobile()) {
 			div.addEventListener("click", this.fieldClick);
 		} else {
 			div.addEventListener("mouseenter", this.fieldMouseOver);
@@ -67,11 +67,11 @@ export class PlayerPlayground extends Playground {
 	protected addEventsOnPlayerPlayground() {
 		this.playgroundDOM.addEventListener("click", this.clickOnPlayground);
 
-		if (PlayerPlaygroundUtils.isMobile()) {
+		if (PlaygroundUtils.isMobile()) {
 			this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
 		}
 
-		if (!PlayerPlaygroundUtils.isMobile()) {
+		if (!PlaygroundUtils.isMobile()) {
 			this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
 			this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
 		}
@@ -109,7 +109,7 @@ export class PlayerPlayground extends Playground {
 	};
 
 	protected fieldClick = (e: MouseEvent): void => {
-		const { getRowAndColumnNumberFromClassName } = PlayerPlaygroundUtils;
+		const { getRowAndColumnNumberFromClassName } = PlaygroundUtils;
 
 		const fieldClassName: string = (e.target as HTMLElement).classList[1];
 		const { row, column } = getRowAndColumnNumberFromClassName(fieldClassName);
@@ -165,7 +165,7 @@ export class PlayerPlayground extends Playground {
 			return;
 		}
 
-		const { getRowAndColumnNumberFromClassName } = PlayerPlaygroundUtils;
+		const { getRowAndColumnNumberFromClassName } = PlaygroundUtils;
 		const shipDirection = GameOptions.currentSelectedShip?.direction;
 		const rowAndColumnIndex = getRowAndColumnNumberFromClassName(fieldClassName);
 		const { row, column } = rowAndColumnIndex;
@@ -200,7 +200,7 @@ export class PlayerPlayground extends Playground {
 
 	protected clearPlaygroundFields(): void {
 		GameOptions.currentSelectedShip?.shipOnPlayground.forEach((className: string) => {
-			const { row, column } = PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className);
+			const { row, column } = PlaygroundUtils.getRowAndColumnNumberFromClassName(className);
 			this.playground[row][column] = 0;
 		});
 	}

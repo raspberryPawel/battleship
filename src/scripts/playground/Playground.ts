@@ -6,7 +6,7 @@ import { GameOptions } from "../GameOptions";
 import { Ship } from "../Ship";
 import { DoesSelectedFieldsEmptyData } from "../types/DoesSelectedFieldsEmptyData";
 import { PlaygroundType } from "../types/PlaygroundType";
-import { PlayerPlaygroundUtils } from "./PlayerPlaygroundUtils";
+import { PlaygroundUtils } from "./PlaygroundUtils";
 
 export abstract class Playground {
 	public playgroundDOM: HTMLElement = document.createElement("div");
@@ -156,7 +156,7 @@ export abstract class Playground {
 			};
 
 		const { first, last, currentChecked } = data;
-		const doesFieldsAvailable = PlayerPlaygroundUtils.doesFieldsAvailable(data);
+		const doesFieldsAvailable = PlaygroundUtils.doesFieldsAvailable(data);
 
 		if (setType === SetType.RANDOM && doesFieldsAvailable)
 			this.setShipOnPlayground(first, last, currentChecked, ship, shipDirection);

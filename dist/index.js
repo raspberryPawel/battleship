@@ -1332,11 +1332,12 @@ var EventType_1 = __webpack_require__(/*! ./consts/EventType */ "./src/scripts/c
 var ShipDirection_1 = __webpack_require__(/*! ./consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
 var EventDispatcher_1 = __webpack_require__(/*! ./EventDispatcher */ "./src/scripts/EventDispatcher.ts");
 var GameOptions_1 = __webpack_require__(/*! ./GameOptions */ "./src/scripts/GameOptions.ts");
-var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
+var PlaygroundUtils_1 = __webpack_require__(/*! ./playground/PlaygroundUtils */ "./src/scripts/playground/PlaygroundUtils.ts");
 var Ship = (function () {
     function Ship(shipSize) {
         var _this = this;
         this.shipElement = document.createElement("div");
+        this.wasShipSet = false;
         this.shipDirection = ShipDirection_1.ShipDirection.horizontal;
         this.fieldsOnPlayground = [];
         this.unselectShip = function () {
@@ -1356,6 +1357,7 @@ var Ship = (function () {
                 document.body.removeEventListener("mouseup", _this.dropShip);
                 document.body.removeEventListener("keydown", _this.pressKey);
                 if (GameOptions_1.GameOptions.currentlySelectedField && _this.shipOnPlayground.length > 0) {
+                    _this.wasShipSet = true;
                     _this.hideShip();
                     EventDispatcher_1.EventDispatcher.dispatch(EventType_1.EventType.SHIP_WAS_SET);
                 }
@@ -1458,7 +1460,7 @@ var Ship = (function () {
             document.body.addEventListener("mouseup", _this.dropShip);
             document.body.addEventListener("keydown", _this.pressKey);
         });
-        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+        if (PlaygroundUtils_1.PlaygroundUtils.isMobile()) {
             this.shipElement.addEventListener("click", this.clickOnShip);
         }
     };
@@ -1466,9 +1468,11 @@ var Ship = (function () {
         this.shipElement.style.display = "none";
     };
     Ship.prototype.showShip = function () {
-        this.shipElement.style.display = "flex";
-        this.shipElement.style.opacity = "1";
-        this.shipElement.style.zIndex = "1";
+        if (!this.wasShipSet) {
+            this.shipElement.style.display = "flex";
+            this.shipElement.style.opacity = "1";
+            this.shipElement.style.zIndex = "1";
+        }
     };
     return Ship;
 }());
@@ -1618,7 +1622,7 @@ var ShipDirection;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PlayerMoveStrategy = void 0;
-var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
+var PlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlaygroundUtils */ "./src/scripts/playground/PlaygroundUtils.ts");
 var PlayerMoveStrategy = (function () {
     function PlayerMoveStrategy() {
         var _this = this;
@@ -1626,7 +1630,7 @@ var PlayerMoveStrategy = (function () {
         this.resolveMove = function () { };
         this.playerMove = function (e) {
             var field = e.target;
-            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field.classList[1]), row = _a.row, column = _a.column;
+            var _a = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(field.classList[1]), row = _a.row, column = _a.column;
             _this.checkIfFieldHasShip(row, column) ? field.classList.add("hit_field") : field.classList.add("misplaced_field");
             _this.unregisterPlayerMove();
             _this.resolveMove(true);
@@ -1678,7 +1682,7 @@ exports.SimpleComputerMoveStrategy = void 0;
 var MoveDirection_1 = __webpack_require__(/*! ../consts/MoveDirection */ "./src/scripts/consts/MoveDirection.ts");
 var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
-var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
+var PlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlaygroundUtils */ "./src/scripts/playground/PlaygroundUtils.ts");
 var SimpleComputerMoveStrategy = (function () {
     function SimpleComputerMoveStrategy() {
         this.availableShips = [];
@@ -1775,21 +1779,21 @@ var SimpleComputerMoveStrategy = (function () {
     SimpleComputerMoveStrategy.prototype.excludeFieldsWhereThereIsNoShips = function () {
         var _this = this;
         this.hitFields.sort(function (a, b) {
-            var rowAndColumnA = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(a);
-            var rowAndColumnB = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(b);
+            var rowAndColumnA = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(a);
+            var rowAndColumnB = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(b);
             return _this.shipDirection === ShipDirection_1.ShipDirection.vertical
                 ? rowAndColumnA.row - rowAndColumnB.row
                 : rowAndColumnA.column - rowAndColumnB.column;
         });
         var firstHitField = this.hitFields[0];
         var lastHitField = this.hitFields[this.hitFields.length - 1];
-        var firstRowAndColumn = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(firstHitField);
-        var lastRowAndColumn = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(lastHitField);
+        var firstRowAndColumn = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(firstHitField);
+        var lastRowAndColumn = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(lastHitField);
         if (this.shipDirection === ShipDirection_1.ShipDirection.vertical) {
             this.removeFieldFromAvailable(firstRowAndColumn.row - 1, firstRowAndColumn.column);
             this.removeFieldFromAvailable(lastRowAndColumn.row + 1, lastRowAndColumn.column);
             this.hitFields.forEach(function (field) {
-                var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+                var _a = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
                 var columnLeft = column - 1;
                 var columnRight = column + 1;
                 _this.removeFieldFromAvailable(row, columnLeft);
@@ -1810,7 +1814,7 @@ var SimpleComputerMoveStrategy = (function () {
             this.removeFieldFromAvailable(firstRowAndColumn.row, columnAfter);
             this.removeFieldFromAvailable(rowBelow, columnBefore);
             this.hitFields.forEach(function (field) {
-                var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+                var _a = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
                 var rowAbove = row + 1;
                 var rowBelow = row - 1;
                 _this.removeFieldFromAvailable(rowAbove, column);
@@ -1843,7 +1847,7 @@ var SimpleComputerMoveStrategy = (function () {
     };
     SimpleComputerMoveStrategy.prototype.removeFieldsOnLeft = function (currentRow, currentColumn) {
         var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
-            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+            var _a = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
             return row === currentRow && column <= currentColumn;
         });
         this.fieldsToCheckAfterHit.splice(0, fieldsToRemove.length);
@@ -1851,7 +1855,7 @@ var SimpleComputerMoveStrategy = (function () {
     };
     SimpleComputerMoveStrategy.prototype.removeFieldsOnRight = function (currentRow, currentColumn) {
         var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
-            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+            var _a = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
             return row === currentRow && column >= currentColumn;
         });
         this.fieldsToCheckAfterHit.splice(0, fieldsToRemove.length);
@@ -1859,7 +1863,7 @@ var SimpleComputerMoveStrategy = (function () {
     };
     SimpleComputerMoveStrategy.prototype.removeFieldsOnBottom = function (currentRow, currentColumn) {
         var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
-            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+            var _a = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
             return column === currentColumn && row >= currentRow;
         });
         var index = this.fieldsToCheckAfterHit.indexOf(fieldsToRemove[0]);
@@ -1869,7 +1873,7 @@ var SimpleComputerMoveStrategy = (function () {
     };
     SimpleComputerMoveStrategy.prototype.removeFieldsOnTop = function (currentRow, currentColumn) {
         var fieldsToRemove = this.fieldsToCheckAfterHit.filter(function (field) {
-            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
+            var _a = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(field), row = _a.row, column = _a.column;
             return column === currentColumn && row <= currentRow;
         });
         var index = this.fieldsToCheckAfterHit.indexOf(fieldsToRemove[0]);
@@ -1878,7 +1882,7 @@ var SimpleComputerMoveStrategy = (function () {
         this.setMoveDirectionBasedOnNextFieldToHit(currentRow, currentColumn);
     };
     SimpleComputerMoveStrategy.prototype.setMoveDirectionBasedOnNextFieldToHit = function (currentRow, currentColumn) {
-        var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]), row = _a.row, column = _a.column;
+        var _a = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]), row = _a.row, column = _a.column;
         if (row === -1 && column === -1) {
             this.fieldsToCheckAfterHit.length = 0;
             this.moveDirection = MoveDirection_1.MoveDirection.Right;
@@ -1922,12 +1926,12 @@ var SimpleComputerMoveStrategy = (function () {
         var selectedIndex = Math.floor(Math.random() * availableRowsIndexes.length);
         var row = this.availableFields[availableRowsIndexes[selectedIndex]];
         var column = row[Math.floor(Math.random() * row.length)];
-        return PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(column);
+        return PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(column);
     };
     SimpleComputerMoveStrategy.prototype.selectFieldToHit = function () {
         var longestShip = Math.max.apply(Math, this.availableShips);
         if (this.fieldsToCheckAfterHit.length && this.hitsInARow !== longestShip) {
-            return PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]);
+            return PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(this.fieldsToCheckAfterHit[0]);
         }
         else if (this.fieldsToCheckAfterHit.length && this.hitsInARow > 0 && this.hitsInARow === longestShip) {
             this.availableShips.splice(0, 1);
@@ -2036,7 +2040,7 @@ var EventType_1 = __webpack_require__(/*! ../consts/EventType */ "./src/scripts/
 var SetType_1 = __webpack_require__(/*! ../consts/SetType */ "./src/scripts/consts/SetType.ts");
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var Ship_1 = __webpack_require__(/*! ../Ship */ "./src/scripts/Ship.ts");
-var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
+var PlaygroundUtils_1 = __webpack_require__(/*! ./PlaygroundUtils */ "./src/scripts/playground/PlaygroundUtils.ts");
 var Playground_1 = __webpack_require__(/*! ./Playground */ "./src/scripts/playground/Playground.ts");
 var PlayerPlayground = (function (_super) {
     __extends(PlayerPlayground, _super);
@@ -2051,7 +2055,7 @@ var PlayerPlayground = (function (_super) {
             _this.hideShips();
         };
         _this.addListenerOnPlaygroundField = function (div) {
-            if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+            if (PlaygroundUtils_1.PlaygroundUtils.isMobile()) {
                 div.addEventListener("click", _this.fieldClick);
             }
             else {
@@ -2090,7 +2094,7 @@ var PlayerPlayground = (function (_super) {
         };
         _this.fieldClick = function (e) {
             var _a;
-            var getRowAndColumnNumberFromClassName = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName;
+            var getRowAndColumnNumberFromClassName = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName;
             var fieldClassName = e.target.classList[1];
             var _b = getRowAndColumnNumberFromClassName(fieldClassName), row = _b.row, column = _b.column;
             GameOptions_1.GameOptions.currentlySelectedField = { row: row, column: column };
@@ -2132,7 +2136,7 @@ var PlayerPlayground = (function (_super) {
             if (shipSize === 0) {
                 return;
             }
-            var getRowAndColumnNumberFromClassName = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName;
+            var getRowAndColumnNumberFromClassName = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName;
             var shipDirection = (_b = GameOptions_1.GameOptions.currentSelectedShip) === null || _b === void 0 ? void 0 : _b.direction;
             var rowAndColumnIndex = getRowAndColumnNumberFromClassName(fieldClassName);
             var row = rowAndColumnIndex.row, column = rowAndColumnIndex.column;
@@ -2150,10 +2154,10 @@ var PlayerPlayground = (function (_super) {
     };
     PlayerPlayground.prototype.removeEventsFromPlayerPlayground = function () {
         _super.prototype.removeEventsFromPlayerPlayground.call(this);
-        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+        if (PlaygroundUtils_1.PlaygroundUtils.isMobile()) {
             this.playgroundDOM.removeEventListener("touchmove", this.fieldTouchMove, false);
         }
-        if (!PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+        if (!PlaygroundUtils_1.PlaygroundUtils.isMobile()) {
             this.playgroundDOM.removeEventListener("mouseover", this.playgroundMouseOver);
             this.playgroundDOM.removeEventListener("mouseleave", this.playgroundMouseLeave);
         }
@@ -2165,10 +2169,10 @@ var PlayerPlayground = (function (_super) {
     };
     PlayerPlayground.prototype.addEventsOnPlayerPlayground = function () {
         this.playgroundDOM.addEventListener("click", this.clickOnPlayground);
-        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+        if (PlaygroundUtils_1.PlaygroundUtils.isMobile()) {
             this.playgroundDOM.addEventListener("touchmove", this.fieldTouchMove, false);
         }
-        if (!PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+        if (!PlaygroundUtils_1.PlaygroundUtils.isMobile()) {
             this.playgroundDOM.addEventListener("mouseover", this.playgroundMouseOver);
             this.playgroundDOM.addEventListener("mouseleave", this.playgroundMouseLeave);
         }
@@ -2197,7 +2201,7 @@ var PlayerPlayground = (function (_super) {
         var _this = this;
         var _a;
         (_a = GameOptions_1.GameOptions.currentSelectedShip) === null || _a === void 0 ? void 0 : _a.shipOnPlayground.forEach(function (className) {
-            var _a = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName(className), row = _a.row, column = _a.column;
+            var _a = PlaygroundUtils_1.PlaygroundUtils.getRowAndColumnNumberFromClassName(className), row = _a.row, column = _a.column;
             _this.playground[row][column] = 0;
         });
     };
@@ -2211,95 +2215,6 @@ var PlayerPlayground = (function (_super) {
     return PlayerPlayground;
 }(Playground_1.Playground));
 exports.PlayerPlayground = PlayerPlayground;
-
-
-/***/ }),
-
-/***/ "./src/scripts/playground/PlayerPlaygroundUtils.ts":
-/*!*********************************************************!*\
-  !*** ./src/scripts/playground/PlayerPlaygroundUtils.ts ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.PlayerPlaygroundUtils = void 0;
-var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
-var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
-var PlayerPlaygroundUtils = (function () {
-    function PlayerPlaygroundUtils() {
-    }
-    PlayerPlaygroundUtils.isMobile = function () {
-        return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    };
-    PlayerPlaygroundUtils.getRowAndColumnNumberFromClassName = function (className) {
-        var defaultRowAndColumn = {
-            row: -1,
-            column: -1,
-        };
-        try {
-            var regex = /[0-9]_[0-9]/g;
-            var matches = className.match(regex);
-            if (matches === null || matches === void 0 ? void 0 : matches.length) {
-                var rowAndColumn = matches[0];
-                return {
-                    row: parseInt(rowAndColumn[0]),
-                    column: parseInt(rowAndColumn[2]),
-                };
-            }
-            return defaultRowAndColumn;
-        }
-        catch (_a) {
-            return defaultRowAndColumn;
-        }
-    };
-    PlayerPlaygroundUtils.doesFieldsAvailable = function (data) {
-        var playground = data.playground, currentChecked = data.currentChecked, first = data.first, last = data.last, shipDirection = data.shipDirection;
-        var isHorizontal = shipDirection === ShipDirection_1.ShipDirection.horizontal;
-        var doesFieldEmpty = PlayerPlaygroundUtils.doesFieldEmpty;
-        for (var i = first - 1; i < last + 1; i++) {
-            if ((i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount)) {
-                var doesFieldAvailable = isHorizontal
-                    ? doesFieldEmpty(playground, currentChecked, i)
-                    : doesFieldEmpty(playground, i, currentChecked);
-                if (!doesFieldAvailable)
-                    return false;
-            }
-        }
-        for (var i = first - 1; i < last + 1; i++) {
-            if ((i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount)) {
-                var doesFieldAvailable = isHorizontal
-                    ? doesFieldEmpty(playground, currentChecked - 1, i)
-                    : doesFieldEmpty(playground, i, currentChecked - 1);
-                if (!doesFieldAvailable)
-                    return false;
-            }
-        }
-        for (var i = first - 1; i < last + 1; i++) {
-            if ((i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount)) {
-                var doesFieldAvailable = isHorizontal
-                    ? doesFieldEmpty(playground, currentChecked + 1, i)
-                    : doesFieldEmpty(playground, i, currentChecked + 1);
-                if (!doesFieldAvailable)
-                    return false;
-            }
-        }
-        return true;
-    };
-    PlayerPlaygroundUtils.doesFieldEmpty = function (playground, row, column) {
-        var areRowCorrect = row >= 0 && row < GameOptions_1.GameOptions.playgroundFieldsCount;
-        var areColumnCorrect = column >= 0 && column < GameOptions_1.GameOptions.playgroundFieldsCount;
-        if (areRowCorrect && areColumnCorrect) {
-            if (playground[row][column])
-                return false;
-            else
-                return true;
-        }
-        return true;
-    };
-    return PlayerPlaygroundUtils;
-}());
-exports.PlayerPlaygroundUtils = PlayerPlaygroundUtils;
 
 
 /***/ }),
@@ -2318,7 +2233,7 @@ var FieldClassNames_1 = __webpack_require__(/*! ../consts/FieldClassNames */ "./
 var SetType_1 = __webpack_require__(/*! ../consts/SetType */ "./src/scripts/consts/SetType.ts");
 var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
-var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ./PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
+var PlaygroundUtils_1 = __webpack_require__(/*! ./PlaygroundUtils */ "./src/scripts/playground/PlaygroundUtils.ts");
 var Playground = (function () {
     function Playground(playgroundSize) {
         var _this = this;
@@ -2435,7 +2350,7 @@ var Playground = (function () {
                 shipDirection: shipDirection,
             };
         var first = data.first, last = data.last, currentChecked = data.currentChecked;
-        var doesFieldsAvailable = PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.doesFieldsAvailable(data);
+        var doesFieldsAvailable = PlaygroundUtils_1.PlaygroundUtils.doesFieldsAvailable(data);
         if (setType === SetType_1.SetType.RANDOM && doesFieldsAvailable)
             this.setShipOnPlayground(first, last, currentChecked, ship, shipDirection);
         if (setType === SetType_1.SetType.MANUALLY) {
@@ -2512,6 +2427,95 @@ var Playground = (function () {
     return Playground;
 }());
 exports.Playground = Playground;
+
+
+/***/ }),
+
+/***/ "./src/scripts/playground/PlaygroundUtils.ts":
+/*!***************************************************!*\
+  !*** ./src/scripts/playground/PlaygroundUtils.ts ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PlaygroundUtils = void 0;
+var ShipDirection_1 = __webpack_require__(/*! ../consts/ShipDirection */ "./src/scripts/consts/ShipDirection.ts");
+var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
+var PlaygroundUtils = (function () {
+    function PlaygroundUtils() {
+    }
+    PlaygroundUtils.isMobile = function () {
+        return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    };
+    PlaygroundUtils.getRowAndColumnNumberFromClassName = function (className) {
+        var defaultRowAndColumn = {
+            row: -1,
+            column: -1,
+        };
+        try {
+            var regex = /[0-9]_[0-9]/g;
+            var matches = className.match(regex);
+            if (matches === null || matches === void 0 ? void 0 : matches.length) {
+                var rowAndColumn = matches[0];
+                return {
+                    row: parseInt(rowAndColumn[0]),
+                    column: parseInt(rowAndColumn[2]),
+                };
+            }
+            return defaultRowAndColumn;
+        }
+        catch (_a) {
+            return defaultRowAndColumn;
+        }
+    };
+    PlaygroundUtils.doesFieldsAvailable = function (data) {
+        var playground = data.playground, currentChecked = data.currentChecked, first = data.first, last = data.last, shipDirection = data.shipDirection;
+        var isHorizontal = shipDirection === ShipDirection_1.ShipDirection.horizontal;
+        var doesFieldEmpty = PlaygroundUtils.doesFieldEmpty;
+        for (var i = first - 1; i < last + 1; i++) {
+            if ((i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount)) {
+                var doesFieldAvailable = isHorizontal
+                    ? doesFieldEmpty(playground, currentChecked, i)
+                    : doesFieldEmpty(playground, i, currentChecked);
+                if (!doesFieldAvailable)
+                    return false;
+            }
+        }
+        for (var i = first - 1; i < last + 1; i++) {
+            if ((i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount)) {
+                var doesFieldAvailable = isHorizontal
+                    ? doesFieldEmpty(playground, currentChecked - 1, i)
+                    : doesFieldEmpty(playground, i, currentChecked - 1);
+                if (!doesFieldAvailable)
+                    return false;
+            }
+        }
+        for (var i = first - 1; i < last + 1; i++) {
+            if ((i >= 0 && i < GameOptions_1.GameOptions.playgroundFieldsCount)) {
+                var doesFieldAvailable = isHorizontal
+                    ? doesFieldEmpty(playground, currentChecked + 1, i)
+                    : doesFieldEmpty(playground, i, currentChecked + 1);
+                if (!doesFieldAvailable)
+                    return false;
+            }
+        }
+        return true;
+    };
+    PlaygroundUtils.doesFieldEmpty = function (playground, row, column) {
+        var areRowCorrect = row >= 0 && row < GameOptions_1.GameOptions.playgroundFieldsCount;
+        var areColumnCorrect = column >= 0 && column < GameOptions_1.GameOptions.playgroundFieldsCount;
+        if (areRowCorrect && areColumnCorrect) {
+            if (playground[row][column])
+                return false;
+            else
+                return true;
+        }
+        return true;
+    };
+    return PlaygroundUtils;
+}());
+exports.PlaygroundUtils = PlaygroundUtils;
 
 
 /***/ }),
@@ -2672,7 +2676,7 @@ var GameScreen_1 = __webpack_require__(/*! ../types/GameScreen */ "./src/scripts
 var EventType_1 = __webpack_require__(/*! ../consts/EventType */ "./src/scripts/consts/EventType.ts");
 var GameOptions_1 = __webpack_require__(/*! ../GameOptions */ "./src/scripts/GameOptions.ts");
 var PlayerPlayground_1 = __webpack_require__(/*! ../playground/PlayerPlayground */ "./src/scripts/playground/PlayerPlayground.ts");
-var PlayerPlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlayerPlaygroundUtils */ "./src/scripts/playground/PlayerPlaygroundUtils.ts");
+var PlaygroundUtils_1 = __webpack_require__(/*! ../playground/PlaygroundUtils */ "./src/scripts/playground/PlaygroundUtils.ts");
 var Ship_1 = __webpack_require__(/*! ../Ship */ "./src/scripts/Ship.ts");
 var PlaygroundScreen = (function (_super) {
     __extends(PlaygroundScreen, _super);
@@ -2724,7 +2728,7 @@ var PlaygroundScreen = (function (_super) {
         section.appendChild(playgroundSection);
         section.appendChild(buttonPlay);
         section.appendChild(buttonRandomize);
-        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+        if (PlaygroundUtils_1.PlaygroundUtils.isMobile()) {
             var buttonRotate = document.createElement("button");
             buttonRotate.setAttribute("class", "btn-rotate");
             buttonRotate.innerText = "Rotate ship!";
@@ -2737,7 +2741,7 @@ var PlaygroundScreen = (function (_super) {
         playButton === null || playButton === void 0 ? void 0 : playButton.addEventListener("click", this.startGame);
         var buttonRandomize = document.querySelector(".btn-randomize");
         buttonRandomize === null || buttonRandomize === void 0 ? void 0 : buttonRandomize.addEventListener("click", this.randomizeShips);
-        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+        if (PlaygroundUtils_1.PlaygroundUtils.isMobile()) {
             var buttonRotate = document.querySelector(".btn-rotate");
             buttonRotate === null || buttonRotate === void 0 ? void 0 : buttonRotate.addEventListener("click", Ship_1.Ship.rotateCurrentlySelectedShip);
         }
@@ -2750,7 +2754,7 @@ var PlaygroundScreen = (function (_super) {
         playButton === null || playButton === void 0 ? void 0 : playButton.removeEventListener("click", this.startGame);
         var buttonRandomize = document.querySelector(".btn-randomize");
         buttonRandomize === null || buttonRandomize === void 0 ? void 0 : buttonRandomize.removeEventListener("click", this.randomizeShips);
-        if (PlayerPlaygroundUtils_1.PlayerPlaygroundUtils.isMobile()) {
+        if (PlaygroundUtils_1.PlaygroundUtils.isMobile()) {
             var buttonRotate = document.querySelector(".btn-rotate");
             buttonRotate === null || buttonRotate === void 0 ? void 0 : buttonRotate.removeEventListener("click", Ship_1.Ship.rotateCurrentlySelectedShip);
         }
